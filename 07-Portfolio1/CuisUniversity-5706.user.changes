@@ -8855,3 +8855,93 @@ contributeToTransactions: totalTransactions
 ----SNAPSHOT----(22 May 2023 12:47:37) CuisUniversity-5706.image priorSource: 9079352!
 
 ----SNAPSHOT----(22 May 2023 12:48:19) CuisUniversity-5706.image priorSource: 9087536!
+
+----STARTUP---- (22 May 2023 15:46:36) as /home/antonio/Ingenieria de Software I/Cuis University/Portfolio1/linux64/CuisUniversity-5706.image!
+
+!PersonalRegister methodsFor: 'assertions' stamp: 'a 5/22/2023 15:53:41'!
+assertReceptiveAccountIsNotIncluded: aReceptiveAccount forPortfolio: portfolio 
+	self subclassResponsibility ! !
+!PortfolioExistente methodsFor: 'assertions' stamp: 'a 5/22/2023 15:53:41' overrides: 50615646!
+assertReceptiveAccountIsNotIncluded: aReceptiveAccount forPortfolio: portfolio 
+	self assertRegisterIsNotIncluded: aReceptiveAccount forPortfolio: portfolio! !
+!PortfolioInexistente methodsFor: 'assertions' stamp: 'a 5/22/2023 15:53:41' overrides: 50615646!
+assertReceptiveAccountIsNotIncluded: aReceptiveAccount forPortfolio: portfolio ! !
+!ReceptiveAccount methodsFor: 'assertions' stamp: 'a 5/22/2023 15:53:41' overrides: 50615646!
+assertReceptiveAccountIsNotIncluded: aReceptiveAccount forPortfolio: portfolio 
+	self = aReceptiveAccount ifTrue: [portfolio hasAddedDuplicatedRegister]! !
+!ReceptiveAccount methodsFor: 'as yet unclassified' stamp: 'a 5/22/2023 15:53:41' prior: 50613658 overrides: 50610789!
+assertRegisterIsNotIncluded: unRegistro forPortfolio: portfolio  
+	unRegistro assertReceptiveAccountIsNotIncluded: self forPortfolio: portfolio. ! !
+
+!methodRemoval: PersonalRegister #assertReceptiveAccountIsNotIncludedIn:forPortfolio: stamp: 'a 5/22/2023 15:53:41'!
+assertReceptiveAccountIsNotIncludedIn: aReceptiveAccount forPortfolio: portfolio 
+	self subclassResponsibility !
+
+!methodRemoval: PortfolioExistente #assertReceptiveAccountIsNotIncludedIn:forPortfolio: stamp: 'a 5/22/2023 15:53:41'!
+assertReceptiveAccountIsNotIncludedIn: aReceptiveAccount forPortfolio: portfolio 
+	self assertRegisterIsNotIncluded: aReceptiveAccount forPortfolio: portfolio!
+
+!methodRemoval: PortfolioInexistente #assertReceptiveAccountIsNotIncludedIn:forPortfolio: stamp: 'a 5/22/2023 15:53:41'!
+assertReceptiveAccountIsNotIncludedIn: aReceptiveAccount forPortfolio: portfolio !
+
+!methodRemoval: ReceptiveAccount #assertReceptiveAccountIsNotIncludedIn:forPortfolio: stamp: 'a 5/22/2023 15:53:41'!
+assertReceptiveAccountIsNotIncludedIn: aReceptiveAccount forPortfolio: portfolio 
+	self = aReceptiveAccount ifTrue: [portfolio hasAddedDuplicatedRegister]!
+
+!testRun: #PortfolioTest #test01PortfolioNuevoTieneBalanceCero stamp: 'a 5/22/2023 15:53:44'!
+PASSED!
+
+!testRun: #PortfolioTest #test02PortfolioConUnaCuentaTieneElMismoBalance stamp: 'a 5/22/2023 15:53:44'!
+PASSED!
+
+!testRun: #PortfolioTest #test03PortfolioConDosCuentasTieneElMismoBalance stamp: 'a 5/22/2023 15:53:44'!
+PASSED!
+
+!testRun: #PortfolioTest #test04PortfolioConDosPortfoliosTieneElMismoBalance stamp: 'a 5/22/2023 15:53:44'!
+PASSED!
+
+!testRun: #PortfolioTest #test05PortfolioVacioNoTieneAUnaTransaccion stamp: 'a 5/22/2023 15:53:44'!
+PASSED!
+
+!testRun: #PortfolioTest #test06PortfolioConUnaCuentaTieneAUnaTransaccionEnEsaCuenta stamp: 'a 5/22/2023 15:53:44'!
+PASSED!
+
+!testRun: #PortfolioTest #test07PortfolioConDosCuentasTieneAUnaTransaccionEnEsaCuenta stamp: 'a 5/22/2023 15:53:44'!
+PASSED!
+
+!testRun: #PortfolioTest #test08PortfolioConDosPortfoliosTieneAUnaTransaccionEnEsePortfolio stamp: 'a 5/22/2023 15:53:44'!
+PASSED!
+
+!testRun: #PortfolioTest #test09PortfolioVacioNoTieneTransacciones stamp: 'a 5/22/2023 15:53:44'!
+PASSED!
+
+!testRun: #PortfolioTest #test10LasTransaccionesDeUnPortfolioConUnaCuentaSonSoloEsasTransacciones stamp: 'a 5/22/2023 15:53:44'!
+PASSED!
+
+!testRun: #PortfolioTest #test11LasTransaccionesDeUnPortfolioConDosCuentasSonEsasTransacciones stamp: 'a 5/22/2023 15:53:44'!
+PASSED!
+
+!testRun: #PortfolioTest #test12LasTransaccionesDeUnPortfolioConDosPortfoliosSonEsasTransacciones stamp: 'a 5/22/2023 15:53:44'!
+PASSED!
+
+!testRun: #PortfolioTest #test13PortfolioConUnaCuentaNoPermiteRepetidos stamp: 'a 5/22/2023 15:53:44'!
+PASSED!
+
+!testRun: #PortfolioTest #test14PortfolioConPortfolioNoPermiteRepetidos stamp: 'a 5/22/2023 15:53:44'!
+PASSED!
+
+!testRun: #PortfolioTest #test15PortfolioConPortfolioNietoNoPermiteRepetidos stamp: 'a 5/22/2023 15:53:44'!
+PASSED!
+
+!testRun: #PortfolioTest #test16PortfolioConPadreNoPermiteRepetidos stamp: 'a 5/22/2023 15:53:44'!
+PASSED!
+
+!testRun: #PortfolioTest #test17PortfolioConAbueloNoPermiteRepetidos stamp: 'a 5/22/2023 15:53:44'!
+PASSED!
+
+!testRun: #PortfolioTest #test18PortfolioConCuentaNoPermiteRepetidosEnHijo stamp: 'a 5/22/2023 15:53:44'!
+PASSED!
+
+----SNAPSHOT----(22 May 2023 15:53:48) CuisUniversity-5706.image priorSource: 9087624!
+
+----SNAPSHOT----(22 May 2023 15:54:21) CuisUniversity-5706.image priorSource: 9092196!

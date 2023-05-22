@@ -467,8 +467,8 @@ transactions
 	self subclassResponsibility ! !
 
 
-!PersonalRegister methodsFor: 'assertions' stamp: 'a 5/22/2023 12:05:31'!
-assertReceptiveAccountIsNotIncludedIn: aReceptiveAccount forPortfolio: portfolio 
+!PersonalRegister methodsFor: 'assertions' stamp: 'a 5/22/2023 15:53:41'!
+assertReceptiveAccountIsNotIncluded: aReceptiveAccount forPortfolio: portfolio 
 	self subclassResponsibility ! !
 
 !PersonalRegister methodsFor: 'assertions' stamp: 'a 5/21/2023 21:23:44'!
@@ -565,8 +565,8 @@ initialize
 	padre:=PortfolioInexistente new! !
 
 
-!PortfolioExistente methodsFor: 'assertions' stamp: 'a 5/22/2023 12:06:31'!
-assertReceptiveAccountIsNotIncludedIn: aReceptiveAccount forPortfolio: portfolio 
+!PortfolioExistente methodsFor: 'assertions' stamp: 'a 5/22/2023 15:53:41'!
+assertReceptiveAccountIsNotIncluded: aReceptiveAccount forPortfolio: portfolio 
 	self assertRegisterIsNotIncluded: aReceptiveAccount forPortfolio: portfolio! !
 
 !PortfolioExistente methodsFor: 'assertions' stamp: 'a 5/21/2023 22:39:07'!
@@ -591,8 +591,8 @@ Portfolio subclass: #PortfolioInexistente
 	poolDictionaries: ''
 	category: 'Portfolio-Ejercicio'!
 
-!PortfolioInexistente methodsFor: 'assertions' stamp: 'a 5/22/2023 12:06:40'!
-assertReceptiveAccountIsNotIncludedIn: aReceptiveAccount forPortfolio: portfolio ! !
+!PortfolioInexistente methodsFor: 'assertions' stamp: 'a 5/22/2023 15:53:41'!
+assertReceptiveAccountIsNotIncluded: aReceptiveAccount forPortfolio: portfolio ! !
 
 !PortfolioInexistente methodsFor: 'assertions' stamp: 'a 5/21/2023 22:37:40'!
 assertRegisterIsNotIncluded: unRegistro excepting: aRegisterToExcept forPortfolio: aPortfolio
@@ -670,13 +670,13 @@ hasRegistered: aTransaction
 ! !
 
 
-!ReceptiveAccount methodsFor: 'assertions' stamp: 'a 5/22/2023 12:03:41'!
-assertReceptiveAccountIsNotIncludedIn: aReceptiveAccount forPortfolio: portfolio 
+!ReceptiveAccount methodsFor: 'assertions' stamp: 'a 5/22/2023 15:53:41'!
+assertReceptiveAccountIsNotIncluded: aReceptiveAccount forPortfolio: portfolio 
 	self = aReceptiveAccount ifTrue: [portfolio hasAddedDuplicatedRegister]! !
 
-!ReceptiveAccount methodsFor: 'assertions' stamp: 'a 5/22/2023 12:06:54'!
+!ReceptiveAccount methodsFor: 'assertions' stamp: 'a 5/22/2023 15:53:41'!
 assertRegisterIsNotIncluded: unRegistro forPortfolio: portfolio  
-	unRegistro assertReceptiveAccountIsNotIncludedIn: self forPortfolio: portfolio. ! !
+	unRegistro assertReceptiveAccountIsNotIncluded: self forPortfolio: portfolio. ! !
 
 
 !ReceptiveAccount methodsFor: 'accessing' stamp: 'a 5/22/2023 12:46:28'!
