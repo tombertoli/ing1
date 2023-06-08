@@ -1,0 +1,608 @@
+
+
+----QUIT----(30 May 2023 00:05:32) CuisUniversity-5832.image priorSource: 4928100!
+
+----STARTUP---- (30 May 2023 00:05:33) as /Users/hernan/Documents/Cuis/5.0-64Bits/Cuis-University-Installer/CuisUniversity-5832.image!
+
+
+----QUIT----(30 May 2023 00:05:33) CuisUniversity-5832.image priorSource: 9366537!
+
+----STARTUP---- (7 June 2023 17:35:19) as C:\Users\tomas\Downloads\windows64\CuisUniversity-5832.image!
+
+
+Object subclass: #CartTest
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros'!
+
+!classDefinition: #CartTest category: 'TusLibros' stamp: 'TB 6/7/2023 17:36:02'!
+Object subclass: #CartTest
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros'!
+
+!classDefinition: #Cart category: 'TusLibros' stamp: 'TB 6/7/2023 17:36:31'!
+Object subclass: #Cart
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros'!
+!CartTest methodsFor: 'no messages' stamp: 'TB 6/7/2023 17:36:28'!
+test01CarritoNuevoEstaVacio
+
+	self assert: Cart new isEmpty.! !
+
+TestCase subclass: #CartTest
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros'!
+
+!classDefinition: #CartTest category: 'TusLibros' stamp: 'TB 6/7/2023 17:36:40'!
+TestCase subclass: #CartTest
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros'!
+
+!testRun: #CartTest #test01CarritoNuevoEstaVacio stamp: 'TB 6/7/2023 17:36:42'!
+ERROR!
+!Cart methodsFor: 'accessing' stamp: 'TB 6/7/2023 17:36:48'!
+isEmpty
+	self shouldBeImplemented.! !
+!Cart methodsFor: 'accessing' stamp: 'TB 6/7/2023 17:36:51' prior: 50624402!
+isEmpty
+	^true! !
+
+!testRun: #CartTest #test01CarritoNuevoEstaVacio stamp: 'TB 6/7/2023 17:36:53'!
+PASSED!
+
+!testRun: #CartTest #test01CarritoNuevoEstaVacio stamp: 'TB 6/7/2023 17:36:53'!
+PASSED!
+!CartTest methodsFor: 'as yet unclassified' stamp: 'TB 6/7/2023 17:38:56'!
+test02CarritoConItemDejaDeEstarVacio
+	| cart |
+	cart := Cart new.
+	cart add: '1234567890123'.
+	self deny: cart isEmpty.! !
+
+!testRun: #CartTest #test02CarritoConItemDejaDeEstarVacio stamp: 'TB 6/7/2023 17:38:57'!
+ERROR!
+!Cart methodsFor: 'modifying' stamp: 'TB 6/7/2023 17:39:06'!
+add: aRenameMe1 
+	self shouldBeImplemented.! !
+
+!classDefinition: #Cart category: 'TusLibros' stamp: 'TB 6/7/2023 17:39:22'!
+Object subclass: #Cart
+	instanceVariableNames: 'book'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros'!
+!Cart methodsFor: 'modifying' stamp: 'TB 6/7/2023 17:39:21' prior: 50624424!
+add: aBook
+	book := aBook.! !
+!Cart methodsFor: 'accessing' stamp: 'TB 6/7/2023 17:39:42' prior: 50624406!
+isEmpty
+	^book isNil! !
+
+!testRun: #CartTest #test01CarritoNuevoEstaVacio stamp: 'TB 6/7/2023 17:39:44'!
+PASSED!
+
+!testRun: #CartTest #test02CarritoConItemDejaDeEstarVacio stamp: 'TB 6/7/2023 17:39:44'!
+PASSED!
+!CartTest methodsFor: 'as yet unclassified' stamp: 'TB 6/7/2023 17:41:18'!
+test03CarritoTieneTodosLosItemsQueSeAgregan
+	| cart |
+	cart := Cart new.
+	cart add: '1234567890123'.
+	cart add: '4567890123456'.
+	
+	self assert: (OrderedCollection with: '1234567890123' with: '4567890123456') equals: cart books.! !
+!CartTest methodsFor: 'as yet unclassified' stamp: 'TB 6/7/2023 17:41:40'!
+primerLibro
+
+	^ '1234567890123'! !
+!CartTest methodsFor: 'as yet unclassified' stamp: 'TB 6/7/2023 17:41:40' prior: 50624415!
+test02CarritoConItemDejaDeEstarVacio
+	| cart |
+	cart := Cart new.
+	cart add: self primerLibro.
+	self deny: cart isEmpty.! !
+!CartTest methodsFor: 'as yet unclassified' stamp: 'TB 6/7/2023 17:41:40' prior: 50624448!
+test03CarritoTieneTodosLosItemsQueSeAgregan
+	| cart |
+	cart := Cart new.
+	cart add: self primerLibro.
+	cart add: '4567890123456'.
+	
+	self assert: (OrderedCollection with: '1234567890123' with: '4567890123456') equals: cart books.! !
+!CartTest methodsFor: 'as yet unclassified' stamp: 'TB 6/7/2023 17:41:40' prior: 50624469!
+test03CarritoTieneTodosLosItemsQueSeAgregan
+	| cart |
+	cart := Cart new.
+	cart add: self primerLibro.
+	cart add: '4567890123456'.
+	
+	self assert: (OrderedCollection with: self primerLibro with: '4567890123456') equals: cart books.! !
+!CartTest methodsFor: 'as yet unclassified' stamp: 'TB 6/7/2023 17:41:51'!
+segundoLibro
+
+	^ '4567890123456'! !
+!CartTest methodsFor: 'as yet unclassified' stamp: 'TB 6/7/2023 17:41:51' prior: 50624480!
+test03CarritoTieneTodosLosItemsQueSeAgregan
+	| cart |
+	cart := Cart new.
+	cart add: self primerLibro.
+	cart add: self segundoLibro.
+	
+	self assert: (OrderedCollection with: self primerLibro with: '4567890123456') equals: cart books.! !
+!CartTest methodsFor: 'as yet unclassified' stamp: 'TB 6/7/2023 17:41:51' prior: 50624494!
+test03CarritoTieneTodosLosItemsQueSeAgregan
+	| cart |
+	cart := Cart new.
+	cart add: self primerLibro.
+	cart add: self segundoLibro.
+	
+	self assert: (OrderedCollection with: self primerLibro with: self segundoLibro) equals: cart books.! !
+
+!testRun: #CartTest #test03CarritoTieneTodosLosItemsQueSeAgregan stamp: 'TB 6/7/2023 17:41:56'!
+ERROR!
+!Cart methodsFor: 'accessing' stamp: 'TB 6/7/2023 17:42:00'!
+books
+	self shouldBeImplemented.! !
+!Cart methodsFor: 'accessing' stamp: 'TB 6/7/2023 17:42:03' prior: 50624518!
+books
+	^book! !
+
+!classDefinition: #Cart category: 'TusLibros' stamp: 'TB 6/7/2023 17:42:13'!
+Object subclass: #Cart
+	instanceVariableNames: 'books'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros'!
+!Cart methodsFor: 'as yet unclassified' stamp: 'TB 6/7/2023 17:42:13' prior: 50624435!
+add: aBook
+	books := aBook.! !
+!Cart methodsFor: 'as yet unclassified' stamp: 'TB 6/7/2023 17:42:13' prior: 50624522!
+books
+	^books! !
+!Cart methodsFor: 'as yet unclassified' stamp: 'TB 6/7/2023 17:42:13' prior: 50624439!
+isEmpty
+	^books isNil! !
+!Cart methodsFor: 'modifying' stamp: 'TB 6/7/2023 17:42:16' prior: 50624532!
+add: aBook
+	books add: aBook.! !
+!Cart methodsFor: 'nil' stamp: 'TB 6/7/2023 17:42:31' overrides: 16920235!
+initialize 
+
+	books := OrderedCollection new.! !
+
+!testRun: #CartTest #test01CarritoNuevoEstaVacio stamp: 'TB 6/7/2023 17:42:32'!
+FAILURE!
+
+!testRun: #CartTest #test02CarritoConItemDejaDeEstarVacio stamp: 'TB 6/7/2023 17:42:32'!
+PASSED!
+
+!testRun: #CartTest #test03CarritoTieneTodosLosItemsQueSeAgregan stamp: 'TB 6/7/2023 17:42:32'!
+PASSED!
+
+!testRun: #CartTest #test01CarritoNuevoEstaVacio stamp: 'TB 6/7/2023 17:42:32'!
+FAILURE!
+!Cart methodsFor: 'accessing' stamp: 'TB 6/7/2023 17:42:46' prior: 50624540!
+isEmpty
+	^books isEmpty! !
+
+!testRun: #CartTest #test01CarritoNuevoEstaVacio stamp: 'TB 6/7/2023 17:42:48'!
+PASSED!
+
+!testRun: #CartTest #test02CarritoConItemDejaDeEstarVacio stamp: 'TB 6/7/2023 17:42:48'!
+PASSED!
+
+!testRun: #CartTest #test03CarritoTieneTodosLosItemsQueSeAgregan stamp: 'TB 6/7/2023 17:42:48'!
+PASSED!
+!Cart methodsFor: 'accessing' stamp: 'TB 6/7/2023 17:47:02'!
+items
+	^books! !
+!CartTest methodsFor: 'as yet unclassified' stamp: 'TB 6/7/2023 17:47:02' prior: 50624505!
+test03CarritoTieneTodosLosItemsQueSeAgregan
+	| cart |
+	cart := Cart new.
+	cart add: self primerLibro.
+	cart add: self segundoLibro.
+	
+	self assert: (OrderedCollection with: self primerLibro with: self segundoLibro) equals: cart items.! !
+
+!methodRemoval: Cart #books stamp: 'TB 6/7/2023 17:47:02'!
+books
+	^books!
+
+!classDefinition: #Cart category: 'TusLibros' stamp: 'TB 6/7/2023 17:47:05'!
+Object subclass: #Cart
+	instanceVariableNames: 'items'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros'!
+!Cart methodsFor: 'as yet unclassified' stamp: 'TB 6/7/2023 17:47:05' prior: 50624564!
+isEmpty
+	^items isEmpty! !
+!Cart methodsFor: 'as yet unclassified' stamp: 'TB 6/7/2023 17:47:05' prior: 50624548 overrides: 16920235!
+initialize 
+
+	items := OrderedCollection new.! !
+!Cart methodsFor: 'as yet unclassified' stamp: 'TB 6/7/2023 17:47:05' prior: 50624544!
+add: aBook
+	items add: aBook.! !
+!Cart methodsFor: 'as yet unclassified' stamp: 'TB 6/7/2023 17:47:05' prior: 50624576!
+items
+	^items! !
+
+!classDefinition: #Store category: 'TusLibros' stamp: 'TB 6/7/2023 17:50:21'!
+Object subclass: #Store
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros'!
+!CartTest methodsFor: 'as yet unclassified' stamp: 'TB 6/7/2023 17:50:14'!
+test04AgregarItemInexistenteEsInvalido
+	| cart store |
+	store := Store with: self segundoLibro.
+	cart := Cart in: store.
+	
+	self should: [cart add: self primerLibro] raise: Error withMessageText: Cart nonExistantItemAdded.! !
+
+!testRun: #CartTest #test04AgregarItemInexistenteEsInvalido stamp: 'TB 6/7/2023 17:50:25'!
+ERROR!
+!Store class methodsFor: 'instance creation' stamp: 'TB 6/7/2023 17:50:30'!
+with: aString 
+	"DO NOT FORGET TO RENAME COLLABORATORS AND REMOVE THIS COMMENT!!!!"
+	self shouldBeImplemented.
+	^self new initializeWith: aString ! !
+!Store class methodsFor: 'instance creation' stamp: 'TB 6/7/2023 17:50:42' prior: 50624636!
+with: anItem 
+	
+	^self new initializeWith: anItem ! !
+
+!testRun: #CartTest #test04AgregarItemInexistenteEsInvalido stamp: 'TB 6/7/2023 17:50:45'!
+ERROR!
+
+!classDefinition: #Store category: 'TusLibros' stamp: 'TB 6/7/2023 17:50:52'!
+Object subclass: #Store
+	instanceVariableNames: 'item'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros'!
+!Store methodsFor: 'initialization' stamp: 'TB 6/7/2023 17:50:52'!
+initializeWith: anItem 
+	self shouldBeImplemented.
+	item := anItem.! !
+!Store methodsFor: 'initialization' stamp: 'TB 6/7/2023 17:51:15' prior: 50624658!
+initializeWith: anItem 
+
+	item := OrderedCollection with: anItem.! !
+
+!classDefinition: #Store category: 'TusLibros' stamp: 'TB 6/7/2023 17:51:20'!
+Object subclass: #Store
+	instanceVariableNames: 'items'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros'!
+!Store methodsFor: 'as yet unclassified' stamp: 'TB 6/7/2023 17:51:20' prior: 50624663!
+initializeWith: anItem 
+
+	items := OrderedCollection with: anItem.! !
+
+!testRun: #CartTest #test04AgregarItemInexistenteEsInvalido stamp: 'TB 6/7/2023 17:51:23'!
+ERROR!
+!Cart class methodsFor: 'instance creation' stamp: 'TB 6/7/2023 17:51:27'!
+in: aStore 
+	"DO NOT FORGET TO RENAME COLLABORATORS AND REMOVE THIS COMMENT!!!!"
+	self shouldBeImplemented.
+	^self new initializeIn: aStore ! !
+!Cart class methodsFor: 'instance creation' stamp: 'TB 6/7/2023 17:51:32' prior: 50624683!
+in: aStore 
+	
+	^self new initializeIn: aStore ! !
+
+!testRun: #CartTest #test04AgregarItemInexistenteEsInvalido stamp: 'TB 6/7/2023 17:51:33'!
+ERROR!
+
+!classDefinition: #Cart category: 'TusLibros' stamp: 'TB 6/7/2023 17:51:37'!
+Object subclass: #Cart
+	instanceVariableNames: 'items store'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros'!
+!Cart methodsFor: 'initialization' stamp: 'TB 6/7/2023 17:51:37'!
+initializeIn: aStore 
+	self shouldBeImplemented.
+	store := aStore.! !
+!Cart methodsFor: 'initialization' stamp: 'TB 6/7/2023 17:51:39' prior: 50624705!
+initializeIn: aStore 
+	
+	store := aStore.! !
+
+!testRun: #CartTest #test04AgregarItemInexistenteEsInvalido stamp: 'TB 6/7/2023 17:51:41'!
+ERROR!
+!Cart class methodsFor: 'instance creation' stamp: 'TB 6/7/2023 17:51:48'!
+nonExistantItemAdded
+	"DO NOT FORGET TO RENAME COLLABORATORS AND REMOVE THIS COMMENT!!!!"
+	self shouldBeImplemented.
+	^self new initializeNonExistantItemAdded! !
+!Cart class methodsFor: 'instance creation' stamp: 'TB 6/7/2023 17:52:14' prior: 50624717!
+nonExistantItemAdded
+	
+	^'Se intento agregar un elemento inexistente en la tienda'! !
+
+!testRun: #CartTest #test04AgregarItemInexistenteEsInvalido stamp: 'TB 6/7/2023 17:52:17'!
+FAILURE!
+!Cart methodsFor: 'modifying' stamp: 'TB 6/7/2023 17:53:10' prior: 50624609!
+add: anItem
+
+	(store isAvailable: anItem) ifTrue: [	items add: anItem].! !
+!Store methodsFor: 'nil' stamp: 'TB 6/7/2023 17:53:34'!
+isAvailable: anItem
+
+	^items includes: anItem! !
+
+!testRun: #CartTest #test04AgregarItemInexistenteEsInvalido stamp: 'TB 6/7/2023 17:53:47'!
+FAILURE!
+!Cart methodsFor: 'modifying' stamp: 'TB 6/7/2023 17:54:59' prior: 50624734!
+add: anItem
+
+	(store isAvailable: anItem) ifFalse: [self error: self class nonExistantItemAdded ].
+	
+	items add: anItem! !
+
+!testRun: #CartTest #test01CarritoNuevoEstaVacio stamp: 'TB 6/7/2023 17:55:01'!
+PASSED!
+
+!testRun: #CartTest #test02CarritoConItemDejaDeEstarVacio stamp: 'TB 6/7/2023 17:55:01'!
+ERROR!
+
+!testRun: #CartTest #test03CarritoTieneTodosLosItemsQueSeAgregan stamp: 'TB 6/7/2023 17:55:01'!
+ERROR!
+
+!testRun: #CartTest #test04AgregarItemInexistenteEsInvalido stamp: 'TB 6/7/2023 17:55:01'!
+PASSED!
+!CartTest methodsFor: 'as yet unclassified' stamp: 'TB 6/7/2023 17:55:26' prior: 50624384!
+test01CarritoNuevoEstaVacio
+
+	self assert: (Cart in: Store new) isEmpty.! !
+!CartTest methodsFor: 'as yet unclassified' stamp: 'TB 6/7/2023 17:56:04' prior: 50624462!
+test02CarritoConItemDejaDeEstarVacio
+	| cart store |
+	store := Store with: self primerLibro.
+	cart := Cart in: store.
+	cart add: self primerLibro.
+	self deny: cart isEmpty.! !
+
+!testRun: #CartTest #test02CarritoConItemDejaDeEstarVacio stamp: 'TB 6/7/2023 17:56:06'!
+PASSED!
+
+!testRun: #CartTest #test01CarritoNuevoEstaVacio stamp: 'TB 6/7/2023 17:56:06'!
+PASSED!
+
+!testRun: #CartTest #test02CarritoConItemDejaDeEstarVacio stamp: 'TB 6/7/2023 17:56:06'!
+PASSED!
+
+!testRun: #CartTest #test03CarritoTieneTodosLosItemsQueSeAgregan stamp: 'TB 6/7/2023 17:56:06'!
+ERROR!
+
+!testRun: #CartTest #test04AgregarItemInexistenteEsInvalido stamp: 'TB 6/7/2023 17:56:06'!
+PASSED!
+
+!testRun: #CartTest #test03CarritoTieneTodosLosItemsQueSeAgregan stamp: 'TB 6/7/2023 17:56:06'!
+ERROR!
+
+!testRun: #CartTest #test02CarritoConItemDejaDeEstarVacio stamp: 'TB 6/7/2023 17:56:12'!
+PASSED!
+
+!testRun: #CartTest #test01CarritoNuevoEstaVacio stamp: 'TB 6/7/2023 17:56:12'!
+PASSED!
+
+!testRun: #CartTest #test02CarritoConItemDejaDeEstarVacio stamp: 'TB 6/7/2023 17:56:12'!
+PASSED!
+
+!testRun: #CartTest #test03CarritoTieneTodosLosItemsQueSeAgregan stamp: 'TB 6/7/2023 17:56:12'!
+ERROR!
+
+!testRun: #CartTest #test04AgregarItemInexistenteEsInvalido stamp: 'TB 6/7/2023 17:56:12'!
+PASSED!
+
+!testRun: #CartTest #test03CarritoTieneTodosLosItemsQueSeAgregan stamp: 'TB 6/7/2023 17:56:12'!
+ERROR!
+!CartTest methodsFor: 'as yet unclassified' stamp: 'TB 6/7/2023 17:56:52' prior: 50624580!
+test03CarritoTieneTodosLosItemsQueSeAgregan
+	| cart store |
+	store := Store from: (OrderedCollection with: self primerLibro with: self segundoLibro).
+	cart := Cart in: store.
+	cart add: self primerLibro.
+	cart add: self segundoLibro.
+	
+	self assert: (OrderedCollection with: self primerLibro with: self segundoLibro) equals: cart items.! !
+!Store class methodsFor: 'instance creation' stamp: 'TB 6/7/2023 17:57:31'!
+from: aCollection
+
+	^self new initializeFrom: aCollection! !
+!Store methodsFor: 'initialization' stamp: 'TB 6/7/2023 17:57:45'!
+initializeFrom: aCollection
+
+	items := aCollection copy.! !
+
+!testRun: #CartTest #test04AgregarItemInexistenteEsInvalido stamp: 'TB 6/7/2023 17:57:50'!
+PASSED!
+
+!testRun: #CartTest #test01CarritoNuevoEstaVacio stamp: 'TB 6/7/2023 17:57:51'!
+PASSED!
+
+!testRun: #CartTest #test02CarritoConItemDejaDeEstarVacio stamp: 'TB 6/7/2023 17:57:51'!
+PASSED!
+
+!testRun: #CartTest #test03CarritoTieneTodosLosItemsQueSeAgregan stamp: 'TB 6/7/2023 17:57:51'!
+PASSED!
+
+!testRun: #CartTest #test04AgregarItemInexistenteEsInvalido stamp: 'TB 6/7/2023 17:57:51'!
+PASSED!
+!CartTest methodsFor: 'as yet unclassified' stamp: 'TB 6/7/2023 17:58:10' prior: 50624818!
+test03CarritoTieneTodosLosItemsQueSeAgregan
+	| cart store availableBooks |
+	availableBooks := OrderedCollection with: self primerLibro with: self segundoLibro.
+	store := Store from: (availableBooks).
+	cart := Cart in: store.
+	cart add: self primerLibro.
+	cart add: self segundoLibro.
+	
+	self assert: (OrderedCollection with: self primerLibro with: self segundoLibro) equals: cart items.! !
+!CartTest methodsFor: 'as yet unclassified' stamp: 'TB 6/7/2023 17:58:21' prior: 50624856!
+test03CarritoTieneTodosLosItemsQueSeAgregan
+	| cart store availableBooks |
+	availableBooks := OrderedCollection with: self primerLibro with: self segundoLibro.
+	
+	store := Store from: (availableBooks).
+	cart := Cart in: store.
+	cart add: self primerLibro.
+	cart add: self segundoLibro.
+	
+	self assert: availableBooks equals: cart items.! !
+!CartTest methodsFor: 'as yet unclassified' stamp: 'TB 6/7/2023 17:58:23' prior: 50624872!
+test03CarritoTieneTodosLosItemsQueSeAgregan
+	| cart store availableBooks |
+	availableBooks := OrderedCollection with: self primerLibro with: self segundoLibro.
+	
+	store := Store from: availableBooks.
+	cart := Cart in: store.
+	cart add: self primerLibro.
+	cart add: self segundoLibro.
+	
+	self assert: availableBooks equals: cart items.! !
+
+!testRun: #CartTest #test03CarritoTieneTodosLosItemsQueSeAgregan stamp: 'TB 6/7/2023 17:58:23'!
+PASSED!
+
+!testRun: #CartTest #test01CarritoNuevoEstaVacio stamp: 'TB 6/7/2023 17:58:23'!
+PASSED!
+
+!testRun: #CartTest #test02CarritoConItemDejaDeEstarVacio stamp: 'TB 6/7/2023 17:58:23'!
+PASSED!
+
+!testRun: #CartTest #test03CarritoTieneTodosLosItemsQueSeAgregan stamp: 'TB 6/7/2023 17:58:23'!
+PASSED!
+
+!testRun: #CartTest #test04AgregarItemInexistenteEsInvalido stamp: 'TB 6/7/2023 17:58:23'!
+PASSED!
+
+----SNAPSHOT----(7 June 2023 17:58:49) CuisUniversity-5832.image priorSource: 9366758!
+
+----STARTUP---- (8 June 2023 15:19:05) as C:\Users\tomas\Downloads\windows64\CuisUniversity-5832.image!
+
+
+----SNAPSHOT----(8 June 2023 15:24:09) CuisUniversity-5832.image priorSource: 9384450!
+
+----STARTUP---- (8 June 2023 15:24:58) as C:\Users\tomas\Downloads\windows64\CuisUniversity-5832.image!
+
+!CartTest methodsFor: 'as yet unclassified' stamp: 'TB 6/8/2023 15:25:09' prior: 50624772!
+test02CarritoConItemDejaDeEstarVacio
+	| cart |
+	cart := Cart in: Store with: self primerLibro.
+	cart add: self primerLibro.
+	self deny: cart isEmpty.! !
+!CartTest methodsFor: 'as yet unclassified' stamp: 'TB 6/8/2023 15:25:12' prior: 50624928!
+test02CarritoConItemDejaDeEstarVacio
+	| cart |
+	cart := Cart in: (Store with: self primerLibro).
+	cart add: self primerLibro.
+	self deny: cart isEmpty.! !
+!CartTest methodsFor: 'as yet unclassified' stamp: 'TB 6/8/2023 15:25:16' prior: 50624886!
+test03CarritoTieneTodosLosItemsQueSeAgregan
+	| cart availableBooks |
+	availableBooks := OrderedCollection with: self primerLibro with: self segundoLibro.
+	
+	cart := Cart in: Store from: availableBooks.
+	cart add: self primerLibro.
+	cart add: self segundoLibro.
+	
+	self assert: availableBooks equals: cart items.! !
+!CartTest methodsFor: 'as yet unclassified' stamp: 'TB 6/8/2023 15:25:20' prior: 50624944!
+test03CarritoTieneTodosLosItemsQueSeAgregan
+	| cart availableBooks |
+	availableBooks := OrderedCollection with: self primerLibro with: self segundoLibro.
+	
+	cart := Cart in: (Store from: availableBooks).
+	cart add: self primerLibro.
+	cart add: self segundoLibro.
+	
+	self assert: availableBooks equals: cart items.! !
+!CartTest methodsFor: 'as yet unclassified' stamp: 'TB 6/8/2023 15:25:45' prior: 50624623!
+test04AgregarItemInexistenteEsInvalido
+	| cart |
+	cart := Cart in: Store with: self segundoLibro.
+	
+	self should: [cart add: self primerLibro] raise: Error withMessageText: Cart nonExistantItemAdded.! !
+!CartTest methodsFor: 'as yet unclassified' stamp: 'TB 6/8/2023 15:25:47' prior: 50624970!
+test04AgregarItemInexistenteEsInvalido
+	| cart |
+	cart := Cart in: (Store with: self segundoLibro).
+	
+	self should: [cart add: self primerLibro] raise: Error withMessageText: Cart nonExistantItemAdded.! !
+!CartTest methodsFor: 'as yet unclassified' stamp: 'TB 6/8/2023 15:27:08'!
+carritoEnStore: unaStore con: unLibro
+	| cart |
+	cart := Cart in: unaStore.
+	cart add: unLibro.
+	^cart! !
+!CartTest methodsFor: 'as yet unclassified' stamp: 'TB 6/8/2023 15:27:41' prior: 50624936!
+test02CarritoConItemDejaDeEstarVacio
+	| cart |
+	cart := self carritoEnStore: (Store with: self primerLibro) con: self primerLibro.
+	self deny: cart isEmpty.! !
+!CartTest methodsFor: 'as yet unclassified' stamp: 'TB 6/8/2023 15:27:53' prior: 50624980!
+test04AgregarItemInexistenteEsInvalido
+	| cart |
+	cart := Cart in: (Store with: self primerLibro).
+	
+	self should: [cart add: self segundoLibro] raise: Error withMessageText: Cart nonExistantItemAdded.! !
+!CartTest methodsFor: 'as yet unclassified' stamp: 'TB 6/8/2023 15:28:10'!
+storeConUnLibro
+
+	^ Store with: self primerLibro! !
+!CartTest methodsFor: 'as yet unclassified' stamp: 'TB 6/8/2023 15:28:10' prior: 50625004!
+test04AgregarItemInexistenteEsInvalido
+	| cart |
+	cart := Cart in: (self storeConUnLibro).
+	
+	self should: [cart add: self segundoLibro] raise: Error withMessageText: Cart nonExistantItemAdded.! !
+!CartTest methodsFor: 'as yet unclassified' stamp: 'TB 6/8/2023 15:28:10' prior: 50624996!
+test02CarritoConItemDejaDeEstarVacio
+	| cart |
+	cart := self carritoEnStore: (self storeConUnLibro) con: self primerLibro.
+	self deny: cart isEmpty.! !
+!CartTest methodsFor: 'as yet unclassified' stamp: 'TB 6/8/2023 15:28:14' prior: 50625027!
+test02CarritoConItemDejaDeEstarVacio
+	| cart |
+	cart := self carritoEnStore: self storeConUnLibro con: self primerLibro.
+	self deny: cart isEmpty.! !
+!CartTest methodsFor: 'as yet unclassified' stamp: 'TB 6/8/2023 15:28:25' prior: 50625018!
+test04AgregarItemInexistenteEsInvalido
+	| cart |
+	cart := Cart in: self storeConUnLibro.
+	
+	self should: [cart add: self segundoLibro] raise: Error withMessageText: Cart nonExistantItemAdded.! !
+!CartTest methodsFor: 'as yet unclassified' stamp: 'TB 6/8/2023 15:28:38' prior: 50625043!
+test04AgregarItemInexistenteEsInvalido
+	| cart |
+	cart := Cart in: self storeConUnLibro.
+	
+	self should: [cart add: self segundoLibro] raise: Error withMessageText: Cart nonExistantItemAdded.! !
+!CartTest methodsFor: 'as yet unclassified' stamp: 'TB 6/8/2023 15:29:01' prior: 50624957!
+test03CarritoTieneTodosLosItemsQueSeAgregan
+	| cart availableBooks |
+	availableBooks := OrderedCollection with: self primerLibro with: self segundoLibro.
+	
+	cart := self carritoEnStore: (Store from: availableBooks) con: self primerLibro.
+	cart add: self segundoLibro.
+	
+	self assert: availableBooks equals: cart items.! !
+
+----SNAPSHOT----(8 June 2023 15:29:55) CuisUniversity-5832.image priorSource: 9384644!
