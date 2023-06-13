@@ -1,0 +1,4660 @@
+
+
+----QUIT----(20 March 2023 11:15:29) CuisUniversity-5706.image priorSource: 4313282!
+
+----STARTUP---- (20 March 2023 11:15:29) as /Users/hernan/Documents/Cuis/5.0-64Bits/Cuis-University-Installer/CuisUniversity-5706.image!
+
+
+----QUIT----(20 March 2023 11:15:30) CuisUniversity-5706.image priorSource: 8712809!
+
+----STARTUP---- (15 May 2023 17:09:48) as /home/clinux01/Descargas/linux64(1)/linux64/CuisUniversity-5706.image!
+
+
+----End fileIn of /home/clinux01/Descargas/linux64(1)/linux64/Portfolio-Ejercicio.st----!
+
+!testRun: #ReceptiveAccountTest #test01ReceptiveAccountHaveZeroAsBalanceWhenCreated stamp: 'SG 5/15/2023 19:24:17'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test02DepositIncreasesBalanceOnTransactionValue stamp: 'SG 5/15/2023 19:24:17'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test03WithdrawDecreasesBalanceOnTransactionValue stamp: 'SG 5/15/2023 19:24:17'!
+FAILURE!
+
+!testRun: #ReceptiveAccountTest #test04WithdrawValueMustBePositive stamp: 'SG 5/15/2023 19:24:17'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test05ReceptiveAccountKnowsRegisteredTransactions stamp: 'SG 5/15/2023 19:24:17'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test06ReceptiveAccountDoNotKnowNotRegisteredTransactions stamp: 'SG 5/15/2023 19:24:17'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test07AccountKnowsItsTransactions stamp: 'SG 5/15/2023 19:24:17'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test03WithdrawDecreasesBalanceOnTransactionValue stamp: 'SG 5/15/2023 19:24:17'!
+FAILURE!
+!ReceptiveAccount methodsFor: 'balance' stamp: 'SG 5/15/2023 19:32:05' prior: 50604152!
+balance
+
+	^transactions sum: [ :aTransaction | 
+		(aTransaction isKindOf: Deposit) 
+			ifTrue: [aTransaction value]
+			ifFalse: [aTransaction value negated].
+	 ] ifEmpty: [ 0 ]! !
+
+!testRun: #ReceptiveAccountTest #test01ReceptiveAccountHaveZeroAsBalanceWhenCreated stamp: 'SG 5/15/2023 19:32:06'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test02DepositIncreasesBalanceOnTransactionValue stamp: 'SG 5/15/2023 19:32:06'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test03WithdrawDecreasesBalanceOnTransactionValue stamp: 'SG 5/15/2023 19:32:06'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test04WithdrawValueMustBePositive stamp: 'SG 5/15/2023 19:32:06'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test05ReceptiveAccountKnowsRegisteredTransactions stamp: 'SG 5/15/2023 19:32:06'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test06ReceptiveAccountDoNotKnowNotRegisteredTransactions stamp: 'SG 5/15/2023 19:32:06'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test07AccountKnowsItsTransactions stamp: 'SG 5/15/2023 19:32:06'!
+PASSED!
+!ReceptiveAccount methodsFor: 'balance' stamp: 'SG 5/15/2023 19:39:35' prior: 50604196!
+balance
+
+	^transactions sum: [ :aTransaction | 
+		aTransaction addToTotalBalance
+	 ] ifEmpty: [ 0 ]! !
+!ReceptiveAccount methodsFor: 'balance' stamp: 'SG 5/15/2023 19:42:24' prior: 50604231!
+balance
+
+	^transactions inject: 0 into: [:previousBalance :aTransaction | 
+		aTransaction addToTotalBalance: previousBalance
+	 ] ifEmpty: [ 0 ]! !
+!ReceptiveAccount methodsFor: 'balance' stamp: 'SG 5/15/2023 19:42:41' prior: 50604237!
+balance
+
+	^transactions inject: 0 into: [:previousBalance :aTransaction | 
+		aTransaction addToTotalBalance: previousBalance
+	 ]! !
+!AccountTransaction methodsFor: 'nil' stamp: 'SG 5/15/2023 19:42:56'!
+addToTotalBalance: previousBalance! !
+!Deposit methodsFor: 'as yet unclassified' stamp: 'SG 5/15/2023 19:43:05' overrides: 50604252!
+addToTotalBalance: previousBalance! !
+!Withdraw methodsFor: 'as yet unclassified' stamp: 'SG 5/15/2023 19:43:05' overrides: 50604252!
+addToTotalBalance: previousBalance! !
+
+!methodRemoval: AccountTransaction #addToTotalBalance: stamp: 'SG 5/15/2023 19:43:05'!
+addToTotalBalance: previousBalance!
+!AccountTransaction methodsFor: 'nil' stamp: 'SG 5/15/2023 19:43:15'!
+addToTotalBalance: previousBalance
+
+	self subclassResponsibility ! !
+!Deposit methodsFor: 'as yet unclassified' stamp: 'SG 5/15/2023 19:44:17' prior: 50604257 overrides: 50604270!
+addToTotalBalance: previousBalance
+
+	^ previousBalance + self value! !
+!Withdraw methodsFor: 'as yet unclassified' stamp: 'SG 5/15/2023 19:44:38' prior: 50604262 overrides: 50604270!
+addToTotalBalance: previousBalance
+
+	^ previousBalance - self value! !
+
+!testRun: #ReceptiveAccountTest #test01ReceptiveAccountHaveZeroAsBalanceWhenCreated stamp: 'SG 5/15/2023 19:44:39'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test02DepositIncreasesBalanceOnTransactionValue stamp: 'SG 5/15/2023 19:44:39'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test03WithdrawDecreasesBalanceOnTransactionValue stamp: 'SG 5/15/2023 19:44:39'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test04WithdrawValueMustBePositive stamp: 'SG 5/15/2023 19:44:39'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test05ReceptiveAccountKnowsRegisteredTransactions stamp: 'SG 5/15/2023 19:44:39'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test06ReceptiveAccountDoNotKnowNotRegisteredTransactions stamp: 'SG 5/15/2023 19:44:39'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test07AccountKnowsItsTransactions stamp: 'SG 5/15/2023 19:44:39'!
+PASSED!
+!Deposit methodsFor: 'as yet unclassified' stamp: 'SG 5/15/2023 19:45:35' prior: 50604276 overrides: 50604270!
+addToTotalBalance: aBalance
+
+	^ aBalance + self value! !
+!Withdraw methodsFor: 'as yet unclassified' stamp: 'SG 5/15/2023 19:45:44' prior: 50604282 overrides: 50604270!
+addToTotalBalance: aBalance
+
+	^ aBalance - self value! !
+!ReceptiveAccountTest methodsFor: 'nil' stamp: 'SG 5/15/2023 19:55:30'!
+withTransactions: aTransactionCollection do: aBlock
+
+	| account |
+	account := ReceptiveAccount new.! !
+
+!methodRemoval: ReceptiveAccountTest #withTransactions:do: stamp: 'SG 5/15/2023 19:56:27'!
+withTransactions: aTransactionCollection do: aBlock
+
+	| account |
+	account := ReceptiveAccount new.!
+
+!classDefinition: #Portfolio category: 'Portfolio-Ejercicio' stamp: 'SG 5/15/2023 20:06:23'!
+Object subclass: #Portfolio
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Portfolio-Ejercicio'!
+!ReceptiveAccountTest methodsFor: 'tests' stamp: 'SG 5/15/2023 20:06:08'!
+test08PortfolioWithEmptyBalance
+
+	| portfolio |
+	portfolio := Portfolio new.
+	
+	self assert: 0 equals: portfolio balance.! !
+
+!testRun: #ReceptiveAccountTest #test08PortfolioWithEmptyBalance stamp: 'SG 5/15/2023 20:06:29'!
+ERROR!
+!Portfolio methodsFor: 'no messages' stamp: 'SG 5/15/2023 20:06:48'!
+balance 
+	^0! !
+
+!testRun: #ReceptiveAccountTest #test01ReceptiveAccountHaveZeroAsBalanceWhenCreated stamp: 'SG 5/15/2023 20:06:50'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test02DepositIncreasesBalanceOnTransactionValue stamp: 'SG 5/15/2023 20:06:50'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test03WithdrawDecreasesBalanceOnTransactionValue stamp: 'SG 5/15/2023 20:06:50'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test04WithdrawValueMustBePositive stamp: 'SG 5/15/2023 20:06:50'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test05ReceptiveAccountKnowsRegisteredTransactions stamp: 'SG 5/15/2023 20:06:50'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test06ReceptiveAccountDoNotKnowNotRegisteredTransactions stamp: 'SG 5/15/2023 20:06:50'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test07AccountKnowsItsTransactions stamp: 'SG 5/15/2023 20:06:50'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test08PortfolioWithEmptyBalance stamp: 'SG 5/15/2023 20:06:50'!
+PASSED!
+
+TestCase subclass: #PortfolioTest
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Portfolio-Ejercicio'!
+
+!classDefinition: #PortfolioTest category: 'Portfolio-Ejercicio' stamp: 'SG 5/15/2023 20:12:46'!
+TestCase subclass: #PortfolioTest
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Portfolio-Ejercicio'!
+
+!methodRemoval: ReceptiveAccountTest #test08PortfolioWithEmptyBalance stamp: 'SG 5/15/2023 20:12:52'!
+test08PortfolioWithEmptyBalance
+
+	| portfolio |
+	portfolio := Portfolio new.
+	
+	self assert: 0 equals: portfolio balance.!
+!PortfolioTest methodsFor: 'testing' stamp: 'SG 5/15/2023 20:14:32'!
+test01PortfolioWithNoAccountsHasZeroBalance
+
+	| portfolio |
+	
+	portfolio := Portfolio new.
+	
+	self assert: 0 equals: portfolio balance! !
+
+!testRun: #PortfolioTest #test01PortfolioWithNoAccountsHasZeroBalance stamp: 'SG 5/15/2023 20:14:34'!
+PASSED!
+
+!testRun: #PortfolioTest #test01PortfolioWithNoAccountsHasZeroBalance stamp: 'SG 5/15/2023 20:14:34'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test01ReceptiveAccountHaveZeroAsBalanceWhenCreated stamp: 'SG 5/15/2023 20:14:34'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test02DepositIncreasesBalanceOnTransactionValue stamp: 'SG 5/15/2023 20:14:34'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test03WithdrawDecreasesBalanceOnTransactionValue stamp: 'SG 5/15/2023 20:14:34'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test04WithdrawValueMustBePositive stamp: 'SG 5/15/2023 20:14:34'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test05ReceptiveAccountKnowsRegisteredTransactions stamp: 'SG 5/15/2023 20:14:34'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test06ReceptiveAccountDoNotKnowNotRegisteredTransactions stamp: 'SG 5/15/2023 20:14:34'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test07AccountKnowsItsTransactions stamp: 'SG 5/15/2023 20:14:34'!
+PASSED!
+!PortfolioTest methodsFor: 'testing' stamp: 'SG 5/15/2023 20:21:37'!
+test02PortfolioWithSingleAccountHasSameBalanceAsTheAccount
+
+	| portfolio account |
+	
+	portfolio := Portfolio new.
+	account := ReceptiveAccount new.
+	
+	self assert: 0 equals: portfolio balance! !
+!PortfolioTest methodsFor: 'testing' stamp: 'SG 5/15/2023 20:25:46' prior: 50604446!
+test02PortfolioWithSingleAccountHasSameBalanceAsTheAccount
+
+	| portfolio account |
+	
+	portfolio := Portfolio new.
+	account := ReceptiveAccount new.
+	portfolio addAccount: account.
+	
+	self assert: account balance equals: portfolio balance! !
+!PortfolioTest methodsFor: 'testing' stamp: 'SG 5/15/2023 20:26:22' prior: 50604455!
+test02PortfolioWithSingleAccountHasSameBalanceAsTheAccount
+
+	| portfolio account |
+	
+	portfolio := Portfolio new.
+	account := ReceptiveAccount new.
+	
+	Deposit register: 50 on: account.
+	portfolio addAccount: account.
+	
+	self assert: account balance equals: portfolio balance! !
+
+!testRun: #PortfolioTest #test02PortfolioWithSingleAccountHasSameBalanceAsTheAccount stamp: 'SG 5/15/2023 20:26:23'!
+ERROR!
+!Portfolio methodsFor: 'as yet unclassified' stamp: 'SG 5/15/2023 20:26:40'!
+addAccount: account 
+	self shouldBeImplemented.! !
+
+!classDefinition: #Portfolio category: 'Portfolio-Ejercicio' stamp: 'SG 5/15/2023 20:27:10'!
+Object subclass: #Portfolio
+	instanceVariableNames: 'account'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Portfolio-Ejercicio'!
+!Portfolio methodsFor: 'as yet unclassified' stamp: 'SG 5/15/2023 20:27:07' prior: 50604481!
+addAccount: anAccount 
+	
+	account := anAccount! !
+
+!testRun: #PortfolioTest #test01PortfolioWithNoAccountsHasZeroBalance stamp: 'SG 5/15/2023 20:27:31'!
+PASSED!
+
+!testRun: #PortfolioTest #test02PortfolioWithSingleAccountHasSameBalanceAsTheAccount stamp: 'SG 5/15/2023 20:27:31'!
+FAILURE!
+
+!testRun: #PortfolioTest #test02PortfolioWithSingleAccountHasSameBalanceAsTheAccount stamp: 'SG 5/15/2023 20:27:31'!
+FAILURE!
+!Portfolio methodsFor: 'as yet unclassified' stamp: 'SG 5/15/2023 20:27:58' prior: 50604354!
+balance 
+	^account balance! !
+
+!testRun: #PortfolioTest #test01PortfolioWithNoAccountsHasZeroBalance stamp: 'SG 5/15/2023 20:27:59'!
+ERROR!
+
+!testRun: #PortfolioTest #test02PortfolioWithSingleAccountHasSameBalanceAsTheAccount stamp: 'SG 5/15/2023 20:27:59'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test01ReceptiveAccountHaveZeroAsBalanceWhenCreated stamp: 'SG 5/15/2023 20:27:59'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test02DepositIncreasesBalanceOnTransactionValue stamp: 'SG 5/15/2023 20:27:59'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test03WithdrawDecreasesBalanceOnTransactionValue stamp: 'SG 5/15/2023 20:27:59'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test04WithdrawValueMustBePositive stamp: 'SG 5/15/2023 20:27:59'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test05ReceptiveAccountKnowsRegisteredTransactions stamp: 'SG 5/15/2023 20:27:59'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test06ReceptiveAccountDoNotKnowNotRegisteredTransactions stamp: 'SG 5/15/2023 20:27:59'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test07AccountKnowsItsTransactions stamp: 'SG 5/15/2023 20:27:59'!
+PASSED!
+
+!testRun: #PortfolioTest #test01PortfolioWithNoAccountsHasZeroBalance stamp: 'SG 5/15/2023 20:27:59'!
+ERROR!
+!Portfolio methodsFor: 'as yet unclassified' stamp: 'SG 5/15/2023 20:28:07' prior: 50604509!
+balance 
+	
+	^ account balance! !
+!Portfolio methodsFor: 'as yet unclassified' stamp: 'SG 5/15/2023 20:28:34' prior: 50604550!
+balance 
+	
+	account ifNil: [^0].
+	^ account balance! !
+
+!testRun: #PortfolioTest #test01PortfolioWithNoAccountsHasZeroBalance stamp: 'SG 5/15/2023 20:28:36'!
+PASSED!
+
+!testRun: #PortfolioTest #test02PortfolioWithSingleAccountHasSameBalanceAsTheAccount stamp: 'SG 5/15/2023 20:28:36'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test01ReceptiveAccountHaveZeroAsBalanceWhenCreated stamp: 'SG 5/15/2023 20:28:36'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test02DepositIncreasesBalanceOnTransactionValue stamp: 'SG 5/15/2023 20:28:36'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test03WithdrawDecreasesBalanceOnTransactionValue stamp: 'SG 5/15/2023 20:28:36'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test04WithdrawValueMustBePositive stamp: 'SG 5/15/2023 20:28:36'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test05ReceptiveAccountKnowsRegisteredTransactions stamp: 'SG 5/15/2023 20:28:36'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test06ReceptiveAccountDoNotKnowNotRegisteredTransactions stamp: 'SG 5/15/2023 20:28:36'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test07AccountKnowsItsTransactions stamp: 'SG 5/15/2023 20:28:36'!
+PASSED!
+!PortfolioTest methodsFor: 'testing' stamp: 'SG 5/15/2023 20:30:27'!
+test03PortfolioWithMultipleAccountsHasBalanceEqualToTheSumOfTheAccountBalances
+
+	| portfolio account |
+	
+	portfolio := Portfolio new.
+	account := ReceptiveAccount new.
+	
+	Deposit register: 50 on: account.
+	portfolio addAccount: account.
+	
+	self assert: account balance equals: portfolio balance! !
+!PortfolioTest methodsFor: 'testing' stamp: 'SG 5/15/2023 20:30:29'!
+test03PortfolioWithMultipleAccountsHasBalanceEqualToTheSumOfTheAccountBalancess
+
+	| portfolio account |
+	
+	portfolio := Portfolio new.
+	account := ReceptiveAccount new.
+	
+	Deposit register: 50 on: account.
+	portfolio addAccount: account.
+	
+	self assert: account balance equals: portfolio balance! !
+
+!methodRemoval: PortfolioTest #test03PortfolioWithMultipleAccountsHasBalanceEqualToTheSumOfTheAccountBalancess stamp: 'SG 5/15/2023 20:30:35'!
+test03PortfolioWithMultipleAccountsHasBalanceEqualToTheSumOfTheAccountBalancess
+
+	| portfolio account |
+	
+	portfolio := Portfolio new.
+	account := ReceptiveAccount new.
+	
+	Deposit register: 50 on: account.
+	portfolio addAccount: account.
+	
+	self assert: account balance equals: portfolio balance!
+!PortfolioTest methodsFor: 'testing' stamp: 'SG 5/15/2023 20:31:56' prior: 50604592!
+test03PortfolioWithMultipleAccountsHasBalanceEqualToTheSumOfTheAccountBalances
+
+	| portfolio account1 account2 |
+	
+	portfolio := Portfolio new.
+	account1 := ReceptiveAccount new.
+	account2 := ReceptiveAccount new.
+	
+	Deposit register: 50 on: account1.
+	Deposit register: 100 on: account2.
+	portfolio addAccount: account1; addAccount: account2.
+	
+	self assert: 150 equals: portfolio balance! !
+
+!testRun: #PortfolioTest #test03PortfolioWithMultipleAccountsHasBalanceEqualToTheSumOfTheAccountBalances stamp: 'SG 5/15/2023 20:31:57'!
+FAILURE!
+!Portfolio methodsFor: 'as yet unclassified' stamp: 'SG 5/15/2023 20:32:34' prior: 50604493!
+addAccount: aCollectionOfAccounts 
+	
+	account := aCollectionOfAccounts! !
+!Portfolio methodsFor: 'as yet unclassified' stamp: 'SG 5/15/2023 20:32:44' prior: 50604650!
+addAccount: anAccount 
+	
+	account := anAccount! !
+
+!classDefinition: #Portfolio category: 'Portfolio-Ejercicio' stamp: 'SG 5/15/2023 20:33:14'!
+Object subclass: #Portfolio
+	instanceVariableNames: 'account accounts'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Portfolio-Ejercicio'!
+!Portfolio methodsFor: 'as yet unclassified' stamp: 'SG 5/15/2023 20:33:12' prior: 50604656!
+addAccount: anAccount 
+	
+	accounts add: anAccount! !
+
+Object subclass: #Portfolio
+	instanceVariableNames: 'accounts'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Portfolio-Ejercicio'!
+
+!classDefinition: #Portfolio category: 'Portfolio-Ejercicio' stamp: 'SG 5/15/2023 20:33:22'!
+Object subclass: #Portfolio
+	instanceVariableNames: 'accounts'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Portfolio-Ejercicio'!
+!Portfolio methodsFor: 'as yet unclassified' stamp: 'SG 5/15/2023 20:33:54' prior: 50604554!
+balance 
+	
+	accounts ifNil: [^0].
+	^ accounts sum: [:anAccount | anAccount balance].! !
+
+!testRun: #PortfolioTest #test01PortfolioWithNoAccountsHasZeroBalance stamp: 'SG 5/15/2023 20:33:55'!
+PASSED!
+
+!testRun: #PortfolioTest #test02PortfolioWithSingleAccountHasSameBalanceAsTheAccount stamp: 'SG 5/15/2023 20:33:55'!
+ERROR!
+
+!testRun: #PortfolioTest #test03PortfolioWithMultipleAccountsHasBalanceEqualToTheSumOfTheAccountBalances stamp: 'SG 5/15/2023 20:33:55'!
+ERROR!
+
+!testRun: #ReceptiveAccountTest #test01ReceptiveAccountHaveZeroAsBalanceWhenCreated stamp: 'SG 5/15/2023 20:33:55'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test02DepositIncreasesBalanceOnTransactionValue stamp: 'SG 5/15/2023 20:33:55'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test03WithdrawDecreasesBalanceOnTransactionValue stamp: 'SG 5/15/2023 20:33:55'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test04WithdrawValueMustBePositive stamp: 'SG 5/15/2023 20:33:55'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test05ReceptiveAccountKnowsRegisteredTransactions stamp: 'SG 5/15/2023 20:33:55'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test06ReceptiveAccountDoNotKnowNotRegisteredTransactions stamp: 'SG 5/15/2023 20:33:55'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test07AccountKnowsItsTransactions stamp: 'SG 5/15/2023 20:33:55'!
+PASSED!
+
+!testRun: #PortfolioTest #test02PortfolioWithSingleAccountHasSameBalanceAsTheAccount stamp: 'SG 5/15/2023 20:33:57'!
+ERROR!
+!Portfolio methodsFor: 'as yet unclassified' stamp: 'SG 5/15/2023 20:34:36' overrides: 16920235!
+initialize
+	
+	accounts := Set new! !
+
+!testRun: #PortfolioTest #test01PortfolioWithNoAccountsHasZeroBalance stamp: 'SG 5/15/2023 20:34:37'!
+ERROR!
+
+!testRun: #PortfolioTest #test02PortfolioWithSingleAccountHasSameBalanceAsTheAccount stamp: 'SG 5/15/2023 20:34:37'!
+PASSED!
+
+!testRun: #PortfolioTest #test03PortfolioWithMultipleAccountsHasBalanceEqualToTheSumOfTheAccountBalances stamp: 'SG 5/15/2023 20:34:37'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test01ReceptiveAccountHaveZeroAsBalanceWhenCreated stamp: 'SG 5/15/2023 20:34:37'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test02DepositIncreasesBalanceOnTransactionValue stamp: 'SG 5/15/2023 20:34:37'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test03WithdrawDecreasesBalanceOnTransactionValue stamp: 'SG 5/15/2023 20:34:37'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test04WithdrawValueMustBePositive stamp: 'SG 5/15/2023 20:34:37'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test05ReceptiveAccountKnowsRegisteredTransactions stamp: 'SG 5/15/2023 20:34:37'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test06ReceptiveAccountDoNotKnowNotRegisteredTransactions stamp: 'SG 5/15/2023 20:34:37'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test07AccountKnowsItsTransactions stamp: 'SG 5/15/2023 20:34:37'!
+PASSED!
+
+!testRun: #PortfolioTest #test01PortfolioWithNoAccountsHasZeroBalance stamp: 'SG 5/15/2023 20:34:37'!
+ERROR!
+!Portfolio methodsFor: 'as yet unclassified' stamp: 'SG 5/15/2023 20:34:59' prior: 50604686!
+balance 
+	
+	accounts ifEmpty: [^0].
+	^ accounts sum: [:anAccount | anAccount balance].! !
+
+!testRun: #PortfolioTest #test01PortfolioWithNoAccountsHasZeroBalance stamp: 'SG 5/15/2023 20:35:00'!
+PASSED!
+
+!testRun: #PortfolioTest #test02PortfolioWithSingleAccountHasSameBalanceAsTheAccount stamp: 'SG 5/15/2023 20:35:00'!
+PASSED!
+
+!testRun: #PortfolioTest #test03PortfolioWithMultipleAccountsHasBalanceEqualToTheSumOfTheAccountBalances stamp: 'SG 5/15/2023 20:35:00'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test01ReceptiveAccountHaveZeroAsBalanceWhenCreated stamp: 'SG 5/15/2023 20:35:00'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test02DepositIncreasesBalanceOnTransactionValue stamp: 'SG 5/15/2023 20:35:00'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test03WithdrawDecreasesBalanceOnTransactionValue stamp: 'SG 5/15/2023 20:35:00'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test04WithdrawValueMustBePositive stamp: 'SG 5/15/2023 20:35:00'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test05ReceptiveAccountKnowsRegisteredTransactions stamp: 'SG 5/15/2023 20:35:00'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test06ReceptiveAccountDoNotKnowNotRegisteredTransactions stamp: 'SG 5/15/2023 20:35:00'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test07AccountKnowsItsTransactions stamp: 'SG 5/15/2023 20:35:00'!
+PASSED!
+!Portfolio methodsFor: 'as yet unclassified' stamp: 'SG 5/15/2023 20:35:47' prior: 50604780!
+balance 
+	
+	^ accounts sum: [:anAccount | anAccount balance] ifEmpty: [^0].! !
+
+!testRun: #PortfolioTest #test01PortfolioWithNoAccountsHasZeroBalance stamp: 'SG 5/15/2023 20:35:51'!
+PASSED!
+
+!testRun: #PortfolioTest #test02PortfolioWithSingleAccountHasSameBalanceAsTheAccount stamp: 'SG 5/15/2023 20:35:51'!
+PASSED!
+
+!testRun: #PortfolioTest #test03PortfolioWithMultipleAccountsHasBalanceEqualToTheSumOfTheAccountBalances stamp: 'SG 5/15/2023 20:35:51'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test01ReceptiveAccountHaveZeroAsBalanceWhenCreated stamp: 'SG 5/15/2023 20:35:51'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test02DepositIncreasesBalanceOnTransactionValue stamp: 'SG 5/15/2023 20:35:51'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test03WithdrawDecreasesBalanceOnTransactionValue stamp: 'SG 5/15/2023 20:35:51'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test04WithdrawValueMustBePositive stamp: 'SG 5/15/2023 20:35:51'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test05ReceptiveAccountKnowsRegisteredTransactions stamp: 'SG 5/15/2023 20:35:51'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test06ReceptiveAccountDoNotKnowNotRegisteredTransactions stamp: 'SG 5/15/2023 20:35:51'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test07AccountKnowsItsTransactions stamp: 'SG 5/15/2023 20:35:51'!
+PASSED!
+
+----SNAPSHOT----(15 May 2023 20:40:58) CuisUniversity-5706.image priorSource: 8713034!
+!PortfolioTest methodsFor: 'testing' stamp: 'SG 5/15/2023 20:41:17'!
+test03PortfolioWithASinglePortfolioHasTheSameBalance
+
+	| parentPortfolio childPorfolio account1 account2 |
+	
+	parentPortfolio := Portfolio new.
+	
+	childPorfolio := Portfolio new.
+	account1 := ReceptiveAccount new.
+	account2 := ReceptiveAccount new.
+	
+	Deposit register: 50 on: account1.
+	Deposit register: 100 on: account2.
+	childPorfolio addAccount: account1; addAccount: account2.
+	
+	parentPortfolio addPortfolio: childPorfolio.
+	
+	self assert: childPorfolio balance equals: parentPortfolio balance.! !
+
+!testRun: #PortfolioTest #test03PortfolioWithASinglePortfolioHasTheSameBalance stamp: 'SG 5/15/2023 20:41:25'!
+ERROR!
+!PortfolioTest methodsFor: 'testing' stamp: 'SG 5/15/2023 20:41:34'!
+test04PortfolioWithASinglePortfolioHasTheSameBalance
+
+	| parentPortfolio childPorfolio account1 account2 |
+	
+	parentPortfolio := Portfolio new.
+	
+	childPorfolio := Portfolio new.
+	account1 := ReceptiveAccount new.
+	account2 := ReceptiveAccount new.
+	
+	Deposit register: 50 on: account1.
+	Deposit register: 100 on: account2.
+	childPorfolio addAccount: account1; addAccount: account2.
+	
+	parentPortfolio addPortfolio: childPorfolio.
+	
+	self assert: childPorfolio balance equals: parentPortfolio balance.! !
+
+!methodRemoval: PortfolioTest #test03PortfolioWithASinglePortfolioHasTheSameBalance stamp: 'SG 5/15/2023 20:41:34'!
+test03PortfolioWithASinglePortfolioHasTheSameBalance
+
+	| parentPortfolio childPorfolio account1 account2 |
+	
+	parentPortfolio := Portfolio new.
+	
+	childPorfolio := Portfolio new.
+	account1 := ReceptiveAccount new.
+	account2 := ReceptiveAccount new.
+	
+	Deposit register: 50 on: account1.
+	Deposit register: 100 on: account2.
+	childPorfolio addAccount: account1; addAccount: account2.
+	
+	parentPortfolio addPortfolio: childPorfolio.
+	
+	self assert: childPorfolio balance equals: parentPortfolio balance.!
+
+!testRun: #PortfolioTest #test04PortfolioWithASinglePortfolioHasTheSameBalance stamp: 'SG 5/15/2023 20:41:38'!
+ERROR!
+
+!classDefinition: #Portfolio category: 'Portfolio-Ejercicio' stamp: 'SG 5/15/2023 20:42:40'!
+Object subclass: #Portfolio
+	instanceVariableNames: 'accounts portfolios'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Portfolio-Ejercicio'!
+!Portfolio methodsFor: 'modification' stamp: 'SG 5/15/2023 20:42:39'!
+addPortfolio: aPortfolio 
+	
+	portfolios add: aPortfolio ! !
+!Portfolio methodsFor: 'initialization' stamp: 'SG 5/15/2023 20:43:04' prior: 50604734 overrides: 16920235!
+initialize
+	
+	accounts := Set new.
+	portfolios := Set new! !
+
+!testRun: #PortfolioTest #test01PortfolioWithNoAccountsHasZeroBalance stamp: 'SG 5/15/2023 20:43:05'!
+PASSED!
+
+!testRun: #PortfolioTest #test02PortfolioWithSingleAccountHasSameBalanceAsTheAccount stamp: 'SG 5/15/2023 20:43:05'!
+PASSED!
+
+!testRun: #PortfolioTest #test03PortfolioWithMultipleAccountsHasBalanceEqualToTheSumOfTheAccountBalances stamp: 'SG 5/15/2023 20:43:05'!
+PASSED!
+
+!testRun: #PortfolioTest #test04PortfolioWithASinglePortfolioHasTheSameBalance stamp: 'SG 5/15/2023 20:43:05'!
+FAILURE!
+
+!testRun: #ReceptiveAccountTest #test01ReceptiveAccountHaveZeroAsBalanceWhenCreated stamp: 'SG 5/15/2023 20:43:05'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test02DepositIncreasesBalanceOnTransactionValue stamp: 'SG 5/15/2023 20:43:05'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test03WithdrawDecreasesBalanceOnTransactionValue stamp: 'SG 5/15/2023 20:43:05'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test04WithdrawValueMustBePositive stamp: 'SG 5/15/2023 20:43:05'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test05ReceptiveAccountKnowsRegisteredTransactions stamp: 'SG 5/15/2023 20:43:05'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test06ReceptiveAccountDoNotKnowNotRegisteredTransactions stamp: 'SG 5/15/2023 20:43:05'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test07AccountKnowsItsTransactions stamp: 'SG 5/15/2023 20:43:05'!
+PASSED!
+
+!testRun: #PortfolioTest #test04PortfolioWithASinglePortfolioHasTheSameBalance stamp: 'SG 5/15/2023 20:43:05'!
+FAILURE!
+!Portfolio methodsFor: 'balance' stamp: 'SG 5/15/2023 20:45:38' prior: 50604824!
+balance 
+	
+	^ accounts sum: [:anAccount | anAccount balance] ifEmpty: [^0] + (portfolios sum: [:anAccount | anAccount balance] ifEmpty: [^0]).! !
+
+!testRun: #PortfolioTest #test01PortfolioWithNoAccountsHasZeroBalance stamp: 'SG 5/15/2023 20:45:39'!
+PASSED!
+
+!testRun: #PortfolioTest #test02PortfolioWithSingleAccountHasSameBalanceAsTheAccount stamp: 'SG 5/15/2023 20:45:39'!
+FAILURE!
+
+!testRun: #PortfolioTest #test03PortfolioWithMultipleAccountsHasBalanceEqualToTheSumOfTheAccountBalances stamp: 'SG 5/15/2023 20:45:39'!
+FAILURE!
+
+!testRun: #PortfolioTest #test04PortfolioWithASinglePortfolioHasTheSameBalance stamp: 'SG 5/15/2023 20:45:39'!
+ERROR!
+
+!testRun: #ReceptiveAccountTest #test01ReceptiveAccountHaveZeroAsBalanceWhenCreated stamp: 'SG 5/15/2023 20:45:39'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test02DepositIncreasesBalanceOnTransactionValue stamp: 'SG 5/15/2023 20:45:39'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test03WithdrawDecreasesBalanceOnTransactionValue stamp: 'SG 5/15/2023 20:45:39'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test04WithdrawValueMustBePositive stamp: 'SG 5/15/2023 20:45:39'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test05ReceptiveAccountKnowsRegisteredTransactions stamp: 'SG 5/15/2023 20:45:39'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test06ReceptiveAccountDoNotKnowNotRegisteredTransactions stamp: 'SG 5/15/2023 20:45:39'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test07AccountKnowsItsTransactions stamp: 'SG 5/15/2023 20:45:39'!
+PASSED!
+
+!testRun: #PortfolioTest #test02PortfolioWithSingleAccountHasSameBalanceAsTheAccount stamp: 'SG 5/15/2023 20:45:41'!
+FAILURE!
+!Portfolio methodsFor: 'balance' stamp: 'SG 5/15/2023 20:46:09' prior: 50604998!
+balance 
+	
+	^ accounts sum: [:anAccount | anAccount balance] ifEmpty: [ 0 ] + (portfolios sum: [:anAccount | anAccount balance] ifEmpty: [ 0 ]).! !
+
+!testRun: #PortfolioTest #test01PortfolioWithNoAccountsHasZeroBalance stamp: 'SG 5/15/2023 20:46:10'!
+ERROR!
+
+!testRun: #PortfolioTest #test02PortfolioWithSingleAccountHasSameBalanceAsTheAccount stamp: 'SG 5/15/2023 20:46:10'!
+ERROR!
+
+!testRun: #PortfolioTest #test03PortfolioWithMultipleAccountsHasBalanceEqualToTheSumOfTheAccountBalances stamp: 'SG 5/15/2023 20:46:10'!
+ERROR!
+
+!testRun: #PortfolioTest #test04PortfolioWithASinglePortfolioHasTheSameBalance stamp: 'SG 5/15/2023 20:46:10'!
+ERROR!
+
+!testRun: #PortfolioTest #test01PortfolioWithNoAccountsHasZeroBalance stamp: 'SG 5/15/2023 20:46:13'!
+ERROR!
+!Portfolio methodsFor: 'balance' stamp: 'SG 5/15/2023 20:46:22' prior: 50605052!
+balance 
+	
+	^ (accounts sum: [:anAccount | anAccount balance] ifEmpty: [ 0 ]) + (portfolios sum: [:anAccount | anAccount balance] ifEmpty: [ 0 ]).! !
+
+!testRun: #PortfolioTest #test01PortfolioWithNoAccountsHasZeroBalance stamp: 'SG 5/15/2023 20:46:22'!
+PASSED!
+
+!testRun: #PortfolioTest #test02PortfolioWithSingleAccountHasSameBalanceAsTheAccount stamp: 'SG 5/15/2023 20:46:22'!
+PASSED!
+
+!testRun: #PortfolioTest #test03PortfolioWithMultipleAccountsHasBalanceEqualToTheSumOfTheAccountBalances stamp: 'SG 5/15/2023 20:46:22'!
+PASSED!
+
+!testRun: #PortfolioTest #test04PortfolioWithASinglePortfolioHasTheSameBalance stamp: 'SG 5/15/2023 20:46:22'!
+PASSED!
+!PortfolioTest methodsFor: 'testing' stamp: 'SG 5/15/2023 20:48:10'!
+test04PortfolioWithChildrenPortfoliosHasTheSumOfTheirBalancesAsItsBalance
+
+	| parentPortfolio childPorfolio account1 account2 |
+	
+	parentPortfolio := Portfolio new.
+	
+	childPorfolio := Portfolio new.
+	account1 := ReceptiveAccount new.
+	account2 := ReceptiveAccount new.
+	
+	Deposit register: 50 on: account1.
+	Deposit register: 100 on: account2.
+	childPorfolio addAccount: account1; addAccount: account2.
+	
+	parentPortfolio addPortfolio: childPorfolio.
+	
+	self assert: childPorfolio balance equals: parentPortfolio balance.! !
+
+!methodRemoval: PortfolioTest #test04PortfolioWithASinglePortfolioHasTheSameBalance stamp: 'SG 5/15/2023 20:48:10'!
+test04PortfolioWithASinglePortfolioHasTheSameBalance
+
+	| parentPortfolio childPorfolio account1 account2 |
+	
+	parentPortfolio := Portfolio new.
+	
+	childPorfolio := Portfolio new.
+	account1 := ReceptiveAccount new.
+	account2 := ReceptiveAccount new.
+	
+	Deposit register: 50 on: account1.
+	Deposit register: 100 on: account2.
+	childPorfolio addAccount: account1; addAccount: account2.
+	
+	parentPortfolio addPortfolio: childPorfolio.
+	
+	self assert: childPorfolio balance equals: parentPortfolio balance.!
+!PortfolioTest methodsFor: 'testing' stamp: 'SG 5/15/2023 20:50:34'!
+portfolioWithAccounts: aCollectionOfAccounts
+
+	| portfolio |
+	portfolio := Portfolio new.
+	
+	aCollectionOfAccounts do: [:anAccount | portfolio addAccount: anAccount].
+	
+	^portfolio.
+	! !
+!PortfolioTest methodsFor: 'testing' stamp: 'SG 5/15/2023 20:51:34'!
+accountWithSingleDepositOf: anAmount
+
+	
+	| account1 |
+	account1 := ReceptiveAccount new.
+	Deposit register: anAmount on: account1.
+
+! !
+!PortfolioTest methodsFor: 'testing' stamp: 'SG 5/15/2023 20:51:52' prior: 50605148!
+accountWithSingleDepositOf: anAmount
+
+	
+	| account |
+	account := ReceptiveAccount new.
+	Deposit register: anAmount on: account.
+	^ account 
+
+! !
+
+!testRun: #PortfolioTest #test01PortfolioWithNoAccountsHasZeroBalance stamp: 'SG 5/15/2023 20:51:54'!
+PASSED!
+
+!testRun: #PortfolioTest #test02PortfolioWithSingleAccountHasSameBalanceAsTheAccount stamp: 'SG 5/15/2023 20:51:54'!
+PASSED!
+
+!testRun: #PortfolioTest #test03PortfolioWithMultipleAccountsHasBalanceEqualToTheSumOfTheAccountBalances stamp: 'SG 5/15/2023 20:51:54'!
+PASSED!
+
+!testRun: #PortfolioTest #test04PortfolioWithChildrenPortfoliosHasTheSumOfTheirBalancesAsItsBalance stamp: 'SG 5/15/2023 20:51:54'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test01ReceptiveAccountHaveZeroAsBalanceWhenCreated stamp: 'SG 5/15/2023 20:51:54'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test02DepositIncreasesBalanceOnTransactionValue stamp: 'SG 5/15/2023 20:51:54'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test03WithdrawDecreasesBalanceOnTransactionValue stamp: 'SG 5/15/2023 20:51:54'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test04WithdrawValueMustBePositive stamp: 'SG 5/15/2023 20:51:54'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test05ReceptiveAccountKnowsRegisteredTransactions stamp: 'SG 5/15/2023 20:51:54'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test06ReceptiveAccountDoNotKnowNotRegisteredTransactions stamp: 'SG 5/15/2023 20:51:54'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test07AccountKnowsItsTransactions stamp: 'SG 5/15/2023 20:51:54'!
+PASSED!
+!PortfolioTest methodsFor: 'testing' stamp: 'SG 5/15/2023 20:54:26' prior: 50604466!
+test02PortfolioWithSingleAccountHasSameBalanceAsTheAccount
+
+	| portfolio |
+	
+	portfolio := self portfolioWithAccounts: {self accountWithSingleDepositOf: 50}.
+	self assert: 50 equals: portfolio balance! !
+
+!testRun: #PortfolioTest #test02PortfolioWithSingleAccountHasSameBalanceAsTheAccount stamp: 'SG 5/15/2023 20:54:27'!
+PASSED!
+
+!testRun: #PortfolioTest #test01PortfolioWithNoAccountsHasZeroBalance stamp: 'SG 5/15/2023 20:54:27'!
+PASSED!
+
+!testRun: #PortfolioTest #test02PortfolioWithSingleAccountHasSameBalanceAsTheAccount stamp: 'SG 5/15/2023 20:54:27'!
+PASSED!
+
+!testRun: #PortfolioTest #test03PortfolioWithMultipleAccountsHasBalanceEqualToTheSumOfTheAccountBalances stamp: 'SG 5/15/2023 20:54:27'!
+PASSED!
+
+!testRun: #PortfolioTest #test04PortfolioWithChildrenPortfoliosHasTheSumOfTheirBalancesAsItsBalance stamp: 'SG 5/15/2023 20:54:27'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test01ReceptiveAccountHaveZeroAsBalanceWhenCreated stamp: 'SG 5/15/2023 20:54:27'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test02DepositIncreasesBalanceOnTransactionValue stamp: 'SG 5/15/2023 20:54:27'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test03WithdrawDecreasesBalanceOnTransactionValue stamp: 'SG 5/15/2023 20:54:27'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test04WithdrawValueMustBePositive stamp: 'SG 5/15/2023 20:54:27'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test05ReceptiveAccountKnowsRegisteredTransactions stamp: 'SG 5/15/2023 20:54:27'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test06ReceptiveAccountDoNotKnowNotRegisteredTransactions stamp: 'SG 5/15/2023 20:54:27'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test07AccountKnowsItsTransactions stamp: 'SG 5/15/2023 20:54:27'!
+PASSED!
+!PortfolioTest methodsFor: 'testing' stamp: 'SG 5/15/2023 20:55:19' prior: 50604630!
+test03PortfolioWithMultipleAccountsHasBalanceEqualToTheSumOfTheAccountBalances
+
+	| portfolio |
+	
+	portfolio := self portfolioWithAccounts: {
+	
+		self accountWithSingleDepositOf: 50.
+		self accountWithSingleDepositOf: 100
+		
+		}.
+	
+	self assert: 150 equals: portfolio balance! !
+
+!testRun: #PortfolioTest #test03PortfolioWithMultipleAccountsHasBalanceEqualToTheSumOfTheAccountBalances stamp: 'SG 5/15/2023 20:55:24'!
+PASSED!
+
+!testRun: #PortfolioTest #test01PortfolioWithNoAccountsHasZeroBalance stamp: 'SG 5/15/2023 20:55:24'!
+PASSED!
+
+!testRun: #PortfolioTest #test02PortfolioWithSingleAccountHasSameBalanceAsTheAccount stamp: 'SG 5/15/2023 20:55:24'!
+PASSED!
+
+!testRun: #PortfolioTest #test03PortfolioWithMultipleAccountsHasBalanceEqualToTheSumOfTheAccountBalances stamp: 'SG 5/15/2023 20:55:24'!
+PASSED!
+
+!testRun: #PortfolioTest #test04PortfolioWithChildrenPortfoliosHasTheSumOfTheirBalancesAsItsBalance stamp: 'SG 5/15/2023 20:55:24'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test01ReceptiveAccountHaveZeroAsBalanceWhenCreated stamp: 'SG 5/15/2023 20:55:24'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test02DepositIncreasesBalanceOnTransactionValue stamp: 'SG 5/15/2023 20:55:24'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test03WithdrawDecreasesBalanceOnTransactionValue stamp: 'SG 5/15/2023 20:55:24'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test04WithdrawValueMustBePositive stamp: 'SG 5/15/2023 20:55:24'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test05ReceptiveAccountKnowsRegisteredTransactions stamp: 'SG 5/15/2023 20:55:24'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test06ReceptiveAccountDoNotKnowNotRegisteredTransactions stamp: 'SG 5/15/2023 20:55:24'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test07AccountKnowsItsTransactions stamp: 'SG 5/15/2023 20:55:24'!
+PASSED!
+!PortfolioTest methodsFor: 'testing' stamp: 'SG 5/15/2023 21:11:21' prior: 50605102!
+test04PortfolioWithChildrenPortfoliosHasTheSumOfTheirBalancesAsItsBalance
+
+	| parentPortfolio childPorfolio |
+	
+	childPorfolio := self portfolioWithAccounts: {
+	
+		self accountWithSingleDepositOf: 50.
+		self accountWithSingleDepositOf: 100
+		
+		}.
+	
+	parentPortfolio := Portfolio new.
+	parentPortfolio addPortfolio: childPorfolio.
+	
+	self assert: childPorfolio balance equals: parentPortfolio balance.! !
+
+!testRun: #PortfolioTest #test04PortfolioWithChildrenPortfoliosHasTheSumOfTheirBalancesAsItsBalance stamp: 'SG 5/15/2023 21:11:24'!
+PASSED!
+
+!testRun: #PortfolioTest #test01PortfolioWithNoAccountsHasZeroBalance stamp: 'SG 5/15/2023 21:11:24'!
+PASSED!
+
+!testRun: #PortfolioTest #test02PortfolioWithSingleAccountHasSameBalanceAsTheAccount stamp: 'SG 5/15/2023 21:11:24'!
+PASSED!
+
+!testRun: #PortfolioTest #test03PortfolioWithMultipleAccountsHasBalanceEqualToTheSumOfTheAccountBalances stamp: 'SG 5/15/2023 21:11:24'!
+PASSED!
+
+!testRun: #PortfolioTest #test04PortfolioWithChildrenPortfoliosHasTheSumOfTheirBalancesAsItsBalance stamp: 'SG 5/15/2023 21:11:24'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test01ReceptiveAccountHaveZeroAsBalanceWhenCreated stamp: 'SG 5/15/2023 21:11:24'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test02DepositIncreasesBalanceOnTransactionValue stamp: 'SG 5/15/2023 21:11:24'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test03WithdrawDecreasesBalanceOnTransactionValue stamp: 'SG 5/15/2023 21:11:24'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test04WithdrawValueMustBePositive stamp: 'SG 5/15/2023 21:11:24'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test05ReceptiveAccountKnowsRegisteredTransactions stamp: 'SG 5/15/2023 21:11:24'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test06ReceptiveAccountDoNotKnowNotRegisteredTransactions stamp: 'SG 5/15/2023 21:11:24'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test07AccountKnowsItsTransactions stamp: 'SG 5/15/2023 21:11:24'!
+PASSED!
+!PortfolioTest methodsFor: 'testing' stamp: 'SG 5/15/2023 21:14:28'!
+test05PortfolioWithNoAccountsHasNoTransactions
+
+	| portfolio |
+	
+	portfolio := Portfolio new.
+	
+	self assert: portfolio transactions isEmpty.! !
+
+!testRun: #PortfolioTest #test05PortfolioWithNoAccountsHasNoTransactions stamp: 'SG 5/15/2023 21:14:33'!
+ERROR!
+!Portfolio methodsFor: 'transactions' stamp: 'SG 5/15/2023 21:14:52'!
+transactions
+	self shouldBeImplemented.! !
+!Portfolio methodsFor: 'transactions' stamp: 'SG 5/15/2023 21:15:11' prior: 50605393!
+transactions
+	
+	^ #()! !
+
+!testRun: #PortfolioTest #test05PortfolioWithNoAccountsHasNoTransactions stamp: 'SG 5/15/2023 21:15:13'!
+PASSED!
+
+!testRun: #PortfolioTest #test01PortfolioWithNoAccountsHasZeroBalance stamp: 'SG 5/15/2023 21:15:13'!
+PASSED!
+
+!testRun: #PortfolioTest #test02PortfolioWithSingleAccountHasSameBalanceAsTheAccount stamp: 'SG 5/15/2023 21:15:13'!
+PASSED!
+
+!testRun: #PortfolioTest #test03PortfolioWithMultipleAccountsHasBalanceEqualToTheSumOfTheAccountBalances stamp: 'SG 5/15/2023 21:15:13'!
+PASSED!
+
+!testRun: #PortfolioTest #test04PortfolioWithChildrenPortfoliosHasTheSumOfTheirBalancesAsItsBalance stamp: 'SG 5/15/2023 21:15:13'!
+PASSED!
+
+!testRun: #PortfolioTest #test05PortfolioWithNoAccountsHasNoTransactions stamp: 'SG 5/15/2023 21:15:13'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test01ReceptiveAccountHaveZeroAsBalanceWhenCreated stamp: 'SG 5/15/2023 21:15:13'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test02DepositIncreasesBalanceOnTransactionValue stamp: 'SG 5/15/2023 21:15:13'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test03WithdrawDecreasesBalanceOnTransactionValue stamp: 'SG 5/15/2023 21:15:13'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test04WithdrawValueMustBePositive stamp: 'SG 5/15/2023 21:15:13'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test05ReceptiveAccountKnowsRegisteredTransactions stamp: 'SG 5/15/2023 21:15:13'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test06ReceptiveAccountDoNotKnowNotRegisteredTransactions stamp: 'SG 5/15/2023 21:15:13'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test07AccountKnowsItsTransactions stamp: 'SG 5/15/2023 21:15:13'!
+PASSED!
+!PortfolioTest methodsFor: 'testing' stamp: 'SG 5/15/2023 21:15:51'!
+test06PortfolioWithAccountsKnowsTheirTransactions
+
+	| portfolio |
+	
+	portfolio := Portfolio new.
+	
+	self assert: portfolio transactions isEmpty.! !
+!PortfolioTest methodsFor: 'testing' stamp: 'SG 5/15/2023 21:18:28' prior: 50605451!
+test06PortfolioWithAccountsKnowsTheirTransactions
+
+	| portfolio |
+	
+	portfolio := Portfolio new.
+	
+	
+	
+	self assert: portfolio transactions isEmpty.! !
+!AccountTransaction class methodsFor: 'nil' stamp: 'SG 5/15/2023 21:21:45'!
+for: aValue
+	
+	self subclassResponsibility ! !
+!PortfolioTest methodsFor: 'testing' stamp: 'SG 5/15/2023 21:23:46'!
+accountWithTransactions: aCollectionOfTransactions
+
+	| account |
+	account := ReceptiveAccount new.
+	
+	aCollectionOfTransactions do: [:anTransaction | account register: anTransaction].
+	
+	^account.
+	! !
+
+!testRun: #PortfolioTest #test01PortfolioWithNoAccountsHasZeroBalance stamp: 'SG 5/15/2023 21:23:47'!
+PASSED!
+
+!testRun: #PortfolioTest #test02PortfolioWithSingleAccountHasSameBalanceAsTheAccount stamp: 'SG 5/15/2023 21:23:47'!
+PASSED!
+
+!testRun: #PortfolioTest #test03PortfolioWithMultipleAccountsHasBalanceEqualToTheSumOfTheAccountBalances stamp: 'SG 5/15/2023 21:23:47'!
+PASSED!
+
+!testRun: #PortfolioTest #test04PortfolioWithChildrenPortfoliosHasTheSumOfTheirBalancesAsItsBalance stamp: 'SG 5/15/2023 21:23:47'!
+PASSED!
+
+!testRun: #PortfolioTest #test05PortfolioWithNoAccountsHasNoTransactions stamp: 'SG 5/15/2023 21:23:47'!
+PASSED!
+
+!testRun: #PortfolioTest #test06PortfolioWithAccountsKnowsTheirTransactions stamp: 'SG 5/15/2023 21:23:47'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test01ReceptiveAccountHaveZeroAsBalanceWhenCreated stamp: 'SG 5/15/2023 21:23:47'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test02DepositIncreasesBalanceOnTransactionValue stamp: 'SG 5/15/2023 21:23:47'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test03WithdrawDecreasesBalanceOnTransactionValue stamp: 'SG 5/15/2023 21:23:47'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test04WithdrawValueMustBePositive stamp: 'SG 5/15/2023 21:23:47'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test05ReceptiveAccountKnowsRegisteredTransactions stamp: 'SG 5/15/2023 21:23:47'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test06ReceptiveAccountDoNotKnowNotRegisteredTransactions stamp: 'SG 5/15/2023 21:23:47'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test07AccountKnowsItsTransactions stamp: 'SG 5/15/2023 21:23:47'!
+PASSED!
+!PortfolioTest methodsFor: 'testing' stamp: 'SG 5/15/2023 21:24:49' prior: 50605155!
+accountWithSingleDepositOf: anAmount
+
+	^ self accountWithTransactions: {Deposit for: anAmount }! !
+
+!testRun: #PortfolioTest #test01PortfolioWithNoAccountsHasZeroBalance stamp: 'SG 5/15/2023 21:24:50'!
+PASSED!
+
+!testRun: #PortfolioTest #test02PortfolioWithSingleAccountHasSameBalanceAsTheAccount stamp: 'SG 5/15/2023 21:24:50'!
+PASSED!
+
+!testRun: #PortfolioTest #test03PortfolioWithMultipleAccountsHasBalanceEqualToTheSumOfTheAccountBalances stamp: 'SG 5/15/2023 21:24:50'!
+PASSED!
+
+!testRun: #PortfolioTest #test04PortfolioWithChildrenPortfoliosHasTheSumOfTheirBalancesAsItsBalance stamp: 'SG 5/15/2023 21:24:50'!
+PASSED!
+
+!testRun: #PortfolioTest #test05PortfolioWithNoAccountsHasNoTransactions stamp: 'SG 5/15/2023 21:24:50'!
+PASSED!
+
+!testRun: #PortfolioTest #test06PortfolioWithAccountsKnowsTheirTransactions stamp: 'SG 5/15/2023 21:24:50'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test01ReceptiveAccountHaveZeroAsBalanceWhenCreated stamp: 'SG 5/15/2023 21:24:50'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test02DepositIncreasesBalanceOnTransactionValue stamp: 'SG 5/15/2023 21:24:50'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test03WithdrawDecreasesBalanceOnTransactionValue stamp: 'SG 5/15/2023 21:24:50'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test04WithdrawValueMustBePositive stamp: 'SG 5/15/2023 21:24:50'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test05ReceptiveAccountKnowsRegisteredTransactions stamp: 'SG 5/15/2023 21:24:50'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test06ReceptiveAccountDoNotKnowNotRegisteredTransactions stamp: 'SG 5/15/2023 21:24:50'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test07AccountKnowsItsTransactions stamp: 'SG 5/15/2023 21:24:50'!
+PASSED!
+!PortfolioTest methodsFor: 'testing' stamp: 'SG 5/15/2023 21:27:17' prior: 50605459!
+test06PortfolioWithAccountsKnowsTheirTransactions
+
+	| portfolio account1 account1Transactions account2 account2Transactions |
+	
+	account1Transactions := { Deposit for: 50. Withdraw for: 20}.
+	account1 := self accountWithTransactions: account1Transactions.
+	
+	account2Transactions := { Deposit for: 40. Withdraw for: 10}.
+	account2 := self accountWithTransactions: account2Transactions.
+	
+	portfolio := self portfolioWithAccounts: {account1. account2}.
+	
+	self assert: portfolio transactions isEmpty.! !
+
+!testRun: #PortfolioTest #test06PortfolioWithAccountsKnowsTheirTransactions stamp: 'SG 5/15/2023 21:27:25'!
+PASSED!
+
+!testRun: #PortfolioTest #test01PortfolioWithNoAccountsHasZeroBalance stamp: 'SG 5/15/2023 21:27:25'!
+PASSED!
+
+!testRun: #PortfolioTest #test02PortfolioWithSingleAccountHasSameBalanceAsTheAccount stamp: 'SG 5/15/2023 21:27:25'!
+PASSED!
+
+!testRun: #PortfolioTest #test03PortfolioWithMultipleAccountsHasBalanceEqualToTheSumOfTheAccountBalances stamp: 'SG 5/15/2023 21:27:25'!
+PASSED!
+
+!testRun: #PortfolioTest #test04PortfolioWithChildrenPortfoliosHasTheSumOfTheirBalancesAsItsBalance stamp: 'SG 5/15/2023 21:27:25'!
+PASSED!
+
+!testRun: #PortfolioTest #test05PortfolioWithNoAccountsHasNoTransactions stamp: 'SG 5/15/2023 21:27:25'!
+PASSED!
+
+!testRun: #PortfolioTest #test06PortfolioWithAccountsKnowsTheirTransactions stamp: 'SG 5/15/2023 21:27:25'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test01ReceptiveAccountHaveZeroAsBalanceWhenCreated stamp: 'SG 5/15/2023 21:27:25'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test02DepositIncreasesBalanceOnTransactionValue stamp: 'SG 5/15/2023 21:27:25'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test03WithdrawDecreasesBalanceOnTransactionValue stamp: 'SG 5/15/2023 21:27:25'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test04WithdrawValueMustBePositive stamp: 'SG 5/15/2023 21:27:25'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test05ReceptiveAccountKnowsRegisteredTransactions stamp: 'SG 5/15/2023 21:27:25'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test06ReceptiveAccountDoNotKnowNotRegisteredTransactions stamp: 'SG 5/15/2023 21:27:25'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test07AccountKnowsItsTransactions stamp: 'SG 5/15/2023 21:27:25'!
+PASSED!
+!PortfolioTest methodsFor: 'testing' stamp: 'SG 5/15/2023 21:30:52' prior: 50605586!
+test06PortfolioWithAccountsKnowsTheirTransactions
+
+	| portfolio account1 account1Transactions account2 |
+	
+	account1Transactions := { Deposit for: 50. Withdraw for: 20}.
+	account1 := self accountWithTransactions: account1Transactions.
+	
+	account2 := self accountWithTransactions: { Deposit for: 40. Withdraw for: 10}.
+	
+	portfolio := self portfolioWithAccounts: {account1. account2}.
+	
+	self assert: portfolio transactions isEmpty.! !
+!PortfolioTest methodsFor: 'testing' stamp: 'SG 5/15/2023 21:30:54' prior: 50605658!
+test06PortfolioWithAccountsKnowsTheirTransactions
+
+	| portfolio account1 account1Transactions account2 |
+	
+	account1Transactions := { Deposit for: 50. Withdraw for: 20}.
+	account1 := self accountWithTransactions: account1Transactions.
+	
+	account2 := self accountWithTransactions: { Deposit for: 40. Withdraw for: 10}.
+	
+	portfolio := self portfolioWithAccounts: {account1. account2}.
+	
+	self assert: portfolio transactions isEmpty.! !
+!PortfolioTest methodsFor: 'testing' stamp: 'SG 5/15/2023 21:30:55' prior: 50605675!
+test06PortfolioWithAccountsKnowsTheirTransactions
+
+	| portfolio account1 account1Transactions account2 |
+	
+	account1Transactions := { Deposit for: 50. Withdraw for: 20}.
+	account1 := self accountWithTransactions: account1Transactions.
+	
+	account2 := self accountWithTransactions: { Deposit for: 40. Withdraw for: 10}.
+	
+	portfolio := self portfolioWithAccounts: {account1. account2}.
+	
+	self assert: portfolio transactions isEmpty.! !
+!PortfolioTest methodsFor: 'testing' stamp: 'SG 5/15/2023 21:30:56' prior: 50605692!
+test06PortfolioWithAccountsKnowsTheirTransactions
+
+	| portfolio account1 account1Transactions account2 |
+	
+	account1Transactions := { Deposit for: 50. Withdraw for: 20}.
+	account1 := self accountWithTransactions: account1Transactions.
+	
+	account2 := self accountWithTransactions: { Deposit for: 40. Withdraw for: 10}.
+	
+	portfolio := self portfolioWithAccounts: {account1. account2}.
+	
+	self assert: portfolio transactions isEmpty.! !
+!PortfolioTest methodsFor: 'testing' stamp: 'SG 5/15/2023 21:30:56' prior: 50605709!
+test06PortfolioWithAccountsKnowsTheirTransactions
+
+	| portfolio account1 account1Transactions account2 |
+	
+	account1Transactions := { Deposit for: 50. Withdraw for: 20}.
+	account1 := self accountWithTransactions: account1Transactions.
+	
+	account2 := self accountWithTransactions: { Deposit for: 40. Withdraw for: 10}.
+	
+	portfolio := self portfolioWithAccounts: {account1. account2}.
+	
+	self assert: portfolio transactions isEmpty.! !
+!PortfolioTest methodsFor: 'testing' stamp: 'SG 5/15/2023 21:31:07' prior: 50605726!
+test06PortfolioWithAccountsKnowsTheirTransactions
+
+	| portfolio account1 account2 |
+	
+	account1 := self accountWithTransactions: { Deposit for: 50. Withdraw for: 20}.
+	
+	account2 := self accountWithTransactions: { Deposit for: 40. Withdraw for: 10}.
+	
+	portfolio := self portfolioWithAccounts: {account1. account2}.
+	
+	self assert: portfolio transactions isEmpty.! !
+!PortfolioTest methodsFor: 'testing' stamp: 'SG 5/15/2023 21:31:11' prior: 50605743!
+test06PortfolioWithAccountsKnowsTheirTransactions
+
+	| portfolio account1 account2 |
+	
+	account1 := self accountWithTransactions: { Deposit for: 50. Withdraw for: 20}.	
+	account2 := self accountWithTransactions: { Deposit for: 40. Withdraw for: 10}.
+	
+	portfolio := self portfolioWithAccounts: {account1. account2}.
+	
+	self assert: portfolio transactions isEmpty.! !
+
+!testRun: #PortfolioTest #test06PortfolioWithAccountsKnowsTheirTransactions stamp: 'SG 5/15/2023 21:31:16'!
+PASSED!
+
+!testRun: #PortfolioTest #test01PortfolioWithNoAccountsHasZeroBalance stamp: 'SG 5/15/2023 21:31:16'!
+PASSED!
+
+!testRun: #PortfolioTest #test02PortfolioWithSingleAccountHasSameBalanceAsTheAccount stamp: 'SG 5/15/2023 21:31:16'!
+PASSED!
+
+!testRun: #PortfolioTest #test03PortfolioWithMultipleAccountsHasBalanceEqualToTheSumOfTheAccountBalances stamp: 'SG 5/15/2023 21:31:16'!
+PASSED!
+
+!testRun: #PortfolioTest #test04PortfolioWithChildrenPortfoliosHasTheSumOfTheirBalancesAsItsBalance stamp: 'SG 5/15/2023 21:31:16'!
+PASSED!
+
+!testRun: #PortfolioTest #test05PortfolioWithNoAccountsHasNoTransactions stamp: 'SG 5/15/2023 21:31:16'!
+PASSED!
+
+!testRun: #PortfolioTest #test06PortfolioWithAccountsKnowsTheirTransactions stamp: 'SG 5/15/2023 21:31:16'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test01ReceptiveAccountHaveZeroAsBalanceWhenCreated stamp: 'SG 5/15/2023 21:31:16'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test02DepositIncreasesBalanceOnTransactionValue stamp: 'SG 5/15/2023 21:31:16'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test03WithdrawDecreasesBalanceOnTransactionValue stamp: 'SG 5/15/2023 21:31:16'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test04WithdrawValueMustBePositive stamp: 'SG 5/15/2023 21:31:16'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test05ReceptiveAccountKnowsRegisteredTransactions stamp: 'SG 5/15/2023 21:31:16'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test06ReceptiveAccountDoNotKnowNotRegisteredTransactions stamp: 'SG 5/15/2023 21:31:16'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test07AccountKnowsItsTransactions stamp: 'SG 5/15/2023 21:31:16'!
+PASSED!
+!PortfolioTest methodsFor: 'testing' stamp: 'SG 5/15/2023 21:32:00' prior: 50605758!
+test06PortfolioWithAccountsKnowsTheirTransactions
+
+	| portfolio account1 account2 |
+	
+	account1 := self accountWithTransactions: { Deposit for: 50. Withdraw for: 20}.	
+	account2 := self accountWithTransactions: { Deposit for: 40. Withdraw for: 10}.
+	
+	portfolio := self portfolioWithAccounts: {account1. account2}.
+	
+	self assert: (account1 transactions, account2 transactions) asSet transactions isEmpty.! !
+!PortfolioTest methodsFor: 'testing' stamp: 'SG 5/15/2023 21:32:25' prior: 50605826!
+test06PortfolioWithAccountsKnowsTheirTransactions
+
+	| portfolio account1 account2 |
+	
+	account1 := self accountWithTransactions: { Deposit for: 50. Withdraw for: 20}.	
+	account2 := self accountWithTransactions: { Deposit for: 40. Withdraw for: 10}.
+	
+	portfolio := self portfolioWithAccounts: {account1. account2}.
+	
+	self assert: (account1 transactions, account2 transactions) asSet transactions equals: portfolio transactions.! !
+
+!testRun: #PortfolioTest #test06PortfolioWithAccountsKnowsTheirTransactions stamp: 'SG 5/15/2023 21:32:27'!
+ERROR!
+!PortfolioTest methodsFor: 'testing' stamp: 'SG 5/15/2023 21:32:52' prior: 50605842!
+test06PortfolioWithAccountsKnowsTheirTransactions
+
+	| portfolio account1 account2 |
+	
+	account1 := self accountWithTransactions: { Deposit for: 50. Withdraw for: 20}.	
+	account2 := self accountWithTransactions: { Deposit for: 40. Withdraw for: 10}.
+	
+	portfolio := self portfolioWithAccounts: {account1. account2}.
+	
+	self assert: (account1 transactions, account2 transactions) asSet equals: portfolio transactions.! !
+
+!testRun: #PortfolioTest #test06PortfolioWithAccountsKnowsTheirTransactions stamp: 'SG 5/15/2023 21:32:56'!
+FAILURE!
+!PortfolioTest methodsFor: 'testing' stamp: 'SG 5/15/2023 21:36:17' prior: 50605862!
+test06PortfolioWithAccountsKnowsTheirTransactions
+
+	| portfolio account1 account2 |
+	
+	account1 := self accountWithTransactions: { Deposit for: 50. Withdraw for: 20}.	
+	account2 := self accountWithTransactions: { Deposit for: 40. Withdraw for: 10}.
+	
+	portfolio := self portfolioWithAccounts: {account1. account2}.
+	
+	self assert: (account1 transactions, account2 transactions) equals: portfolio transactions.! !
+
+!testRun: #PortfolioTest #test06PortfolioWithAccountsKnowsTheirTransactions stamp: 'SG 5/15/2023 21:36:18'!
+FAILURE!
+!Portfolio methodsFor: 'transactions' stamp: 'SG 5/15/2023 21:38:44' prior: 50605398!
+transactions
+	
+	^ accounts inject: (Set new) into: [:transactions :anAccount | 
+			transactions union: anAccount transactions.
+		]! !
+!PortfolioTest methodsFor: 'testing' stamp: 'SG 5/15/2023 21:39:05' prior: 50605882!
+test06PortfolioWithAccountsKnowsTheirTransactions
+
+	| portfolio account1 account2 |
+	
+	account1 := self accountWithTransactions: { Deposit for: 50. Withdraw for: 20}.	
+	account2 := self accountWithTransactions: { Deposit for: 40. Withdraw for: 10}.
+	
+	portfolio := self portfolioWithAccounts: {account1. account2}.
+	
+	self assert: (account1 transactions, account2 transactions) asSet equals: portfolio transactions.! !
+
+!testRun: #PortfolioTest #test06PortfolioWithAccountsKnowsTheirTransactions stamp: 'SG 5/15/2023 21:39:06'!
+PASSED!
+
+!testRun: #PortfolioTest #test01PortfolioWithNoAccountsHasZeroBalance stamp: 'SG 5/15/2023 21:39:06'!
+PASSED!
+
+!testRun: #PortfolioTest #test02PortfolioWithSingleAccountHasSameBalanceAsTheAccount stamp: 'SG 5/15/2023 21:39:06'!
+PASSED!
+
+!testRun: #PortfolioTest #test03PortfolioWithMultipleAccountsHasBalanceEqualToTheSumOfTheAccountBalances stamp: 'SG 5/15/2023 21:39:06'!
+PASSED!
+
+!testRun: #PortfolioTest #test04PortfolioWithChildrenPortfoliosHasTheSumOfTheirBalancesAsItsBalance stamp: 'SG 5/15/2023 21:39:06'!
+PASSED!
+
+!testRun: #PortfolioTest #test05PortfolioWithNoAccountsHasNoTransactions stamp: 'SG 5/15/2023 21:39:06'!
+PASSED!
+
+!testRun: #PortfolioTest #test06PortfolioWithAccountsKnowsTheirTransactions stamp: 'SG 5/15/2023 21:39:06'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test01ReceptiveAccountHaveZeroAsBalanceWhenCreated stamp: 'SG 5/15/2023 21:39:06'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test02DepositIncreasesBalanceOnTransactionValue stamp: 'SG 5/15/2023 21:39:06'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test03WithdrawDecreasesBalanceOnTransactionValue stamp: 'SG 5/15/2023 21:39:06'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test04WithdrawValueMustBePositive stamp: 'SG 5/15/2023 21:39:06'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test05ReceptiveAccountKnowsRegisteredTransactions stamp: 'SG 5/15/2023 21:39:06'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test06ReceptiveAccountDoNotKnowNotRegisteredTransactions stamp: 'SG 5/15/2023 21:39:06'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test07AccountKnowsItsTransactions stamp: 'SG 5/15/2023 21:39:06'!
+PASSED!
+
+----SNAPSHOT----(15 May 2023 21:46:05) CuisUniversity-5706.image priorSource: 8742934!
+
+----STARTUP---- (12 June 2023 17:29:41) as /home/clinux01/Descargas/linux64(1)/linux64/CuisUniversity-5706.image!
+
+
+!classRemoval: #ReceptiveAccount stamp: 'SG 6/12/2023 17:29:50'!
+Object subclass: #ReceptiveAccount
+	instanceVariableNames: 'transactions'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Portfolio-Ejercicio'!
+
+!classRemoval: #Portfolio stamp: 'SG 6/12/2023 17:29:50'!
+Object subclass: #Portfolio
+	instanceVariableNames: 'accounts portfolios'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Portfolio-Ejercicio'!
+
+!classRemoval: #Withdraw stamp: 'SG 6/12/2023 17:29:51'!
+AccountTransaction subclass: #Withdraw
+	instanceVariableNames: 'value'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Portfolio-Ejercicio'!
+
+!classRemoval: #Deposit stamp: 'SG 6/12/2023 17:29:51'!
+AccountTransaction subclass: #Deposit
+	instanceVariableNames: 'value'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Portfolio-Ejercicio'!
+
+!classRemoval: #AccountTransaction stamp: 'SG 6/12/2023 17:29:51'!
+Object subclass: #AccountTransaction
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Portfolio-Ejercicio'!
+
+!classRemoval: #ReceptiveAccountTest stamp: 'SG 6/12/2023 17:29:51'!
+TestCase subclass: #ReceptiveAccountTest
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Portfolio-Ejercicio'!
+
+!classRemoval: #PortfolioTest stamp: 'SG 6/12/2023 17:29:51'!
+TestCase subclass: #PortfolioTest
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Portfolio-Ejercicio'!
+
+----End fileIn of /home/clinux01/Descargas/TusLibros.iteracion.2.st----!
+
+----End fileIn of /home/clinux01/Descargas/PinkTheme.st----!
+
+Object subclass: #RestAPIFacade
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros'!
+
+!classDefinition: #RestAPIFacade category: 'TusLibros' stamp: 'SG 6/12/2023 18:56:40'!
+Object subclass: #RestAPIFacade
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros'!
+
+!classRenamed: #RestAPIFacade as: #RestInterface stamp: 'SG 6/12/2023 18:57:00'!
+Smalltalk renameClassNamed: #RestAPIFacade as: #RestInterface!
+
+TestCase subclass: #RestInterfaceTest
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros'!
+
+!classDefinition: #RestInterfaceTest category: 'TusLibros' stamp: 'SG 6/12/2023 18:57:11'!
+TestCase subclass: #RestInterfaceTest
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros'!
+!RestInterfaceTest methodsFor: 'no messages' stamp: 'SG 6/12/2023 19:01:01'!
+test01CreateCartReturnsCartID
+	| cartId interface |
+	interface := RestInterface new.
+	cartId := interface createCart: self user authenticatedWith: self password.
+	self assert: (interface listCart: cartId) isEmpty.! !
+!RestInterfaceTest methodsFor: 'as yet unclassified' stamp: 'SG 6/12/2023 19:01:21'!
+user
+	^'un usuario'! !
+!RestInterfaceTest methodsFor: 'as yet unclassified' stamp: 'SG 6/12/2023 19:01:32'!
+password
+	^'una contrasena para el usuario'! !
+!RestInterfaceTest methodsFor: 'as yet unclassified' stamp: 'SG 6/12/2023 19:01:36' prior: 50606724!
+password
+	^'una contraseña para el usuario'! !
+
+!testRun: #RestInterfaceTest #test01CreateCartReturnsCartID stamp: 'SG 6/12/2023 19:01:41'!
+ERROR!
+!RestInterface methodsFor: 'operations' stamp: 'SG 6/12/2023 19:02:44'!
+createCart: aRenameMe1 authenticatedWith: aRenameMe2 
+	self shouldBeImplemented.! !
+!RestInterface methodsFor: 'operations' stamp: 'SG 6/12/2023 19:03:06' prior: 50606736!
+createCart: aUsername authenticatedWith: aPassword
+	^1! !
+
+!testRun: #RestInterfaceTest #test01CreateCartReturnsCartID stamp: 'SG 6/12/2023 19:03:08'!
+ERROR!
+!RestInterface methodsFor: 'operations' stamp: 'SG 6/12/2023 19:03:24'!
+listCart: cartId 
+	self shouldBeImplemented.! !
+!RestInterface methodsFor: 'operations' stamp: 'SG 6/12/2023 19:03:28' prior: 50606750!
+listCart: cartId 
+	^#()! !
+
+!testRun: #RestInterfaceTest #test01CreateCartReturnsCartID stamp: 'SG 6/12/2023 19:03:29'!
+PASSED!
+
+!testRun: #RestInterfaceTest #test01CreateCartReturnsCartID stamp: 'SG 6/12/2023 19:03:29'!
+PASSED!
+!RestInterfaceTest methodsFor: 'as yet unclassified' stamp: 'SG 6/12/2023 19:05:01'!
+test02TwoCartsHaveDifferentIds
+	| cartId interface |
+	interface := RestInterface new.
+	cartId := interface createCart: self user authenticatedWith: self password.
+	self assert: (interface listCart: cartId) isEmpty.! !
+!RestInterfaceTest methodsFor: 'as yet unclassified' stamp: 'SG 6/12/2023 19:05:57' prior: 50606765!
+test02TwoCartsHaveDifferentIds
+	| cartId interface secondCartId |
+	interface := RestInterface new.
+	cartId := interface createCart: self user authenticatedWith: self password.
+	secondCartId := interface createCart: self user authenticatedWith: self password.
+	self deny: cartId = secondCartId.! !
+
+!testRun: #RestInterfaceTest #test02TwoCartsHaveDifferentIds stamp: 'SG 6/12/2023 19:06:02'!
+FAILURE!
+!RestInterfaceTest methodsFor: 'as yet unclassified' stamp: 'SG 6/12/2023 19:06:17' prior: 50606775!
+test02TwoCartsHaveDifferentIds
+	| cartId interface secondCartId |
+	interface := RestInterface new.
+	cartId := interface createCart: self user authenticatedWith: self password.
+	secondCartId := interface createCart: self user authenticatedWith: self password.
+	
+	self deny: cartId = secondCartId.! !
+
+!classDefinition: #RestInterface category: 'TusLibros' stamp: 'SG 6/12/2023 19:07:14'!
+Object subclass: #RestInterface
+	instanceVariableNames: 'lastCartId'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros'!
+!RestInterface methodsFor: 'operations' stamp: 'SG 6/12/2023 19:07:12' prior: 50606742!
+createCart: aUsername authenticatedWith: aPassword
+	lastCartId := lastCartId + 1.
+	^lastCartId! !
+!RestInterface methodsFor: 'operations' stamp: 'SG 6/12/2023 19:07:25' prior: 50606811!
+createCart: aUsername authenticatedWith: aPassword
+	lastCartId := lastCartId + 1.
+	^lastCartId! !
+!RestInterface methodsFor: 'operations' stamp: 'SG 6/12/2023 19:08:06' overrides: 16920235!
+initialize
+
+	lastCartId := 0.! !
+
+!testRun: #RestInterfaceTest #test02TwoCartsHaveDifferentIds stamp: 'SG 6/12/2023 19:08:08'!
+PASSED!
+
+!testRun: #RestInterfaceTest #test01CreateCartReturnsCartID stamp: 'SG 6/12/2023 19:08:08'!
+PASSED!
+
+!testRun: #RestInterfaceTest #test02TwoCartsHaveDifferentIds stamp: 'SG 6/12/2023 19:08:08'!
+PASSED!
+!RestInterfaceTest methodsFor: 'as yet unclassified' stamp: 'SG 6/12/2023 19:11:46'!
+test03UserWithInvalidPasswordCannotCreateCart
+	| interface |
+	interface := RestInterface new.
+	
+	self should: [interface createCart: self user authenticatedWith: self invalidPassword]
+			raise: Error - MessageNotUnderstood
+			withMessageText: RestInterface invalidUserDataErrorDescription.! !
+!RestInterfaceTest methodsFor: 'as yet unclassified' stamp: 'SG 6/12/2023 19:12:14'!
+invalidPassword
+	^'nico te amo'! !
+
+!testRun: #RestInterfaceTest #test03UserWithInvalidPasswordCannotCreateCart stamp: 'SG 6/12/2023 19:12:20'!
+ERROR!
+!RestInterface class methodsFor: 'errors' stamp: 'SG 6/12/2023 19:12:48'!
+invalidUserDataErrorDescription
+	self shouldBeImplemented.! !
+!RestInterface class methodsFor: 'errors' stamp: 'SG 6/12/2023 19:12:58' prior: 50606857!
+invalidUserDataErrorDescription
+	^'Los datos de usuario son incorrectos'! !
+
+!testRun: #RestInterfaceTest #test03UserWithInvalidPasswordCannotCreateCart stamp: 'SG 6/12/2023 19:13:02'!
+FAILURE!
+!RestInterface methodsFor: 'operations' stamp: 'SG 6/12/2023 19:14:07' prior: 50606817!
+createCart: aUsername authenticatedWith: aPassword
+	self assertUsername: aUsername hasPassword: aPassword.
+
+	lastCartId := lastCartId + 1.
+	^lastCartId! !
+
+!classDefinition: #RestInterface category: 'TusLibros' stamp: 'SG 6/12/2023 19:15:15'!
+Object subclass: #RestInterface
+	instanceVariableNames: 'lastCartId authenticator'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros'!
+!RestInterface methodsFor: 'operations' stamp: 'SG 6/12/2023 19:15:13' prior: 50606871!
+createCart: aUsername authenticatedWith: aPassword
+	authenticator assertUsername: aUsername hasPassword: aPassword.
+
+	lastCartId := lastCartId + 1.
+	^lastCartId! !
+!RestInterface methodsFor: 'operations' stamp: 'SG 6/12/2023 19:16:52' prior: 50606887!
+createCart: aUsername authenticatedWith: aPassword
+	(authenticator isValid:ame) ifFalsfor:self error: self class invalidUserDataErrorDescription].
+
+	lastCartId := lastCartId + 1.
+	^lastCartId! !
+!RestInterface methodsFor: 'operations' stamp: 'SG 6/12/2023 19:16:57' prior: 50606895!
+createCart: aUsername authenticatedWith: aPassword
+	(authenticator isValid: aPassword for: aUsername) ifFalse: [self error: self class invalidUserDataErrorDescription].
+
+	lastCartId := lastCartId + 1.
+	^lastCartId! !
+!RestInterfaceTest methodsFor: 'as yet unclassified' stamp: 'SG 6/12/2023 19:18:12' prior: 50606837!
+test03UserWithInvalidPasswordCannotCreateCart
+	| interface |
+	interface := RestInterface with: self.
+	
+	self should: [interface createCart: self user authenticatedWith: self invalidPassword]
+			raise: Error - MessageNotUnderstood
+			withMessageText: RestInterface invalidUserDataErrorDescription.! !
+
+!testRun: #RestInterfaceTest #test03UserWithInvalidPasswordCannotCreateCart stamp: 'SG 6/12/2023 19:18:13'!
+ERROR!
+!RestInterface class methodsFor: 'instance creation' stamp: 'SG 6/12/2023 19:18:16'!
+with: aRestInterfaceTest 
+	"DO NOT FORGET TO RENAME COLLABORATORS AND REMOVE THIS COMMENT!!!!"
+	self shouldBeImplemented.
+	^self new initializeWith: aRestInterfaceTest ! !
+!RestInterface class methodsFor: 'instance creation' stamp: 'SG 6/12/2023 19:18:28' prior: 50606930!
+with: anAuthenticator
+	
+	^self new initializeWith: anAuthenticator! !
+
+!testRun: #RestInterfaceTest #test03UserWithInvalidPasswordCannotCreateCart stamp: 'SG 6/12/2023 19:18:30'!
+ERROR!
+!RestInterface methodsFor: 'initialization' stamp: 'SG 6/12/2023 19:18:39'!
+initializeWith: anAuthenticator 
+	self shouldBeImplemented.
+	authenticator := anAuthenticator.! !
+!RestInterface methodsFor: 'initialization' stamp: 'SG 6/12/2023 19:18:42' prior: 50606948!
+initializeWith: anAuthenticator 
+	
+	authenticator := anAuthenticator.! !
+
+!testRun: #RestInterfaceTest #test03UserWithInvalidPasswordCannotCreateCart stamp: 'SG 6/12/2023 19:18:44'!
+ERROR!
+!RestInterfaceTest methodsFor: 'authenticator protocol' stamp: 'SG 6/12/2023 19:19:04'!
+isValid: aPassword for: aUsername 
+	self shouldBeImplemented.! !
+!RestInterfaceTest methodsFor: 'authenticator protocol' stamp: 'SG 6/12/2023 19:19:47' prior: 50606963!
+isValid: aPassword for: aUsername 
+	
+	^(aUsername = self user) and: [aPassword = self password]! !
+
+!testRun: #RestInterfaceTest #test01CreateCartReturnsCartID stamp: 'SG 6/12/2023 19:19:51'!
+ERROR!
+
+!testRun: #RestInterfaceTest #test02TwoCartsHaveDifferentIds stamp: 'SG 6/12/2023 19:19:51'!
+ERROR!
+
+!testRun: #RestInterfaceTest #test03UserWithInvalidPasswordCannotCreateCart stamp: 'SG 6/12/2023 19:19:51'!
+PASSED!
+
+!testRun: #RestInterfaceTest #test03UserWithInvalidPasswordCannotCreateCart stamp: 'SG 6/12/2023 19:19:53'!
+PASSED!
+
+!testRun: #RestInterfaceTest #test01CreateCartReturnsCartID stamp: 'SG 6/12/2023 19:19:53'!
+ERROR!
+
+!testRun: #RestInterfaceTest #test02TwoCartsHaveDifferentIds stamp: 'SG 6/12/2023 19:19:53'!
+ERROR!
+
+!testRun: #RestInterfaceTest #test03UserWithInvalidPasswordCannotCreateCart stamp: 'SG 6/12/2023 19:19:53'!
+PASSED!
+
+!testRun: #RestInterfaceTest #test01CreateCartReturnsCartID stamp: 'SG 6/12/2023 19:19:56'!
+ERROR!
+!RestInterfaceTest methodsFor: 'as yet unclassified' stamp: 'SG 6/12/2023 19:20:18'!
+validPassword
+	^'una contraseña para el usuario'! !
+!RestInterfaceTest methodsFor: 'as yet unclassified' stamp: 'SG 6/12/2023 19:20:18' prior: 50606969!
+isValid: aPassword for: aUsername 
+	
+	^(aUsername = self user) and: [aPassword = self validPassword]! !
+!RestInterfaceTest methodsFor: 'as yet unclassified' stamp: 'SG 6/12/2023 19:20:18' prior: 50606791!
+test02TwoCartsHaveDifferentIds
+	| cartId interface secondCartId |
+	interface := RestInterface new.
+	cartId := interface createCart: self user authenticatedWith: self validPassword.
+	secondCartId := interface createCart: self user authenticatedWith: self validPassword.
+	
+	self deny: cartId = secondCartId.! !
+!RestInterfaceTest methodsFor: 'as yet unclassified' stamp: 'SG 6/12/2023 19:20:18' prior: 50606710!
+test01CreateCartReturnsCartID
+	| cartId interface |
+	interface := RestInterface new.
+	cartId := interface createCart: self user authenticatedWith: self validPassword.
+	self assert: (interface listCart: cartId) isEmpty.! !
+
+!methodRemoval: RestInterfaceTest #password stamp: 'SG 6/12/2023 19:20:18'!
+password
+	^'una contraseña para el usuario'!
+!RestInterfaceTest methodsFor: 'as yet unclassified' stamp: 'SG 6/12/2023 19:20:26'!
+validUsername
+	^'un usuario'! !
+!RestInterfaceTest methodsFor: 'as yet unclassified' stamp: 'SG 6/12/2023 19:20:26' prior: 50606914!
+test03UserWithInvalidPasswordCannotCreateCart
+	| interface |
+	interface := RestInterface with: self.
+	
+	self should: [interface createCart: self validUsername authenticatedWith: self invalidPassword]
+			raise: Error - MessageNotUnderstood
+			withMessageText: RestInterface invalidUserDataErrorDescription.! !
+!RestInterfaceTest methodsFor: 'as yet unclassified' stamp: 'SG 6/12/2023 19:20:26' prior: 50607007!
+isValid: aPassword for: aUsername 
+	
+	^(aUsername = self validUsername) and: [aPassword = self validPassword]! !
+!RestInterfaceTest methodsFor: 'as yet unclassified' stamp: 'SG 6/12/2023 19:20:26' prior: 50607014!
+test02TwoCartsHaveDifferentIds
+	| cartId interface secondCartId |
+	interface := RestInterface new.
+	cartId := interface createCart: self validUsername authenticatedWith: self validPassword.
+	secondCartId := interface createCart: self validUsername authenticatedWith: self validPassword.
+	
+	self deny: cartId = secondCartId.! !
+!RestInterfaceTest methodsFor: 'as yet unclassified' stamp: 'SG 6/12/2023 19:20:26' prior: 50607027!
+test01CreateCartReturnsCartID
+	| cartId interface |
+	interface := RestInterface new.
+	cartId := interface createCart: self validUsername authenticatedWith: self validPassword.
+	self assert: (interface listCart: cartId) isEmpty.! !
+
+!methodRemoval: RestInterfaceTest #user stamp: 'SG 6/12/2023 19:20:26'!
+user
+	^'un usuario'!
+!RestInterfaceTest methodsFor: 'as yet unclassified' stamp: 'SG 6/12/2023 19:20:40' prior: 50607080!
+test01CreateCartReturnsCartID
+	| cartId interface |
+	interface := RestInterface with: self.
+	cartId := interface createCart: self validUsername authenticatedWith: self validPassword.
+	self assert: (interface listCart: cartId) isEmpty.! !
+!RestInterfaceTest methodsFor: 'as yet unclassified' stamp: 'SG 6/12/2023 19:20:45' prior: 50607066!
+test02TwoCartsHaveDifferentIds
+	| cartId interface secondCartId |
+	interface := RestInterface with: self.
+	cartId := interface createCart: self validUsername authenticatedWith: self validPassword.
+	secondCartId := interface createCart: self validUsername authenticatedWith: self validPassword.
+	
+	self deny: cartId = secondCartId.! !
+
+!testRun: #RestInterfaceTest #test02TwoCartsHaveDifferentIds stamp: 'SG 6/12/2023 19:20:46'!
+PASSED!
+
+!testRun: #RestInterfaceTest #test01CreateCartReturnsCartID stamp: 'SG 6/12/2023 19:20:46'!
+PASSED!
+
+!testRun: #RestInterfaceTest #test02TwoCartsHaveDifferentIds stamp: 'SG 6/12/2023 19:20:46'!
+PASSED!
+
+!testRun: #RestInterfaceTest #test03UserWithInvalidPasswordCannotCreateCart stamp: 'SG 6/12/2023 19:20:46'!
+PASSED!
+!RestInterfaceTest methodsFor: 'as yet unclassified' stamp: 'SG 6/12/2023 19:23:37'!
+test04AddingItemToCartIsReflectedInListCart
+	| interface cartId |
+	interface := RestInterface with: self.
+	
+	cartId := interface createCart: self validUsername authenticatedWith: self validPassword.! !
+
+!classDefinition: #RestInterfaceTest category: 'TusLibros' stamp: 'SG 6/12/2023 19:24:18'!
+TestCase subclass: #RestInterfaceTest
+	instanceVariableNames: 'if'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros'!
+!RestInterfaceTest methodsFor: 'as yet unclassified' stamp: 'SG 6/12/2023 19:24:17' overrides: 16961394!
+setUp
+
+	if := RestInterface with: self.! !
+!RestInterfaceTest methodsFor: 'as yet unclassified' stamp: 'SG 6/12/2023 19:24:52' prior: 50607094!
+test01CreateCartReturnsCartID
+	| cartId |
+	cartId := self cartIdFromValidUser.
+	self assert: (if listCart: cartId) isEmpty.! !
+!RestInterfaceTest methodsFor: 'as yet unclassified' stamp: 'SG 6/12/2023 19:25:15'!
+cartIdForValidUser
+	^if createCart: self validUsername authenticatedWith: self validPassword.! !
+!RestInterfaceTest methodsFor: 'as yet unclassified' stamp: 'SG 6/12/2023 19:25:22' prior: 50607154!
+test01CreateCartReturnsCartID
+	| cartId |
+	cartId := self cartIdForValidUser.
+	self assert: (if listCart: cartId) isEmpty.! !
+!RestInterfaceTest methodsFor: 'as yet unclassified' stamp: 'SG 6/12/2023 19:25:41' prior: 50607105!
+test02TwoCartsHaveDifferentIds
+	| cartId interface secondCartId |
+	cartId := self cartIdForValidUser.
+	secondCartId := interface createCart: self validUsername authenticatedWith: self validPassword.
+	
+	self deny: cartId = secondCartId.! !
+!RestInterfaceTest methodsFor: 'as yet unclassified' stamp: 'SG 6/12/2023 19:25:48' prior: 50607176!
+test02TwoCartsHaveDifferentIds
+	| cartId secondCartId |
+	cartId := self cartIdForValidUser.
+	secondCartId := if createCart: self validUsername authenticatedWith: self validPassword.
+	
+	self deny: cartId = secondCartId.! !
+!RestInterfaceTest methodsFor: 'as yet unclassified' stamp: 'SG 6/12/2023 19:26:02'!
+cartIdForInvalidPassword
+
+	^ if createCart: self validUsername authenticatedWith: self validPassword! !
+!RestInterfaceTest methodsFor: 'as yet unclassified' stamp: 'SG 6/12/2023 19:26:02' prior: 50607161!
+cartIdForValidUser
+	^self cartIdForInvalidPassword.! !
+!RestInterfaceTest methodsFor: 'as yet unclassified' stamp: 'SG 6/12/2023 19:26:02' prior: 50607187!
+test02TwoCartsHaveDifferentIds
+	| cartId secondCartId |
+	cartId := self cartIdForValidUser.
+	secondCartId := self cartIdForInvalidPassword.
+	
+	self deny: cartId = secondCartId.! !
+!RestInterfaceTest methodsFor: 'as yet unclassified' stamp: 'SG 6/12/2023 19:26:17' prior: 50607046!
+test03UserWithInvalidPasswordCannotCreateCart
+	
+	self should: [if createCart: self validUsername authenticatedWith: self invalidPassword]
+			raise: Error - MessageNotUnderstood
+			withMessageText: RestInterface invalidUserDataErrorDescription.! !
+!RestInterfaceTest methodsFor: 'as yet unclassified' stamp: 'SG 6/12/2023 19:26:33' prior: 50607132!
+test04AddingItemToCartIsReflectedInListCart
+	
+	| cartId |
+	cartId := self cartIdForValidUser.! !
+
+!classDefinition: #RestInterfaceTest category: 'TusLibros' stamp: 'SG 6/12/2023 19:26:43'!
+TestCase subclass: #RestInterfaceTest
+	instanceVariableNames: 'interface'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros'!
+!RestInterfaceTest methodsFor: 'as yet unclassified' stamp: 'SG 6/12/2023 19:26:43' prior: 50607168!
+test01CreateCartReturnsCartID
+	| cartId |
+	cartId := self cartIdForValidUser.
+	self assert: (interface listCart: cartId) isEmpty.! !
+!RestInterfaceTest methodsFor: 'as yet unclassified' stamp: 'SG 6/12/2023 19:26:43' prior: 50607197!
+cartIdForInvalidPassword
+
+	^ interface createCart: self validUsername authenticatedWith: self validPassword! !
+!RestInterfaceTest methodsFor: 'as yet unclassified' stamp: 'SG 6/12/2023 19:26:43' prior: 50607149 overrides: 16961394!
+setUp
+
+	interface := RestInterface with: self.! !
+!RestInterfaceTest methodsFor: 'as yet unclassified' stamp: 'SG 6/12/2023 19:26:43' prior: 50607218!
+test03UserWithInvalidPasswordCannotCreateCart
+	
+	self should: [interface createCart: self validUsername authenticatedWith: self invalidPassword]
+			raise: Error - MessageNotUnderstood
+			withMessageText: RestInterface invalidUserDataErrorDescription.! !
+!RestInterfaceTest methodsFor: 'as yet unclassified' stamp: 'SG 6/12/2023 19:26:57'!
+createCartIdForInvalidPassword
+
+	^ interface createCart: self validUsername authenticatedWith: self validPassword! !
+!RestInterfaceTest methodsFor: 'as yet unclassified' stamp: 'SG 6/12/2023 19:26:57' prior: 50607204!
+cartIdForValidUser
+	^self createCartIdForInvalidPassword.! !
+!RestInterfaceTest methodsFor: 'as yet unclassified' stamp: 'SG 6/12/2023 19:26:57' prior: 50607209!
+test02TwoCartsHaveDifferentIds
+	| cartId secondCartId |
+	cartId := self cartIdForValidUser.
+	secondCartId := self createCartIdForInvalidPassword.
+	
+	self deny: cartId = secondCartId.! !
+
+!methodRemoval: RestInterfaceTest #cartIdForInvalidPassword stamp: 'SG 6/12/2023 19:26:57'!
+cartIdForInvalidPassword
+
+	^ interface createCart: self validUsername authenticatedWith: self validPassword!
+!RestInterfaceTest methodsFor: 'as yet unclassified' stamp: 'SG 6/12/2023 19:27:04'!
+createCartIdForValidUser
+	^self createCartIdForInvalidPassword.! !
+!RestInterfaceTest methodsFor: 'as yet unclassified' stamp: 'SG 6/12/2023 19:27:04' prior: 50607288!
+test02TwoCartsHaveDifferentIds
+	| cartId secondCartId |
+	cartId := self createCartIdForValidUser.
+	secondCartId := self createCartIdForInvalidPassword.
+	
+	self deny: cartId = secondCartId.! !
+!RestInterfaceTest methodsFor: 'as yet unclassified' stamp: 'SG 6/12/2023 19:27:04' prior: 50607243!
+test01CreateCartReturnsCartID
+	| cartId |
+	cartId := self createCartIdForValidUser.
+	self assert: (interface listCart: cartId) isEmpty.! !
+!RestInterfaceTest methodsFor: 'as yet unclassified' stamp: 'SG 6/12/2023 19:27:04' prior: 50607229!
+test04AddingItemToCartIsReflectedInListCart
+	
+	| cartId |
+	cartId := self createCartIdForValidUser.! !
+
+!methodRemoval: RestInterfaceTest #cartIdForValidUser stamp: 'SG 6/12/2023 19:27:04'!
+cartIdForValidUser
+	^self createCartIdForInvalidPassword.!
+
+!classDefinition: #RestInterfaceTest category: 'TusLibros' stamp: 'SG 6/12/2023 19:27:52'!
+TestCase subclass: #RestInterfaceTest
+	instanceVariableNames: 'interface testObjects'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros'!
+!RestInterfaceTest methodsFor: 'as yet unclassified' stamp: 'SG 6/12/2023 19:27:51' prior: 50607327!
+test04AddingItemToCartIsReflectedInListCart
+	
+	| cartId |
+	cartId := self createCartIdForValidUser.
+	interface addToCart: cartId item: testObjects itemSellByTheStore quantity: 1.! !
+!RestInterfaceTest methodsFor: 'as yet unclassified' stamp: 'SG 6/12/2023 19:28:05' prior: 50607259 overrides: 16961394!
+setUp
+
+	interface := RestInterface with: self.
+	testObjects := StoreTestObjectsFactory new.! !
+!RestInterfaceTest methodsFor: 'as yet unclassified' stamp: 'SG 6/12/2023 19:28:43' prior: 50607346!
+test04AddingItemToCartIsReflectedInListCart
+	
+	| cartId |
+	cartId := self createCartIdForValidUser.
+	interface addToCart: cartId item: testObjects itemSellByTheStore quantity: 1.
+	
+	self assert: ((interface listCart: cartId) includes: testObjects itemSellByTheStore).! !
+
+!testRun: #RestInterfaceTest #test04AddingItemToCartIsReflectedInListCart stamp: 'SG 6/12/2023 19:28:43'!
+ERROR!
+!RestInterface methodsFor: 'operations' stamp: 'SG 6/12/2023 19:28:47'!
+addToCart: cartId item: aRenameMe1 quantity: aRenameMe2 
+	self shouldBeImplemented.! !
+
+!classDefinition: #RestInterface category: 'TusLibros' stamp: 'SG 6/12/2023 19:29:34'!
+Object subclass: #RestInterface
+	instanceVariableNames: 'lastCartId authenticator currentCart'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros'!
+!RestInterface methodsFor: 'operations' stamp: 'SG 6/12/2023 19:29:32' prior: 50607378!
+addToCart: cartId item: anItemToAdd quantity: quantityOfItemsToAdd
+	currentCart add: anItemToAdd of: quantityOfItemsToAdd.! !
+
+!testRun: #RestInterfaceTest #test04AddingItemToCartIsReflectedInListCart stamp: 'SG 6/12/2023 19:29:36'!
+ERROR!
+!RestInterface methodsFor: 'operations' stamp: 'SG 6/12/2023 19:29:50' prior: 50606823 overrides: 16920235!
+initialize
+
+	lastCartId := 0.
+	currentCart := Cart new.! !
+
+!testRun: #RestInterfaceTest #test01CreateCartReturnsCartID stamp: 'SG 6/12/2023 19:29:52'!
+PASSED!
+
+!testRun: #RestInterfaceTest #test02TwoCartsHaveDifferentIds stamp: 'SG 6/12/2023 19:29:52'!
+PASSED!
+
+!testRun: #RestInterfaceTest #test03UserWithInvalidPasswordCannotCreateCart stamp: 'SG 6/12/2023 19:29:52'!
+PASSED!
+
+!testRun: #RestInterfaceTest #test04AddingItemToCartIsReflectedInListCart stamp: 'SG 6/12/2023 19:29:52'!
+ERROR!
+
+!testRun: #RestInterfaceTest #test04AddingItemToCartIsReflectedInListCart stamp: 'SG 6/12/2023 19:29:52'!
+ERROR!
+
+!testRun: #RestInterfaceTest #test04AddingItemToCartIsReflectedInListCart stamp: 'SG 6/12/2023 19:29:56'!
+ERROR!
+
+!testRun: #RestInterfaceTest #test04AddingItemToCartIsReflectedInListCart stamp: 'SG 6/12/2023 19:29:59'!
+ERROR!
+!RestInterface methodsFor: 'operations' stamp: 'SG 6/12/2023 19:30:08' prior: 50607392!
+addToCart: cartId item: anItemToAdd quantity: quantityOfItemsToAdd
+	currentCart add: quantityOfItemsToAdd of: anItemToAdd.! !
+
+!testRun: #RestInterfaceTest #test04AddingItemToCartIsReflectedInListCart stamp: 'SG 6/12/2023 19:30:11'!
+ERROR!
+!RestInterface methodsFor: 'operations' stamp: 'SG 6/12/2023 19:32:26' prior: 50606755!
+listCart: cartId 
+	| items |
+	items := OrderedCollection new.
+	currentCart itemsDo: [:item | items add: item].
+	
+	^items! !
+
+!testRun: #RestInterfaceTest #test01CreateCartReturnsCartID stamp: 'SG 6/12/2023 19:32:30'!
+ERROR!
+
+!testRun: #RestInterfaceTest #test02TwoCartsHaveDifferentIds stamp: 'SG 6/12/2023 19:32:30'!
+PASSED!
+
+!testRun: #RestInterfaceTest #test03UserWithInvalidPasswordCannotCreateCart stamp: 'SG 6/12/2023 19:32:30'!
+PASSED!
+
+!testRun: #RestInterfaceTest #test04AddingItemToCartIsReflectedInListCart stamp: 'SG 6/12/2023 19:32:30'!
+ERROR!
+
+!testRun: #RestInterfaceTest #test01CreateCartReturnsCartID stamp: 'SG 6/12/2023 19:32:32'!
+ERROR!
+!RestInterface methodsFor: 'operations' stamp: 'SG 6/12/2023 19:33:19' prior: 50607443!
+listCart: cartId 
+	| items |
+	items := OrderedCollection new.
+	currentCart ifNotNil: [currentCart itemsDo: [:item | items add: item]].
+	
+	^items! !
+
+!testRun: #RestInterfaceTest #test01CreateCartReturnsCartID stamp: 'SG 6/12/2023 19:33:20'!
+ERROR!
+
+!testRun: #RestInterfaceTest #test02TwoCartsHaveDifferentIds stamp: 'SG 6/12/2023 19:33:20'!
+PASSED!
+
+!testRun: #RestInterfaceTest #test03UserWithInvalidPasswordCannotCreateCart stamp: 'SG 6/12/2023 19:33:20'!
+PASSED!
+
+!testRun: #RestInterfaceTest #test04AddingItemToCartIsReflectedInListCart stamp: 'SG 6/12/2023 19:33:20'!
+ERROR!
+
+!testRun: #RestInterfaceTest #test01CreateCartReturnsCartID stamp: 'SG 6/12/2023 19:33:23'!
+ERROR!
+!RestInterface class methodsFor: 'instance creation' stamp: 'SG 6/12/2023 19:34:30'!
+with: anAuthenticator from: aCatalog 
+	
+	^self new initializeWith: anAuthenticator! !
+!RestInterfaceTest methodsFor: 'as yet unclassified' stamp: 'SG 6/12/2023 19:34:30' prior: 50607356 overrides: 16961394!
+setUp
+
+	interface := RestInterface with: self from: testObjects defaultCatalog.
+	testObjects := StoreTestObjectsFactory new.! !
+
+!methodRemoval: RestInterface class #with: stamp: 'SG 6/12/2023 19:34:30'!
+with: anAuthenticator
+	
+	^self new initializeWith: anAuthenticator!
+!RestInterface methodsFor: 'initialization' stamp: 'SG 6/12/2023 19:35:10'!
+initializeWith: anAuthenticator from: aCatalog  
+	
+	authenticator := anAuthenticator.! !
+!RestInterface class methodsFor: 'as yet unclassified' stamp: 'SG 6/12/2023 19:35:10' prior: 50607491!
+with: anAuthenticator from: aCatalog 
+	
+	^self new initializeWith: anAuthenticator from: aCatalog! !
+
+!methodRemoval: RestInterface #initializeWith: stamp: 'SG 6/12/2023 19:35:10'!
+initializeWith: anAuthenticator 
+	
+	authenticator := anAuthenticator.!
+
+!classDefinition: #RestInterface category: 'TusLibros' stamp: 'SG 6/12/2023 19:35:22'!
+Object subclass: #RestInterface
+	instanceVariableNames: 'lastCartId authenticator currentCart catalog'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros'!
+!RestInterface methodsFor: 'initialization' stamp: 'SG 6/12/2023 19:35:20' prior: 50607509!
+initializeWith: anAuthenticator from: aCatalog  
+	
+	authenticator := anAuthenticator.
+	catalog := aCatalog.! !
+!RestInterface methodsFor: 'operations' stamp: 'SG 6/12/2023 19:35:37' prior: 50607403 overrides: 16920235!
+initialize
+
+	lastCartId := 0.
+	currentCart := Cart acceptingItemsOf: catalog.! !
+!RestInterfaceTest methodsFor: 'as yet unclassified' stamp: 'SG 6/12/2023 19:35:52' prior: 50607498 overrides: 16961394!
+setUp
+
+	testObjects := StoreTestObjectsFactory new.
+	interface := RestInterface with: self from: testObjects defaultCatalog.! !
+
+!testRun: #RestInterfaceTest #test01CreateCartReturnsCartID stamp: 'SG 6/12/2023 19:35:54'!
+PASSED!
+
+!testRun: #RestInterfaceTest #test02TwoCartsHaveDifferentIds stamp: 'SG 6/12/2023 19:35:55'!
+PASSED!
+
+!testRun: #RestInterfaceTest #test03UserWithInvalidPasswordCannotCreateCart stamp: 'SG 6/12/2023 19:35:55'!
+PASSED!
+
+!testRun: #RestInterfaceTest #test04AddingItemToCartIsReflectedInListCart stamp: 'SG 6/12/2023 19:35:56'!
+ERROR!
+
+!classDefinition: #RestInterface category: 'TusLibros' stamp: 'SG 6/12/2023 19:36:38'!
+Object subclass: #RestInterface
+	instanceVariableNames: 'lastCartId authenticator cartsForIds catalog'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros'!
+!RestInterface methodsFor: 'as yet unclassified' stamp: 'SG 6/12/2023 19:36:38' prior: 50607467!
+listCart: cartId 
+	| items |
+	items := OrderedCollection new.
+	cartsForIds ifNotNil: [cartsForIds itemsDo: [:item | items add: item]].
+	
+	^items! !
+!RestInterface methodsFor: 'as yet unclassified' stamp: 'SG 6/12/2023 19:36:38' prior: 50607541 overrides: 16920235!
+initialize
+
+	lastCartId := 0.
+	cartsForIds := Cart acceptingItemsOf: catalog.! !
+!RestInterface methodsFor: 'as yet unclassified' stamp: 'SG 6/12/2023 19:36:38' prior: 50607432!
+addToCart: cartId item: anItemToAdd quantity: quantityOfItemsToAdd
+	cartsForIds add: quantityOfItemsToAdd of: anItemToAdd.! !
+!RestInterface methodsFor: 'operations' stamp: 'SG 6/12/2023 19:36:44' prior: 50607586 overrides: 16920235!
+initialize
+
+	lastCartId := 0.
+	cartsForIds := Dictionary new.! !
+!RestInterface methodsFor: 'operations' stamp: 'SG 6/12/2023 19:37:08' prior: 50607592!
+addToCart: cartId item: anItemToAdd quantity: quantityOfItemsToAdd
+	(cartsForIds at: cartId) add: quantityOfItemsToAdd of: anItemToAdd.! !
+!RestInterface methodsFor: 'operations' stamp: 'SG 6/12/2023 19:37:37' prior: 50606904!
+createCart: aUsername authenticatedWith: aPassword
+	(authenticator isValid: aPassword for: aUsername) ifFalse: [self error: self class invalidUserDataErrorDescription].
+
+	lastCartId := lastCartId + 1.
+	cartsForIds at: lastCartId put: (Cart acceptingItemsOf: catalog).
+	^lastCartId! !
+
+!testRun: #RestInterfaceTest #test01CreateCartReturnsCartID stamp: 'SG 6/12/2023 19:37:39'!
+ERROR!
+
+!testRun: #RestInterfaceTest #test02TwoCartsHaveDifferentIds stamp: 'SG 6/12/2023 19:37:39'!
+PASSED!
+
+!testRun: #RestInterfaceTest #test03UserWithInvalidPasswordCannotCreateCart stamp: 'SG 6/12/2023 19:37:39'!
+PASSED!
+
+!testRun: #RestInterfaceTest #test04AddingItemToCartIsReflectedInListCart stamp: 'SG 6/12/2023 19:37:39'!
+ERROR!
+
+!testRun: #RestInterfaceTest #test01CreateCartReturnsCartID stamp: 'SG 6/12/2023 19:37:40'!
+ERROR!
+!RestInterface methodsFor: 'operations' stamp: 'SG 6/12/2023 19:37:59' prior: 50607577!
+listCart: cartId 
+	| items |
+	items := OrderedCollection new.
+	(cartsForIds at: cartId) itemsDo: [:item | items add: item].
+	
+	^items! !
+
+!testRun: #RestInterfaceTest #test01CreateCartReturnsCartID stamp: 'SG 6/12/2023 19:38:00'!
+PASSED!
+
+!testRun: #RestInterfaceTest #test04AddingItemToCartIsReflectedInListCart stamp: 'SG 6/12/2023 19:38:01'!
+PASSED!
+
+----SNAPSHOT----(12 June 2023 19:41:13) CuisUniversity-5706.image priorSource: 8778483!
+!StoreTestObjectsFactory methodsFor: 'credit card' stamp: 'SG 6/12/2023 20:00:28'!
+notExpiredCreditCardMonth
+
+	^ Month month: today monthIndex year: today yearNumber + 1! !
+!StoreTestObjectsFactory methodsFor: 'credit card' stamp: 'SG 6/12/2023 20:00:28' prior: 50606557!
+notExpiredCreditCard
+	
+	^CreditCard expiringOn: (self notExpiredCreditCardMonth)! !
+!RestInterfaceTest methodsFor: 'testing' stamp: 'SG 6/12/2023 20:00:38'!
+test05CheckingOutEmptyCartThrowsError
+	
+	| cartId |
+	cartId := self createCartIdForValidUser.
+	interface checkout: cartId withCreditCardNumber: self validCreditCardNumber ownedBy: self validCreditCardOwner expiringOn: 	testObjects notExpiredCreditCardMonth.! !
+!StoreTestObjectsFactory methodsFor: 'credit card' stamp: 'SG 6/12/2023 20:00:46'!
+notExpiredCreditCardDate
+
+	^ Month month: today monthIndex year: today yearNumber + 1! !
+!StoreTestObjectsFactory methodsFor: 'as yet unclassified' stamp: 'SG 6/12/2023 20:00:46' prior: 50607665!
+notExpiredCreditCard
+	
+	^CreditCard expiringOn: (self notExpiredCreditCardDate)! !
+!RestInterfaceTest methodsFor: 'as yet unclassified' stamp: 'SG 6/12/2023 20:00:46' prior: 50607670!
+test05CheckingOutEmptyCartThrowsError
+	
+	| cartId |
+	cartId := self createCartIdForValidUser.
+	interface checkout: cartId withCreditCardNumber: self validCreditCardNumber ownedBy: self validCreditCardOwner expiringOn: 	testObjects notExpiredCreditCardDate.! !
+
+!methodRemoval: StoreTestObjectsFactory #notExpiredCreditCardMonth stamp: 'SG 6/12/2023 20:00:46'!
+notExpiredCreditCardMonth
+
+	^ Month month: today monthIndex year: today yearNumber + 1!
+!RestInterfaceTest methodsFor: 'testing' stamp: 'SG 6/12/2023 20:01:36'!
+validCreditCardNumber
+	^'1234567891234567'! !
+!RestInterfaceTest methodsFor: 'setUp/tearDown' stamp: 'SG 6/12/2023 20:02:25' prior: 50607548 overrides: 16961394!
+setUp
+
+	testObjects := StoreTestObjectsFactory new.
+	interface := RestInterface with: self from: testObjects defaultCatalog onDate: testObjects today.! !
+!RestInterfaceTest methodsFor: 'setUp/tearDown' stamp: 'SG 6/12/2023 20:02:32' prior: 50607717 overrides: 16961394!
+setUp
+
+	testObjects := StoreTestObjectsFactory new.
+	interface := RestInterface with: self from: testObjects defaultCatalog.! !
+!RestInterface class methodsFor: 'instance creation' stamp: 'SG 6/12/2023 20:03:31'!
+with: anAuthenticator from: aCatalog onDate: todaysDate  
+	
+	^self new initializeWith: anAuthenticator from: aCatalog! !
+!RestInterfaceTest methodsFor: 'as yet unclassified' stamp: 'SG 6/12/2023 20:03:31' prior: 50607726 overrides: 16961394!
+setUp
+
+	testObjects := StoreTestObjectsFactory new.
+	interface := RestInterface with: self from: testObjects defaultCatalog onDate: testObjects today.! !
+
+!methodRemoval: RestInterface class #with:from: stamp: 'SG 6/12/2023 20:03:31'!
+with: anAuthenticator from: aCatalog 
+	
+	^self new initializeWith: anAuthenticator from: aCatalog!
+
+!testRun: #RestInterfaceTest #test05CheckingOutEmptyCartThrowsError stamp: 'SG 6/12/2023 20:03:49'!
+ERROR!
+!RestInterfaceTest methodsFor: 'support' stamp: 'SG 6/12/2023 20:03:55'!
+validCreditCardOwner
+	self shouldBeImplemented.! !
+!RestInterfaceTest methodsFor: 'support' stamp: 'SG 6/12/2023 20:04:02' prior: 50607758!
+validCreditCardOwner
+	^'Hernan Wilkinson'! !
+
+!testRun: #RestInterfaceTest #test05CheckingOutEmptyCartThrowsError stamp: 'SG 6/12/2023 20:04:03'!
+ERROR!
+!RestInterface methodsFor: 'operations' stamp: 'SG 6/12/2023 20:04:10'!
+checkout: cartId withCreditCardNumber: aRenameMe1 ownedBy: aRenameMe2 expiringOn: aRenameMe3 
+	self shouldBeImplemented.! !
+
+!classDefinition: #RestInterface category: 'TusLibros' stamp: 'SG 6/12/2023 20:06:08'!
+Object subclass: #RestInterface
+	instanceVariableNames: 'lastCartId authenticator cartsForIds catalog today'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros'!
+
+!classDefinition: #RestInterface category: 'TusLibros' stamp: 'SG 6/12/2023 20:06:10'!
+Object subclass: #RestInterface
+	instanceVariableNames: 'lastCartId authenticator cartsForIds catalog today transactionRecord'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros'!
+!RestInterface methodsFor: 'operations' stamp: 'SG 6/12/2023 20:05:58' prior: 50607771!
+checkout: cartId withCreditCardNumber: aCreditCardNumber ownedBy: aCreditCardOwner expiringOn: anExpirationDate
+	| cart |
+	cart := (cartsForIds at: cartId) ifAbsent: [self error: self class cartNotFoundErrorDescription].
+	Cashier toCheckout: cart charging: (CreditCard expiringOn: anExpirationDate) on: today registeringOn: transactionRecord.
+	! !
+
+!classDefinition: #RestInterface category: 'TusLibros' stamp: 'SG 6/12/2023 20:06:50'!
+Object subclass: #RestInterface
+	instanceVariableNames: 'lastCartId authenticator cartsForIds catalog today transactionRecord merchantProcessor'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros'!
+!RestInterface methodsFor: 'operations' stamp: 'SG 6/12/2023 20:06:48' prior: 50607795!
+checkout: cartId withCreditCardNumber: aCreditCardNumber ownedBy: aCreditCardOwner expiringOn: anExpirationDate
+	| cart |
+	cart := (cartsForIds at: cartId) ifAbsent: [self error: self class cartNotFoundErrorDescription].
+	Cashier toCheckout: cart charging: (CreditCard expiringOn: anExpirationDate) throught: merchantProcessor on: today registeringOn: transactionRecord.
+	Cashier ! !
+!RestInterface methodsFor: 'operations' stamp: 'SG 6/12/2023 20:06:56' prior: 50607819!
+checkout: cartId withCreditCardNumber: aCreditCardNumber ownedBy: aCreditCardOwner expiringOn: anExpirationDate
+	| cart |
+	cart := (cartsForIds at: cartId) ifAbsent: [self error: self class cartNotFoundErrorDescription].
+	Cashier toCheckout: cart charging: (CreditCard expiringOn: anExpirationDate) throught: merchantProcessor on: today registeringOn: transactionRecord.! !
+!RestInterface methodsFor: 'operations' stamp: 'SG 6/12/2023 20:07:11' prior: 50607834!
+checkout: cartId withCreditCardNumber: aCreditCardNumber ownedBy: aCreditCardOwner expiringOn: anExpirationDate
+	| cart |
+	cart := cartsForIds at: cartId ifAbsent: [self error: self class cartNotFoundErrorDescription].
+	Cashier toCheckout: cart charging: (CreditCard expiringOn: anExpirationDate) throught: merchantProcessor on: today registeringOn: transactionRecord.! !
+
+!testRun: #RestInterfaceTest #test05CheckingOutEmptyCartThrowsError stamp: 'SG 6/12/2023 20:07:13'!
+ERROR!
+!RestInterfaceTest methodsFor: 'testing' stamp: 'SG 6/12/2023 20:07:53' prior: 50607694!
+test05CheckingOutEmptyCartThrowsError
+	
+	| cartId |
+	cartId := self createCartIdForValidUser.
+	self should: [interface checkout: cartId withCreditCardNumber: self validCreditCardNumber ownedBy: self validCreditCardOwner expiringOn: 	testObjects notExpiredCreditCardDate]
+			raise: Error - MessageNotUnderstood
+			withMessageText: Cashier cartCanNotBeEmptyErrorMessage.! !
+!RestInterfaceTest methodsFor: 'testing' stamp: 'SG 6/12/2023 20:07:57' prior: 50607867!
+test05CheckingOutEmptyCartThrowsError
+	
+	| cartId |
+	cartId := self createCartIdForValidUser.
+	
+	self should: [interface checkout: cartId withCreditCardNumber: self validCreditCardNumber ownedBy: self validCreditCardOwner expiringOn: 	testObjects notExpiredCreditCardDate]
+			raise: Error - MessageNotUnderstood
+			withMessageText: Cashier cartCanNotBeEmptyErrorMessage.! !
+
+!testRun: #RestInterfaceTest #test05CheckingOutEmptyCartThrowsError stamp: 'SG 6/12/2023 20:07:58'!
+PASSED!
+
+!testRun: #RestInterfaceTest #test01CreateCartReturnsCartID stamp: 'SG 6/12/2023 20:07:58'!
+PASSED!
+
+!testRun: #RestInterfaceTest #test02TwoCartsHaveDifferentIds stamp: 'SG 6/12/2023 20:07:58'!
+PASSED!
+
+!testRun: #RestInterfaceTest #test03UserWithInvalidPasswordCannotCreateCart stamp: 'SG 6/12/2023 20:07:58'!
+PASSED!
+
+!testRun: #RestInterfaceTest #test04AddingItemToCartIsReflectedInListCart stamp: 'SG 6/12/2023 20:07:58'!
+PASSED!
+
+!testRun: #RestInterfaceTest #test05CheckingOutEmptyCartThrowsError stamp: 'SG 6/12/2023 20:07:58'!
+PASSED!
+!RestInterfaceTest methodsFor: 'testing' stamp: 'SG 6/12/2023 20:10:49'!
+test06CheckingOutCartWithItemAffectsPurchases
+	
+	| cartId |
+	cartId := self createCartIdForValidUser.
+	
+	self should: [interface checkout: cartId withCreditCardNumber: self validCreditCardNumber ownedBy: self validCreditCardOwner expiringOn: 	testObjects notExpiredCreditCardDate]
+			raise: Error - MessageNotUnderstood
+			withMessageText: Cashier cartCanNotBeEmptyErrorMessage.! !
+!RestInterfaceTest methodsFor: 'testing' stamp: 'SG 6/12/2023 20:12:22' prior: 50607917!
+test06CheckingOutCartWithItemAffectsPurchases
+	
+	| cartId |
+	cartId := self createCartIdForValidUser.
+	
+	interface checkout: cartId withCreditCardNumber: self validCreditCardNumber ownedBy: self validCreditCardOwner expiringOn: 	testObjects notExpiredCreditCardDate.
+	! !
+!RestInterfaceTest methodsFor: 'testing' stamp: 'SG 6/12/2023 20:12:26' prior: 50607932!
+test06CheckingOutCartWithItemAffectsPurchases
+	
+	| cartId |
+	cartId := self createCartIdForValidUser.
+	
+	interface checkout: cartId withCreditCardNumber: self validCreditCardNumber ownedBy: self validCreditCardOwner expiringOn: 	testObjects notExpiredCreditCardDate.
+	"TODO"! !
+
+!classRemoval: #StoreTestObjectsFactory stamp: 'SG 6/12/2023 20:45:09'!
+Object subclass: #StoreTestObjectsFactory
+	instanceVariableNames: 'today'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros'!
+
+!classRemoval: #RestInterface stamp: 'SG 6/12/2023 20:45:09'!
+Object subclass: #RestInterface
+	instanceVariableNames: 'lastCartId authenticator cartsForIds catalog today transactionRecord merchantProcessor'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros'!
+
+!classRemoval: #CreditCard stamp: 'SG 6/12/2023 20:45:09'!
+Object subclass: #CreditCard
+	instanceVariableNames: 'expiration'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros'!
+
+!classRemoval: #Cashier stamp: 'SG 6/12/2023 20:45:09'!
+Object subclass: #Cashier
+	instanceVariableNames: 'cart salesBook merchantProcessor creditCard total'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros'!
+
+!classRemoval: #Cart stamp: 'SG 6/12/2023 20:45:09'!
+Object subclass: #Cart
+	instanceVariableNames: 'catalog items'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros'!
+
+!classRemoval: #RestInterfaceTest stamp: 'SG 6/12/2023 20:45:10'!
+TestCase subclass: #RestInterfaceTest
+	instanceVariableNames: 'interface testObjects'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros'!
+
+!classRemoval: #CashierTest stamp: 'SG 6/12/2023 20:45:10'!
+TestCase subclass: #CashierTest
+	instanceVariableNames: 'testObjectsFactory debitBehavior'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros'!
+
+!classRemoval: #CartTest stamp: 'SG 6/12/2023 20:45:10'!
+TestCase subclass: #CartTest
+	instanceVariableNames: 'testObjectsFactory'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros'!
+
+----End fileIn of /home/clinux01/Descargas/TusLibros.iteracion.2.5.st----!
+!RestInterfaceTest methodsFor: 'as yet unclassified' stamp: 'SG 6/12/2023 20:47:11'!
+test13CannotListCartAfter30Minutes
+
+	| interface cartId |
+
+	interface := self createDefaultInterface.
+
+	cartId := interface createCartFor: self validUser authenticatedWith: self validUserPassword.
+	self
+		should: [interface 
+			checkOutCartIdentifiedAs: cartId 
+			withCreditCardNumbered: '1111222233334444' 
+			ownedBy: 'Juan Perez' 
+			expiringOn: testObjectsFactory notExpiredMonthOfYear ]
+		raise: Error - MessageNotUnderstood
+		withExceptionDo: [ :anError |
+			self assert: anError messageText = interface cartCanNotBeEmptyErrorMessage ]
+		
+		! !
+!RestInterfaceTest methodsFor: 'as yet unclassified' stamp: 'SG 6/12/2023 20:48:15'!
+createCardIdForValidUser: anInterface
+
+	^anInterface createCartFor: self validUser authenticatedWith: self validUserPassword.! !
+!RestInterfaceTest methodsFor: 'as yet unclassified' stamp: 'SG 6/12/2023 20:51:58' prior: 50608983!
+test13CannotListCartAfter30Minutes
+
+	| interface cartId |
+
+	interface := self createDefaultInterface.
+	cartId := self createCardIdForValidUser: interface.
+	
+	"pasar el tiempo"
+	
+	self should: [interface listCartIdentifiedAs: cartId]
+			raise: Error - MessageNotUnderstood
+			withMessageText: RestInterface cartExpiredErrorDescription! !
+!RestInterface class methodsFor: 'as yet unclassified' stamp: 'SG 6/12/2023 20:54:12'!
+authenticatingWith: aValidUsersAndPasswords acceptingItemsOf: aCatalog merchantProcessor: anMP clock: aClock 
+
+	^self new initializeAuthenticatingWith: aValidUsersAndPasswords acceptingItemsOf: aCatalog merchantProcessor: anMP! !
+!RestInterfaceTest methodsFor: 'as yet unclassified' stamp: 'SG 6/12/2023 20:54:12' prior: 50608283!
+createDefaultInterface
+	
+	^RestInterface
+		authenticatingWith: self
+		acceptingItemsOf: testObjectsFactory defaultCatalog
+		merchantProcessor: self clock: testObjects defaultClock.! !
+
+!methodRemoval: RestInterface class #authenticatingWith:acceptingItemsOf:merchantProcessor: stamp: 'SG 6/12/2023 20:54:12'!
+authenticatingWith: aValidUsersAndPasswords acceptingItemsOf: aCatalog merchantProcessor: anMP
+
+	^self new initializeAuthenticatingWith: aValidUsersAndPasswords acceptingItemsOf: aCatalog merchantProcessor: anMP!
+!RestInterface methodsFor: 'as yet unclassified' stamp: 'SG 6/12/2023 20:54:35'!
+initializeAuthenticatingWith: anAuthenticationSystem acceptingItemsOf: aCatalog merchantProcessor: anMP clock: aClock 
+
+	authenticationSystem := anAuthenticationSystem.
+	catalog := aCatalog.
+	carts := Dictionary new.
+	lastId := 0.
+	merchantProcessor := anMP! !
+!RestInterface class methodsFor: 'as yet unclassified' stamp: 'SG 6/12/2023 20:54:35' prior: 50609025!
+authenticatingWith: aValidUsersAndPasswords acceptingItemsOf: aCatalog merchantProcessor: anMP clock: aClock 
+
+	^self new initializeAuthenticatingWith: aValidUsersAndPasswords acceptingItemsOf: aCatalog merchantProcessor: anMP clock: aClock! !
+
+!methodRemoval: RestInterface #initializeAuthenticatingWith:acceptingItemsOf:merchantProcessor: stamp: 'SG 6/12/2023 20:54:35'!
+initializeAuthenticatingWith: anAuthenticationSystem acceptingItemsOf: aCatalog merchantProcessor: anMP
+
+	authenticationSystem := anAuthenticationSystem.
+	catalog := aCatalog.
+	carts := Dictionary new.
+	lastId := 0.
+	merchantProcessor := anMP!
+
+!classDefinition: #RestInterface category: 'TusLibros' stamp: 'SG 6/12/2023 20:54:50'!
+Object subclass: #RestInterface
+	instanceVariableNames: 'authenticationSystem carts catalog lastId merchantProcessor salesBook clock'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros'!
+!RestInterface methodsFor: 'as yet unclassified' stamp: 'SG 6/12/2023 20:54:48' prior: 50609055!
+initializeAuthenticatingWith: anAuthenticationSystem acceptingItemsOf: aCatalog merchantProcessor: anMP clock: aClock 
+
+	authenticationSystem := anAuthenticationSystem.
+	catalog := aCatalog.
+	carts := Dictionary new.
+	lastId := 0.
+	merchantProcessor := anMP.
+	clock := aClock.! !
+
+!classDefinition: #SimulatedClock category: 'TusLibros' stamp: 'SG 6/12/2023 20:55:37'!
+Object subclass: #SimulatedClock
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros'!
+!RestInterfaceTest methodsFor: 'as yet unclassified' stamp: 'SG 6/12/2023 20:55:32' prior: 50609011!
+test13CannotListCartAfter30Minutes
+
+	| interface cartId clock |
+	
+	clock := SimulatedClock new.
+	interface := self createInterfaceWithClock: clock.
+	cartId := self createCardIdForValidUser: interface.
+	
+	clock advanceTimeBy: 30 * minute.
+	
+	self should: [interface listCartIdentifiedAs: cartId]
+			raise: Error - MessageNotUnderstood
+			withMessageText: RestInterface cartExpiredErrorDescription! !
+
+!testRun: #RestInterfaceTest #test13CannotListCartAfter30Minutes stamp: 'SG 6/12/2023 20:55:42'!
+ERROR!
+!RestInterfaceTest methodsFor: 'as yet unclassified' stamp: 'SG 6/12/2023 20:55:48'!
+createInterfaceWithClock: clock 
+	self shouldBeImplemented.! !
+!RestInterfaceTest methodsFor: 'as yet unclassified' stamp: 'SG 6/12/2023 20:57:11' prior: 50609118!
+test13CannotListCartAfter30Minutes
+
+	| interface cartId |
+	
+	interface := self createInterfaceWithClock: self.
+	cartId := self createCardIdForValidUser: interface.
+	
+	self advanceTimeBy: 30 * minute.
+	
+	self should: [interface listCartIdentifiedAs: cartId]
+			raise: Error - MessageNotUnderstood
+			withMessageText: RestInterface cartExpiredErrorDescription! !
+
+!testRun: #RestInterfaceTest #test13CannotListCartAfter30Minutes stamp: 'SG 6/12/2023 20:57:12'!
+ERROR!
+!RestInterfaceTest methodsFor: 'as yet unclassified' stamp: 'SG 6/12/2023 20:57:33' prior: 50609143!
+test13CannotListCartAfter30Minutes
+
+	| interface cartId |
+	
+	interface := self createDefaultInterface.
+	cartId := self createCardIdForValidUser: interface.
+	
+	self advanceTimeBy: 30 * minute.
+	
+	self should: [interface listCartIdentifiedAs: cartId]
+			raise: Error - MessageNotUnderstood
+			withMessageText: RestInterface cartExpiredErrorDescription! !
+
+!methodRemoval: RestInterfaceTest #createInterfaceWithClock: stamp: 'SG 6/12/2023 20:57:35'!
+createInterfaceWithClock: clock 
+	self shouldBeImplemented.!
+!RestInterfaceTest methodsFor: 'as yet unclassified' stamp: 'SG 6/12/2023 20:57:43' prior: 50609036!
+createDefaultInterface
+	
+	^RestInterface
+		authenticatingWith: self
+		acceptingItemsOf: testObjectsFactory defaultCatalog
+		merchantProcessor: self 
+		clock: self.! !
+
+!classDefinition: #RestInterfaceTest category: 'TusLibros' stamp: 'SG 6/12/2023 20:58:15'!
+TestCase subclass: #RestInterfaceTest
+	instanceVariableNames: 'testObjectsFactory currentTime'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros'!
+!RestInterfaceTest methodsFor: 'as yet unclassified' stamp: 'SG 6/12/2023 20:58:13'!
+advanceTimeBy: anAmountOfTime
+
+	currentTime := currentTime + anAmountOfTime.! !
+!RestInterfaceTest methodsFor: 'as yet unclassified' stamp: 'SG 6/12/2023 20:58:27' prior: 50608322 overrides: 16961394!
+setUp 
+
+	testObjectsFactory := StoreTestObjectsFactory new.
+	currentTime := Time now.! !
+
+!testRun: #RestInterfaceTest #test13CannotListCartAfter30Minutes stamp: 'SG 6/12/2023 20:58:45'!
+ERROR!
+!RestInterfaceTest methodsFor: 'as yet unclassified' stamp: 'SG 6/12/2023 21:01:34' prior: 50609204 overrides: 16961394!
+setUp 
+
+	testObjectsFactory := StoreTestObjectsFactory new.
+	currentTime := DateAndTime now.! !
+
+!testRun: #RestInterfaceTest #test01CanCreateCartWithValidUserAndPassword stamp: 'SG 6/12/2023 21:01:35'!
+PASSED!
+
+!testRun: #RestInterfaceTest #test02CanNotCreateCartWithInvalidUser stamp: 'SG 6/12/2023 21:01:35'!
+PASSED!
+
+!testRun: #RestInterfaceTest #test03CanNotCreateCartWithInvalidPassword stamp: 'SG 6/12/2023 21:01:35'!
+PASSED!
+
+!testRun: #RestInterfaceTest #test04CanAddItemsToACreatedCart stamp: 'SG 6/12/2023 21:01:35'!
+PASSED!
+
+!testRun: #RestInterfaceTest #test05CanNotAddItemToNotCreatedCart stamp: 'SG 6/12/2023 21:01:35'!
+PASSED!
+
+!testRun: #RestInterfaceTest #test06CanNotAddItemNotSellByTheStore stamp: 'SG 6/12/2023 21:01:35'!
+PASSED!
+
+!testRun: #RestInterfaceTest #test07ListCartOfAnEmptyCartReturnsAnEmptyBag stamp: 'SG 6/12/2023 21:01:35'!
+PASSED!
+
+!testRun: #RestInterfaceTest #test08CanNotListCartOfInvalidCartId stamp: 'SG 6/12/2023 21:01:35'!
+PASSED!
+
+!testRun: #RestInterfaceTest #test09ListCartReturnsTheRightNumberOfItems stamp: 'SG 6/12/2023 21:01:35'!
+PASSED!
+
+!testRun: #RestInterfaceTest #test10CanCheckoutACart stamp: 'SG 6/12/2023 21:01:35'!
+PASSED!
+
+!testRun: #RestInterfaceTest #test11CanNotCheckoutANotCreatedCart stamp: 'SG 6/12/2023 21:01:35'!
+PASSED!
+
+!testRun: #RestInterfaceTest #test12CanNotCheckoutAnEmptyCart stamp: 'SG 6/12/2023 21:01:35'!
+PASSED!
+!RestInterfaceTest methodsFor: 'as yet unclassified' stamp: 'SG 6/12/2023 21:01:49' prior: 50609197!
+advanceTimeBy: anAmountOfTime
+
+	currentTime := currentTime + Duration minutes: anAmountOfTime.! !
+
+!testRun: #RestInterfaceTest #test01CanCreateCartWithValidUserAndPassword stamp: 'SG 6/12/2023 21:01:49'!
+PASSED!
+
+!testRun: #RestInterfaceTest #test02CanNotCreateCartWithInvalidUser stamp: 'SG 6/12/2023 21:01:49'!
+PASSED!
+
+!testRun: #RestInterfaceTest #test03CanNotCreateCartWithInvalidPassword stamp: 'SG 6/12/2023 21:01:49'!
+PASSED!
+
+!testRun: #RestInterfaceTest #test04CanAddItemsToACreatedCart stamp: 'SG 6/12/2023 21:01:49'!
+PASSED!
+
+!testRun: #RestInterfaceTest #test05CanNotAddItemToNotCreatedCart stamp: 'SG 6/12/2023 21:01:49'!
+PASSED!
+
+!testRun: #RestInterfaceTest #test06CanNotAddItemNotSellByTheStore stamp: 'SG 6/12/2023 21:01:49'!
+PASSED!
+
+!testRun: #RestInterfaceTest #test07ListCartOfAnEmptyCartReturnsAnEmptyBag stamp: 'SG 6/12/2023 21:01:49'!
+PASSED!
+
+!testRun: #RestInterfaceTest #test08CanNotListCartOfInvalidCartId stamp: 'SG 6/12/2023 21:01:49'!
+PASSED!
+
+!testRun: #RestInterfaceTest #test09ListCartReturnsTheRightNumberOfItems stamp: 'SG 6/12/2023 21:01:49'!
+PASSED!
+
+!testRun: #RestInterfaceTest #test10CanCheckoutACart stamp: 'SG 6/12/2023 21:01:49'!
+PASSED!
+
+!testRun: #RestInterfaceTest #test11CanNotCheckoutANotCreatedCart stamp: 'SG 6/12/2023 21:01:49'!
+PASSED!
+
+!testRun: #RestInterfaceTest #test12CanNotCheckoutAnEmptyCart stamp: 'SG 6/12/2023 21:01:49'!
+PASSED!
+!RestInterfaceTest methodsFor: 'as yet unclassified' stamp: 'SG 6/12/2023 21:01:55' prior: 50609261!
+advanceTimeBy: anAmountOfTime
+
+	currentTime := currentTime + (Duration minutes: anAmountOfTime).! !
+
+!testRun: #RestInterfaceTest #test01CanCreateCartWithValidUserAndPassword stamp: 'SG 6/12/2023 21:01:56'!
+PASSED!
+
+!testRun: #RestInterfaceTest #test02CanNotCreateCartWithInvalidUser stamp: 'SG 6/12/2023 21:01:56'!
+PASSED!
+
+!testRun: #RestInterfaceTest #test03CanNotCreateCartWithInvalidPassword stamp: 'SG 6/12/2023 21:01:56'!
+PASSED!
+
+!testRun: #RestInterfaceTest #test04CanAddItemsToACreatedCart stamp: 'SG 6/12/2023 21:01:56'!
+PASSED!
+
+!testRun: #RestInterfaceTest #test05CanNotAddItemToNotCreatedCart stamp: 'SG 6/12/2023 21:01:56'!
+PASSED!
+
+!testRun: #RestInterfaceTest #test06CanNotAddItemNotSellByTheStore stamp: 'SG 6/12/2023 21:01:56'!
+PASSED!
+
+!testRun: #RestInterfaceTest #test07ListCartOfAnEmptyCartReturnsAnEmptyBag stamp: 'SG 6/12/2023 21:01:56'!
+PASSED!
+
+!testRun: #RestInterfaceTest #test08CanNotListCartOfInvalidCartId stamp: 'SG 6/12/2023 21:01:56'!
+PASSED!
+
+!testRun: #RestInterfaceTest #test09ListCartReturnsTheRightNumberOfItems stamp: 'SG 6/12/2023 21:01:56'!
+PASSED!
+
+!testRun: #RestInterfaceTest #test10CanCheckoutACart stamp: 'SG 6/12/2023 21:01:56'!
+PASSED!
+
+!testRun: #RestInterfaceTest #test11CanNotCheckoutANotCreatedCart stamp: 'SG 6/12/2023 21:01:56'!
+PASSED!
+
+!testRun: #RestInterfaceTest #test12CanNotCheckoutAnEmptyCart stamp: 'SG 6/12/2023 21:01:56'!
+PASSED!
+
+!testRun: #RestInterfaceTest #test13CannotListCartAfter30Minutes stamp: 'SG 6/12/2023 21:01:56'!
+ERROR!
+
+!testRun: #RestInterfaceTest #test13CannotListCartAfter30Minutes stamp: 'SG 6/12/2023 21:01:56'!
+ERROR!
+!RestInterfaceTest methodsFor: 'as yet unclassified' stamp: 'SG 6/12/2023 21:02:01' prior: 50609308!
+advanceTimeBy: anAmountOfTime
+
+	currentTime := currentTime + Duration minutes: anAmountOfTime.! !
+
+!testRun: #RestInterfaceTest #test01CanCreateCartWithValidUserAndPassword stamp: 'SG 6/12/2023 21:02:23'!
+PASSED!
+
+!testRun: #RestInterfaceTest #test02CanNotCreateCartWithInvalidUser stamp: 'SG 6/12/2023 21:02:23'!
+PASSED!
+
+!testRun: #RestInterfaceTest #test03CanNotCreateCartWithInvalidPassword stamp: 'SG 6/12/2023 21:02:23'!
+PASSED!
+
+!testRun: #RestInterfaceTest #test04CanAddItemsToACreatedCart stamp: 'SG 6/12/2023 21:02:23'!
+PASSED!
+
+!testRun: #RestInterfaceTest #test05CanNotAddItemToNotCreatedCart stamp: 'SG 6/12/2023 21:02:23'!
+PASSED!
+
+!testRun: #RestInterfaceTest #test06CanNotAddItemNotSellByTheStore stamp: 'SG 6/12/2023 21:02:23'!
+PASSED!
+
+!testRun: #RestInterfaceTest #test07ListCartOfAnEmptyCartReturnsAnEmptyBag stamp: 'SG 6/12/2023 21:02:23'!
+PASSED!
+
+!testRun: #RestInterfaceTest #test08CanNotListCartOfInvalidCartId stamp: 'SG 6/12/2023 21:02:23'!
+PASSED!
+
+!testRun: #RestInterfaceTest #test09ListCartReturnsTheRightNumberOfItems stamp: 'SG 6/12/2023 21:02:23'!
+PASSED!
+
+!testRun: #RestInterfaceTest #test10CanCheckoutACart stamp: 'SG 6/12/2023 21:02:23'!
+PASSED!
+
+!testRun: #RestInterfaceTest #test11CanNotCheckoutANotCreatedCart stamp: 'SG 6/12/2023 21:02:23'!
+PASSED!
+
+!testRun: #RestInterfaceTest #test12CanNotCheckoutAnEmptyCart stamp: 'SG 6/12/2023 21:02:23'!
+PASSED!
+!RestInterfaceTest methodsFor: 'as yet unclassified' stamp: 'SG 6/12/2023 21:02:34' prior: 50609362!
+advanceTimeBy: anAmountOfTime
+
+	currentTime := currentTime + (Duration minutes: anAmountOfTime).! !
+
+!testRun: #RestInterfaceTest #test01CanCreateCartWithValidUserAndPassword stamp: 'SG 6/12/2023 21:02:34'!
+PASSED!
+
+!testRun: #RestInterfaceTest #test02CanNotCreateCartWithInvalidUser stamp: 'SG 6/12/2023 21:02:34'!
+PASSED!
+
+!testRun: #RestInterfaceTest #test03CanNotCreateCartWithInvalidPassword stamp: 'SG 6/12/2023 21:02:34'!
+PASSED!
+
+!testRun: #RestInterfaceTest #test04CanAddItemsToACreatedCart stamp: 'SG 6/12/2023 21:02:34'!
+PASSED!
+
+!testRun: #RestInterfaceTest #test05CanNotAddItemToNotCreatedCart stamp: 'SG 6/12/2023 21:02:34'!
+PASSED!
+
+!testRun: #RestInterfaceTest #test06CanNotAddItemNotSellByTheStore stamp: 'SG 6/12/2023 21:02:34'!
+PASSED!
+
+!testRun: #RestInterfaceTest #test07ListCartOfAnEmptyCartReturnsAnEmptyBag stamp: 'SG 6/12/2023 21:02:34'!
+PASSED!
+
+!testRun: #RestInterfaceTest #test08CanNotListCartOfInvalidCartId stamp: 'SG 6/12/2023 21:02:34'!
+PASSED!
+
+!testRun: #RestInterfaceTest #test09ListCartReturnsTheRightNumberOfItems stamp: 'SG 6/12/2023 21:02:34'!
+PASSED!
+
+!testRun: #RestInterfaceTest #test10CanCheckoutACart stamp: 'SG 6/12/2023 21:02:34'!
+PASSED!
+
+!testRun: #RestInterfaceTest #test11CanNotCheckoutANotCreatedCart stamp: 'SG 6/12/2023 21:02:34'!
+PASSED!
+
+!testRun: #RestInterfaceTest #test12CanNotCheckoutAnEmptyCart stamp: 'SG 6/12/2023 21:02:34'!
+PASSED!
+
+!testRun: #RestInterfaceTest #test13CannotListCartAfter30Minutes stamp: 'SG 6/12/2023 21:02:34'!
+ERROR!
+
+!testRun: #RestInterfaceTest #test13CannotListCartAfter30Minutes stamp: 'SG 6/12/2023 21:02:34'!
+ERROR!
+!RestInterfaceTest methodsFor: 'as yet unclassified' stamp: 'SG 6/12/2023 21:02:48' prior: 50609161!
+test13CannotListCartAfter30Minutes
+
+	| interface cartId |
+	
+	interface := self createDefaultInterface.
+	cartId := self createCardIdForValidUser: interface.
+	
+	self advanceTimeBy: 30.
+	
+	self should: [interface listCartIdentifiedAs: cartId]
+			raise: Error - MessageNotUnderstood
+			withMessageText: RestInterface cartExpiredErrorDescription! !
+
+!testRun: #RestInterfaceTest #test13CannotListCartAfter30Minutes stamp: 'SG 6/12/2023 21:02:48'!
+ERROR!
+!RestInterface class methodsFor: 'as yet unclassified' stamp: 'SG 6/12/2023 21:02:56'!
+cartExpiredErrorDescription
+	self shouldBeImplemented.! !
+!RestInterface class methodsFor: 'as yet unclassified' stamp: 'SG 6/12/2023 21:03:06' prior: 50609480!
+cartExpiredErrorDescription
+	^'El carrito está expirado'! !
+
+!testRun: #RestInterfaceTest #test01CanCreateCartWithValidUserAndPassword stamp: 'SG 6/12/2023 21:03:07'!
+PASSED!
+
+!testRun: #RestInterfaceTest #test02CanNotCreateCartWithInvalidUser stamp: 'SG 6/12/2023 21:03:07'!
+PASSED!
+
+!testRun: #RestInterfaceTest #test03CanNotCreateCartWithInvalidPassword stamp: 'SG 6/12/2023 21:03:07'!
+PASSED!
+
+!testRun: #RestInterfaceTest #test04CanAddItemsToACreatedCart stamp: 'SG 6/12/2023 21:03:07'!
+PASSED!
+
+!testRun: #RestInterfaceTest #test05CanNotAddItemToNotCreatedCart stamp: 'SG 6/12/2023 21:03:07'!
+PASSED!
+
+!testRun: #RestInterfaceTest #test06CanNotAddItemNotSellByTheStore stamp: 'SG 6/12/2023 21:03:07'!
+PASSED!
+
+!testRun: #RestInterfaceTest #test07ListCartOfAnEmptyCartReturnsAnEmptyBag stamp: 'SG 6/12/2023 21:03:07'!
+PASSED!
+
+!testRun: #RestInterfaceTest #test08CanNotListCartOfInvalidCartId stamp: 'SG 6/12/2023 21:03:07'!
+PASSED!
+
+!testRun: #RestInterfaceTest #test09ListCartReturnsTheRightNumberOfItems stamp: 'SG 6/12/2023 21:03:07'!
+PASSED!
+
+!testRun: #RestInterfaceTest #test10CanCheckoutACart stamp: 'SG 6/12/2023 21:03:07'!
+PASSED!
+
+!testRun: #RestInterfaceTest #test11CanNotCheckoutANotCreatedCart stamp: 'SG 6/12/2023 21:03:07'!
+PASSED!
+
+!testRun: #RestInterfaceTest #test12CanNotCheckoutAnEmptyCart stamp: 'SG 6/12/2023 21:03:07'!
+PASSED!
+
+!testRun: #RestInterfaceTest #test13CannotListCartAfter30Minutes stamp: 'SG 6/12/2023 21:03:07'!
+FAILURE!
+
+!testRun: #RestInterfaceTest #test13CannotListCartAfter30Minutes stamp: 'SG 6/12/2023 21:03:07'!
+FAILURE!
+
+!testRun: #RestInterfaceTest #test13CannotListCartAfter30Minutes stamp: 'SG 6/12/2023 21:03:10'!
+FAILURE!
+!RestInterface methodsFor: 'as yet unclassified' stamp: 'SG 6/12/2023 21:06:01' prior: 50608864!
+listCartIdentifiedAs: aCartId
+
+	| cart cartAccessedTime lastCartAccessTime |
+	
+	cart := carts at: aCartId ifAbsent: [ self signalInvalidCartId ].
+	lastCartAccessTime := cartAccessedTime at: cart ifAbsent: [self signalInvalidCartId].
+	(lastCartAccessTime + (Duration minutes: 30)) < clock now.
+	
+	
+	^cart content! !
+
+!classDefinition: #RestInterface category: 'TusLibros' stamp: 'SG 6/12/2023 21:06:20'!
+Object subclass: #RestInterface
+	instanceVariableNames: 'authenticationSystem carts catalog lastId merchantProcessor salesBook clock cartAccessedTim'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros'!
+!RestInterface methodsFor: 'as yet unclassified' stamp: 'SG 6/12/2023 21:06:18' prior: 50609542!
+listCartIdentifiedAs: aCartId
+
+	| cart lastCartAccessTime |
+	
+	cart := carts at: aCartId ifAbsent: [ self signalInvalidCartId ].
+	lastCartAccessTime := cartAccessedTim at: cart ifAbsent: [self signalInvalidCartId].
+	(lastCartAccessTime + (Duration minutes: 30)) < clock now.
+	
+	
+	^cart content! !
+
+!classDefinition: #RestInterface category: 'TusLibros' stamp: 'SG 6/12/2023 21:06:22'!
+Object subclass: #RestInterface
+	instanceVariableNames: 'authenticationSystem carts catalog lastId merchantProcessor salesBook clock cartAccessedTime'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros'!
+!RestInterface methodsFor: 'as yet unclassified' stamp: 'SG 6/12/2023 21:06:22' prior: 50609565!
+listCartIdentifiedAs: aCartId
+
+	| cart lastCartAccessTime |
+	
+	cart := carts at: aCartId ifAbsent: [ self signalInvalidCartId ].
+	lastCartAccessTime := cartAccessedTime at: cart ifAbsent: [self signalInvalidCartId].
+	(lastCartAccessTime + (Duration minutes: 30)) < clock now.
+	
+	
+	^cart content! !
+!RestInterface methodsFor: 'as yet unclassified' stamp: 'SG 6/12/2023 21:06:31'!
+cartExpiryTime
+
+	^ Duration minutes: 30! !
+!RestInterface methodsFor: 'as yet unclassified' stamp: 'SG 6/12/2023 21:06:31' prior: 50609587!
+listCartIdentifiedAs: aCartId
+
+	| cart lastCartAccessTime |
+	
+	cart := carts at: aCartId ifAbsent: [ self signalInvalidCartId ].
+	lastCartAccessTime := cartAccessedTime at: cart ifAbsent: [self signalInvalidCartId].
+	(lastCartAccessTime + (self cartExpiryTime)) < clock now.
+	
+	
+	^cart content! !
+!RestInterface methodsFor: 'as yet unclassified' stamp: 'SG 6/12/2023 21:06:38' prior: 50609604!
+listCartIdentifiedAs: aCartId
+
+	| cart lastCartAccessTime |
+	
+	cart := carts at: aCartId ifAbsent: [ self signalInvalidCartId ].
+	lastCartAccessTime := cartAccessedTime at: cart ifAbsent: [self signalInvalidCartId].
+	(lastCartAccessTime + self cartExpiryTime) < clock now.
+	
+	
+	^cart content! !
+!RestInterface methodsFor: 'as yet unclassified' stamp: 'SG 6/12/2023 21:07:27' prior: 50609617!
+listCartIdentifiedAs: aCartId
+
+	| cart lastCartAccessTime |
+	
+	cart := carts at: aCartId ifAbsent: [ self signalInvalidCartId ].
+	lastCartAccessTime := cartAccessedTime at: cart ifAbsent: [self signalInvalidCartId].
+	((lastCartAccessTime + self cartExpiryTime) < clock now) ifTrue: [self signalExpiredCart].
+	
+	
+	^cart content! !
+
+!testRun: #RestInterfaceTest #test13CannotListCartAfter30Minutes stamp: 'SG 6/12/2023 21:07:32'!
+ERROR!
+!RestInterface methodsFor: 'as yet unclassified' stamp: 'SG 6/12/2023 21:07:54' prior: 50609099!
+initializeAuthenticatingWith: anAuthenticationSystem acceptingItemsOf: aCatalog merchantProcessor: anMP clock: aClock 
+
+	authenticationSystem := anAuthenticationSystem.
+	catalog := aCatalog.
+	carts := Dictionary new.
+	lastId := 0.
+	merchantProcessor := anMP.
+	clock := aClock.
+	cartAccessedTime := Dictionary new.! !
+
+!classDefinition: #RestInterface category: 'TusLibros' stamp: 'SG 6/12/2023 21:07:59'!
+Object subclass: #RestInterface
+	instanceVariableNames: 'authenticationSystem carts catalog lastId merchantProcessor salesBook clock cartAccesseTime'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros'!
+!RestInterface methodsFor: 'as yet unclassified' stamp: 'SG 6/12/2023 21:07:59' prior: 50609647!
+initializeAuthenticatingWith: anAuthenticationSystem acceptingItemsOf: aCatalog merchantProcessor: anMP clock: aClock 
+
+	authenticationSystem := anAuthenticationSystem.
+	catalog := aCatalog.
+	carts := Dictionary new.
+	lastId := 0.
+	merchantProcessor := anMP.
+	clock := aClock.
+	cartAccesseTime := Dictionary new.! !
+!RestInterface methodsFor: 'as yet unclassified' stamp: 'SG 6/12/2023 21:07:59' prior: 50609630!
+listCartIdentifiedAs: aCartId
+
+	| cart lastCartAccessTime |
+	
+	cart := carts at: aCartId ifAbsent: [ self signalInvalidCartId ].
+	lastCartAccessTime := cartAccesseTime at: cart ifAbsent: [self signalInvalidCartId].
+	((lastCartAccessTime + self cartExpiryTime) < clock now) ifTrue: [self signalExpiredCart].
+	
+	
+	^cart content! !
+
+!classDefinition: #RestInterface category: 'TusLibros' stamp: 'SG 6/12/2023 21:08:02'!
+Object subclass: #RestInterface
+	instanceVariableNames: 'authenticationSystem carts catalog lastId merchantProcessor salesBook clock cartAccessTime'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros'!
+!RestInterface methodsFor: 'as yet unclassified' stamp: 'SG 6/12/2023 21:08:02' prior: 50609670!
+initializeAuthenticatingWith: anAuthenticationSystem acceptingItemsOf: aCatalog merchantProcessor: anMP clock: aClock 
+
+	authenticationSystem := anAuthenticationSystem.
+	catalog := aCatalog.
+	carts := Dictionary new.
+	lastId := 0.
+	merchantProcessor := anMP.
+	clock := aClock.
+	cartAccessTime := Dictionary new.! !
+!RestInterface methodsFor: 'as yet unclassified' stamp: 'SG 6/12/2023 21:08:02' prior: 50609683!
+listCartIdentifiedAs: aCartId
+
+	| cart lastCartAccessTime |
+	
+	cart := carts at: aCartId ifAbsent: [ self signalInvalidCartId ].
+	lastCartAccessTime := cartAccessTime at: cart ifAbsent: [self signalInvalidCartId].
+	((lastCartAccessTime + self cartExpiryTime) < clock now) ifTrue: [self signalExpiredCart].
+	
+	
+	^cart content! !
+!RestInterface methodsFor: 'as yet unclassified' stamp: 'SG 6/12/2023 21:08:34' prior: 50608807!
+createCartFor: aUser authenticatedWith: aPassword
+
+	| cartId |
+	
+	(self is: aUser authenticatingWith: aPassword) ifFalse: [ self signalInvalidUserAndOrPassword ].
+	
+	cartId := self generateCartId.
+	carts at: cartId put: (Cart acceptingItemsOf: catalog).
+	cartAccessTime at: cartId put: clock now.
+	
+	^cartId ! !
+
+!testRun: #RestInterfaceTest #test13CannotListCartAfter30Minutes stamp: 'SG 6/12/2023 21:08:42'!
+ERROR!
+!RestInterfaceTest methodsFor: 'as yet unclassified' stamp: 'SG 6/12/2023 21:08:48'!
+now
+	self shouldBeImplemented.! !
+
+!classRemoval: #SimulatedClock stamp: 'SG 6/12/2023 21:09:18'!
+Object subclass: #SimulatedClock
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros'!
+
+!testRun: #RestInterfaceTest #test01CanCreateCartWithValidUserAndPassword stamp: 'SG 6/12/2023 21:10:11'!
+ERROR!
+
+!testRun: #RestInterfaceTest #test02CanNotCreateCartWithInvalidUser stamp: 'SG 6/12/2023 21:10:11'!
+PASSED!
+
+!testRun: #RestInterfaceTest #test03CanNotCreateCartWithInvalidPassword stamp: 'SG 6/12/2023 21:10:11'!
+PASSED!
+
+!testRun: #RestInterfaceTest #test04CanAddItemsToACreatedCart stamp: 'SG 6/12/2023 21:10:11'!
+ERROR!
+
+!testRun: #RestInterfaceTest #test05CanNotAddItemToNotCreatedCart stamp: 'SG 6/12/2023 21:10:11'!
+PASSED!
+
+!testRun: #RestInterfaceTest #test06CanNotAddItemNotSellByTheStore stamp: 'SG 6/12/2023 21:10:11'!
+ERROR!
+
+!testRun: #RestInterfaceTest #test07ListCartOfAnEmptyCartReturnsAnEmptyBag stamp: 'SG 6/12/2023 21:10:11'!
+ERROR!
+
+!testRun: #RestInterfaceTest #test08CanNotListCartOfInvalidCartId stamp: 'SG 6/12/2023 21:10:11'!
+PASSED!
+
+!testRun: #RestInterfaceTest #test09ListCartReturnsTheRightNumberOfItems stamp: 'SG 6/12/2023 21:10:11'!
+ERROR!
+
+!testRun: #RestInterfaceTest #test10CanCheckoutACart stamp: 'SG 6/12/2023 21:10:11'!
+ERROR!
+
+!testRun: #RestInterfaceTest #test11CanNotCheckoutANotCreatedCart stamp: 'SG 6/12/2023 21:10:11'!
+PASSED!
+
+!testRun: #RestInterfaceTest #test12CanNotCheckoutAnEmptyCart stamp: 'SG 6/12/2023 21:10:11'!
+ERROR!
+
+!testRun: #RestInterfaceTest #test13CannotListCartAfter30Minutes stamp: 'SG 6/12/2023 21:10:11'!
+ERROR!
+
+!testRun: #RestInterfaceTest #test13CannotListCartAfter30Minutes stamp: 'SG 6/12/2023 21:10:15'!
+ERROR!
+!RestInterfaceTest methodsFor: 'as yet unclassified' stamp: 'SG 6/12/2023 21:10:26' prior: 50609749!
+now
+	^currentTime ! !
+
+!testRun: #RestInterfaceTest #test13CannotListCartAfter30Minutes stamp: 'SG 6/12/2023 21:10:28'!
+FAILURE!
+
+!testRun: #RestInterfaceTest #test13CannotListCartAfter30Minutes stamp: 'SG 6/12/2023 21:10:50'!
+FAILURE!
+!RestInterface methodsFor: 'as yet unclassified' stamp: 'SG 6/12/2023 21:11:11' prior: 50609719!
+listCartIdentifiedAs: aCartId
+
+	| cart lastCartAccessTime |
+	
+	cart := carts at: aCartId ifAbsent: [ self signalInvalidCartId ].
+	lastCartAccessTime := cartAccessTime at: aCartId ifAbsent: [self signalInvalidCartId].
+	((lastCartAccessTime + self cartExpiryTime) < clock now) ifTrue: [self signalExpiredCart].
+	
+	
+	^cart content! !
+
+!testRun: #RestInterfaceTest #test13CannotListCartAfter30Minutes stamp: 'SG 6/12/2023 21:11:12'!
+FAILURE!
+!RestInterfaceTest methodsFor: 'as yet unclassified' stamp: 'SG 6/12/2023 21:11:39' prior: 50609463!
+test13CannotListCartAfter30Minutes
+
+	| interface cartId |
+	
+	interface := self createDefaultInterface.
+	cartId := self createCardIdForValidUser: interface.
+	
+	self advanceTimeBy: 31.
+	
+	self should: [interface listCartIdentifiedAs: cartId]
+			raise: Error - MessageNotUnderstood
+			withMessageText: RestInterface cartExpiredErrorDescription! !
+
+!testRun: #RestInterfaceTest #test13CannotListCartAfter30Minutes stamp: 'SG 6/12/2023 21:11:40'!
+ERROR!
+!RestInterface methodsFor: 'as yet unclassified' stamp: 'SG 6/12/2023 21:12:00'!
+signalExpiredCart
+	self shouldBeImplemented.! !
+!RestInterface methodsFor: 'as yet unclassified' stamp: 'SG 6/12/2023 21:12:23' prior: 50609852!
+signalExpiredCart
+	self error: self class expiredCartErrorDescription.! !
+
+!testRun: #RestInterfaceTest #test01CanCreateCartWithValidUserAndPassword stamp: 'SG 6/12/2023 21:12:25'!
+PASSED!
+
+!testRun: #RestInterfaceTest #test02CanNotCreateCartWithInvalidUser stamp: 'SG 6/12/2023 21:12:25'!
+PASSED!
+
+!testRun: #RestInterfaceTest #test03CanNotCreateCartWithInvalidPassword stamp: 'SG 6/12/2023 21:12:25'!
+PASSED!
+
+!testRun: #RestInterfaceTest #test04CanAddItemsToACreatedCart stamp: 'SG 6/12/2023 21:12:25'!
+PASSED!
+
+!testRun: #RestInterfaceTest #test05CanNotAddItemToNotCreatedCart stamp: 'SG 6/12/2023 21:12:25'!
+PASSED!
+
+!testRun: #RestInterfaceTest #test06CanNotAddItemNotSellByTheStore stamp: 'SG 6/12/2023 21:12:25'!
+PASSED!
+
+!testRun: #RestInterfaceTest #test07ListCartOfAnEmptyCartReturnsAnEmptyBag stamp: 'SG 6/12/2023 21:12:25'!
+PASSED!
+
+!testRun: #RestInterfaceTest #test08CanNotListCartOfInvalidCartId stamp: 'SG 6/12/2023 21:12:25'!
+PASSED!
+
+!testRun: #RestInterfaceTest #test09ListCartReturnsTheRightNumberOfItems stamp: 'SG 6/12/2023 21:12:25'!
+PASSED!
+
+!testRun: #RestInterfaceTest #test10CanCheckoutACart stamp: 'SG 6/12/2023 21:12:25'!
+PASSED!
+
+!testRun: #RestInterfaceTest #test11CanNotCheckoutANotCreatedCart stamp: 'SG 6/12/2023 21:12:25'!
+PASSED!
+
+!testRun: #RestInterfaceTest #test12CanNotCheckoutAnEmptyCart stamp: 'SG 6/12/2023 21:12:25'!
+PASSED!
+
+!testRun: #RestInterfaceTest #test13CannotListCartAfter30Minutes stamp: 'SG 6/12/2023 21:12:25'!
+ERROR!
+
+!testRun: #RestInterfaceTest #test13CannotListCartAfter30Minutes stamp: 'SG 6/12/2023 21:12:25'!
+ERROR!
+!RestInterface class methodsFor: 'as yet unclassified' stamp: 'SG 6/12/2023 21:12:29'!
+expiredCartErrorDescription
+	self shouldBeImplemented.! !
+!RestInterface methodsFor: 'as yet unclassified' stamp: 'SG 6/12/2023 21:13:15' prior: 50609857!
+signalExpiredCart
+	self error: self class cartExpiredErrorDescription .! !
+
+!methodRemoval: RestInterface class #expiredCartErrorDescription stamp: 'SG 6/12/2023 21:13:20'!
+expiredCartErrorDescription
+	self shouldBeImplemented.!
+
+!testRun: #RestInterfaceTest #test01CanCreateCartWithValidUserAndPassword stamp: 'SG 6/12/2023 21:13:22'!
+PASSED!
+
+!testRun: #RestInterfaceTest #test02CanNotCreateCartWithInvalidUser stamp: 'SG 6/12/2023 21:13:22'!
+PASSED!
+
+!testRun: #RestInterfaceTest #test03CanNotCreateCartWithInvalidPassword stamp: 'SG 6/12/2023 21:13:22'!
+PASSED!
+
+!testRun: #RestInterfaceTest #test04CanAddItemsToACreatedCart stamp: 'SG 6/12/2023 21:13:22'!
+PASSED!
+
+!testRun: #RestInterfaceTest #test05CanNotAddItemToNotCreatedCart stamp: 'SG 6/12/2023 21:13:22'!
+PASSED!
+
+!testRun: #RestInterfaceTest #test06CanNotAddItemNotSellByTheStore stamp: 'SG 6/12/2023 21:13:22'!
+PASSED!
+
+!testRun: #RestInterfaceTest #test07ListCartOfAnEmptyCartReturnsAnEmptyBag stamp: 'SG 6/12/2023 21:13:22'!
+PASSED!
+
+!testRun: #RestInterfaceTest #test08CanNotListCartOfInvalidCartId stamp: 'SG 6/12/2023 21:13:22'!
+PASSED!
+
+!testRun: #RestInterfaceTest #test09ListCartReturnsTheRightNumberOfItems stamp: 'SG 6/12/2023 21:13:22'!
+PASSED!
+
+!testRun: #RestInterfaceTest #test10CanCheckoutACart stamp: 'SG 6/12/2023 21:13:22'!
+PASSED!
+
+!testRun: #RestInterfaceTest #test11CanNotCheckoutANotCreatedCart stamp: 'SG 6/12/2023 21:13:22'!
+PASSED!
+
+!testRun: #RestInterfaceTest #test12CanNotCheckoutAnEmptyCart stamp: 'SG 6/12/2023 21:13:22'!
+PASSED!
+
+!testRun: #RestInterfaceTest #test13CannotListCartAfter30Minutes stamp: 'SG 6/12/2023 21:13:22'!
+PASSED!
+!RestInterfaceTest methodsFor: 'as yet unclassified' stamp: 'SG 6/12/2023 21:14:37'!
+test14CannotAddToCartAfter30Minutes
+
+	| interface cartId |
+	
+	interface := self createDefaultInterface.
+	cartId := self createCardIdForValidUser: interface.
+	
+	self advanceTimeBy: 31.
+	
+	self should: [interface add: testObjectsFactory itemSellByTheStore quantity: 1 toCartIdentifiedAs: cartId]
+			raise: Error - MessageNotUnderstood
+			withMessageText: RestInterface cartExpiredErrorDescription! !
+
+!testRun: #RestInterfaceTest #test14CannotAddToCartAfter30Minutes stamp: 'SG 6/12/2023 21:14:38'!
+FAILURE!
+!RestInterface methodsFor: 'as yet unclassified' stamp: 'SG 6/12/2023 21:15:40' prior: 50609818!
+listCartIdentifiedAs: aCartId
+
+	| cart lastCartAccessTime |
+	
+	lastCartAccessTime := cartAccessTime at: aCartId ifAbsent: [self signalInvalidCartId].
+	((lastCartAccessTime + self cartExpiryTime) < clock now) ifTrue: [self signalExpiredCart].
+	
+	cart := carts at: aCartId ifAbsent: [ self signalInvalidCartId ].
+	
+	^cart content! !
+!RestInterface methodsFor: 'as yet unclassified' stamp: 'SG 6/12/2023 21:15:54' prior: 50609988!
+listCartIdentifiedAs: aCartId
+
+	| cart lastCartAccessTime |
+	
+	cart := carts at: aCartId ifAbsent: [ self signalInvalidCartId ].
+	
+	lastCartAccessTime := cartAccessTime at: aCartId ifAbsent: [self signalInvalidCartId].
+	((lastCartAccessTime + self cartExpiryTime) < clock now) ifTrue: [self signalExpiredCart].
+	
+	
+	^cart content! !
+!RestInterface methodsFor: 'as yet unclassified' stamp: 'SG 6/12/2023 21:16:17'!
+assertCartNotExpired: cartId
+	| lastCartAccessTime |
+	lastCartAccessTime := cartAccessTime at: cartId ifAbsent: [self signalInvalidCartId].
+	((lastCartAccessTime + self cartExpiryTime) < clock now) ifTrue: [self signalExpiredCart].! !
+!RestInterface methodsFor: 'as yet unclassified' stamp: 'SG 6/12/2023 21:16:25' prior: 50610015!
+assertCartNotExpired: aCartId
+	| lastCartAccessTime |
+	lastCartAccessTime := cartAccessTime at: aCartId ifAbsent: [self signalInvalidCartId].
+	((lastCartAccessTime + self cartExpiryTime) < clock now) ifTrue: [self signalExpiredCart].! !
+!RestInterface methodsFor: 'as yet unclassified' stamp: 'SG 6/12/2023 21:16:54' prior: 50610026!
+assertCartNotExpired: aCartId
+	| lastCartAccessTime expiryLimit |
+	lastCartAccessTime := cartAccessTime at: aCartId ifAbsent: [self signalInvalidCartId].
+	expiryLimit := (lastCartAccessTime + self cartExpiryTime).
+	(expiryLimit < clock now) ifTrue: [self signalExpiredCart].! !
+!RestInterface methodsFor: 'as yet unclassified' stamp: 'SG 6/12/2023 21:17:17' prior: 50610002!
+listCartIdentifiedAs: aCartId
+
+	| cart |
+	
+	cart := carts at: aCartId ifAbsent: [ self signalInvalidCartId ].
+	self assertCartNotExpired: aCartId.
+	
+	^cart content! !
+!RestInterface methodsFor: 'as yet unclassified' stamp: 'SG 6/12/2023 21:17:36' prior: 50608777!
+add: aBook quantity: anAmount toCartIdentifiedAs: aCartId
+
+	| cart |
+	
+	self assertCartNotExpired: aCartId.
+	cart := carts at: aCartId ifAbsent: [ self signalInvalidCartId ].
+	cart add: anAmount of: aBook ! !
+!RestInterface methodsFor: 'as yet unclassified' stamp: 'SG 6/12/2023 21:17:41' prior: 50610049!
+listCartIdentifiedAs: aCartId
+
+	| cart |
+	
+	self assertCartNotExpired: aCartId.
+	cart := carts at: aCartId ifAbsent: [ self signalInvalidCartId ].
+	
+	^cart content! !
+
+!testRun: #RestInterfaceTest #test13CannotListCartAfter30Minutes stamp: 'SG 6/12/2023 21:17:48'!
+PASSED!
+
+!testRun: #RestInterfaceTest #test01CanCreateCartWithValidUserAndPassword stamp: 'SG 6/12/2023 21:17:48'!
+PASSED!
+
+!testRun: #RestInterfaceTest #test02CanNotCreateCartWithInvalidUser stamp: 'SG 6/12/2023 21:17:48'!
+PASSED!
+
+!testRun: #RestInterfaceTest #test03CanNotCreateCartWithInvalidPassword stamp: 'SG 6/12/2023 21:17:48'!
+PASSED!
+
+!testRun: #RestInterfaceTest #test04CanAddItemsToACreatedCart stamp: 'SG 6/12/2023 21:17:48'!
+PASSED!
+
+!testRun: #RestInterfaceTest #test05CanNotAddItemToNotCreatedCart stamp: 'SG 6/12/2023 21:17:48'!
+PASSED!
+
+!testRun: #RestInterfaceTest #test06CanNotAddItemNotSellByTheStore stamp: 'SG 6/12/2023 21:17:48'!
+PASSED!
+
+!testRun: #RestInterfaceTest #test07ListCartOfAnEmptyCartReturnsAnEmptyBag stamp: 'SG 6/12/2023 21:17:48'!
+PASSED!
+
+!testRun: #RestInterfaceTest #test08CanNotListCartOfInvalidCartId stamp: 'SG 6/12/2023 21:17:48'!
+PASSED!
+
+!testRun: #RestInterfaceTest #test09ListCartReturnsTheRightNumberOfItems stamp: 'SG 6/12/2023 21:17:48'!
+PASSED!
+
+!testRun: #RestInterfaceTest #test10CanCheckoutACart stamp: 'SG 6/12/2023 21:17:48'!
+PASSED!
+
+!testRun: #RestInterfaceTest #test11CanNotCheckoutANotCreatedCart stamp: 'SG 6/12/2023 21:17:48'!
+PASSED!
+
+!testRun: #RestInterfaceTest #test12CanNotCheckoutAnEmptyCart stamp: 'SG 6/12/2023 21:17:48'!
+PASSED!
+
+!testRun: #RestInterfaceTest #test13CannotListCartAfter30Minutes stamp: 'SG 6/12/2023 21:17:48'!
+PASSED!
+
+!testRun: #RestInterfaceTest #test14CannotAddToCartAfter30Minutes stamp: 'SG 6/12/2023 21:17:48'!
+PASSED!
+!RestInterfaceTest methodsFor: 'as yet unclassified' stamp: 'SG 6/12/2023 21:20:56'!
+validCreditCardNumber
+
+	^ '1111222233334444'! !
+!RestInterfaceTest methodsFor: 'as yet unclassified' stamp: 'SG 6/12/2023 21:20:56' prior: 50608461!
+test10CanCheckoutACart
+
+	| interface cartId  |
+
+	interface := self createDefaultInterface.
+
+	cartId := interface createCartFor: self validUser authenticatedWith: self validUserPassword.
+	interface add: self validBook quantity: 1 toCartIdentifiedAs: cartId.
+	self
+		shouldnt: [interface 
+			checkOutCartIdentifiedAs: cartId 
+			withCreditCardNumbered: self validCreditCardNumber 
+			ownedBy: 'Juan Perez' 
+			expiringOn: testObjectsFactory notExpiredMonthOfYear ]
+		raise: Error - MessageNotUnderstood
+		
+		! !
+!RestInterfaceTest methodsFor: 'as yet unclassified' stamp: 'SG 6/12/2023 21:20:56' prior: 50608480!
+test11CanNotCheckoutANotCreatedCart
+
+	| interface |
+
+	interface := self createDefaultInterface.
+
+	self
+		should: [interface 
+			checkOutCartIdentifiedAs: self invalidCartId  
+			withCreditCardNumbered: self validCreditCardNumber 
+			ownedBy: 'Juan Perez' 
+			expiringOn: testObjectsFactory notExpiredMonthOfYear ]
+		raise: Error - MessageNotUnderstood
+		withExceptionDo: [ :anError |
+			self assert: anError messageText = interface invalidCartIdErrorDescription ]
+		
+		! !
+!RestInterfaceTest methodsFor: 'as yet unclassified' stamp: 'SG 6/12/2023 21:20:56' prior: 50608498!
+test12CanNotCheckoutAnEmptyCart
+
+	| interface cartId |
+
+	interface := self createDefaultInterface.
+
+	cartId := interface createCartFor: self validUser authenticatedWith: self validUserPassword.
+	self
+		should: [interface 
+			checkOutCartIdentifiedAs: cartId 
+			withCreditCardNumbered: self validCreditCardNumber 
+			ownedBy: 'Juan Perez' 
+			expiringOn: testObjectsFactory notExpiredMonthOfYear ]
+		raise: Error - MessageNotUnderstood
+		withExceptionDo: [ :anError |
+			self assert: anError messageText = interface cartCanNotBeEmptyErrorMessage ]
+		
+		! !
+!RestInterfaceTest methodsFor: 'as yet unclassified' stamp: 'SG 6/12/2023 21:21:18'!
+validCreditCardName
+
+	^ 'Juan Perez'! !
+!RestInterfaceTest methodsFor: 'as yet unclassified' stamp: 'SG 6/12/2023 21:21:18' prior: 50610132!
+test10CanCheckoutACart
+
+	| interface cartId  |
+
+	interface := self createDefaultInterface.
+
+	cartId := interface createCartFor: self validUser authenticatedWith: self validUserPassword.
+	interface add: self validBook quantity: 1 toCartIdentifiedAs: cartId.
+	self
+		shouldnt: [interface 
+			checkOutCartIdentifiedAs: cartId 
+			withCreditCardNumbered: self validCreditCardNumber 
+			ownedBy: self validCreditCardName 
+			expiringOn: testObjectsFactory notExpiredMonthOfYear ]
+		raise: Error - MessageNotUnderstood
+		
+		! !
+!RestInterfaceTest methodsFor: 'as yet unclassified' stamp: 'SG 6/12/2023 21:21:18' prior: 50610152!
+test11CanNotCheckoutANotCreatedCart
+
+	| interface |
+
+	interface := self createDefaultInterface.
+
+	self
+		should: [interface 
+			checkOutCartIdentifiedAs: self invalidCartId  
+			withCreditCardNumbered: self validCreditCardNumber 
+			ownedBy: self validCreditCardName 
+			expiringOn: testObjectsFactory notExpiredMonthOfYear ]
+		raise: Error - MessageNotUnderstood
+		withExceptionDo: [ :anError |
+			self assert: anError messageText = interface invalidCartIdErrorDescription ]
+		
+		! !
+!RestInterfaceTest methodsFor: 'as yet unclassified' stamp: 'SG 6/12/2023 21:21:18' prior: 50610170!
+test12CanNotCheckoutAnEmptyCart
+
+	| interface cartId |
+
+	interface := self createDefaultInterface.
+
+	cartId := interface createCartFor: self validUser authenticatedWith: self validUserPassword.
+	self
+		should: [interface 
+			checkOutCartIdentifiedAs: cartId 
+			withCreditCardNumbered: self validCreditCardNumber 
+			ownedBy: self validCreditCardName 
+			expiringOn: testObjectsFactory notExpiredMonthOfYear ]
+		raise: Error - MessageNotUnderstood
+		withExceptionDo: [ :anError |
+			self assert: anError messageText = interface cartCanNotBeEmptyErrorMessage ]
+		
+		! !
+!RestInterfaceTest methodsFor: 'as yet unclassified' stamp: 'SG 6/12/2023 21:22:02'!
+test15CannotCheckoutCartAfter30Minutes
+
+	| interface cartId |
+	
+	interface := self createDefaultInterface.
+	cartId := self createCardIdForValidUser: interface.
+	
+	self advanceTimeBy: 31.
+	
+	self should: [interface checkOutCartIdentifiedAs: cartId withCreditCardNumbered: self validCreditCardNumber ownedBy: self validCreditCardName expiringOn: testObjectsFactory notExpiredMonthOfYear]
+			raise: Error - MessageNotUnderstood
+			withMessageText: RestInterface cartExpiredErrorDescription! !
+
+!testRun: #RestInterfaceTest #test15CannotCheckoutCartAfter30Minutes stamp: 'SG 6/12/2023 21:22:03'!
+FAILURE!
+!RestInterfaceTest methodsFor: 'as yet unclassified' stamp: 'SG 6/12/2023 21:22:36' prior: 50610256!
+test15CannotCheckoutCartAfter30Minutes
+
+	| interface cartId |
+	
+	interface := self createDefaultInterface.
+	cartId := self createCardIdForValidUser: interface.
+	interface add: testObjectsFactory itemSellByTheStore quantity: 1 toCartIdentifiedAs: cartId. 
+	
+	self advanceTimeBy: 31.
+	
+	self should: [interface checkOutCartIdentifiedAs: cartId withCreditCardNumbered: self validCreditCardNumber ownedBy: self validCreditCardName expiringOn: testObjectsFactory notExpiredMonthOfYear]
+			raise: Error - MessageNotUnderstood
+			withMessageText: RestInterface cartExpiredErrorDescription! !
+
+!testRun: #RestInterfaceTest #test15CannotCheckoutCartAfter30Minutes stamp: 'SG 6/12/2023 21:22:37'!
+FAILURE!
+!RestInterface methodsFor: 'as yet unclassified' stamp: 'SG 6/12/2023 21:22:52' prior: 50608792!
+checkOutCartIdentifiedAs: aCartId withCreditCardNumbered: aCreditCartNumber ownedBy: anOwner expiringOn: anExpirationMonthOfYear
+
+	| cart |
+	
+	self assertCartNotExpired: aCartId.
+	cart := carts at: aCartId ifAbsent: [self signalInvalidCartId ].
+	
+	Cashier 
+		toCheckout: cart 
+		charging: (CreditCard expiringOn: anExpirationMonthOfYear) 
+		throught: merchantProcessor 
+		on: self today 
+		registeringOn: salesBook! !
+
+!testRun: #RestInterfaceTest #test01CanCreateCartWithValidUserAndPassword stamp: 'SG 6/12/2023 21:22:58'!
+PASSED!
+
+!testRun: #RestInterfaceTest #test02CanNotCreateCartWithInvalidUser stamp: 'SG 6/12/2023 21:22:58'!
+PASSED!
+
+!testRun: #RestInterfaceTest #test03CanNotCreateCartWithInvalidPassword stamp: 'SG 6/12/2023 21:22:58'!
+PASSED!
+
+!testRun: #RestInterfaceTest #test04CanAddItemsToACreatedCart stamp: 'SG 6/12/2023 21:22:58'!
+PASSED!
+
+!testRun: #RestInterfaceTest #test05CanNotAddItemToNotCreatedCart stamp: 'SG 6/12/2023 21:22:58'!
+PASSED!
+
+!testRun: #RestInterfaceTest #test06CanNotAddItemNotSellByTheStore stamp: 'SG 6/12/2023 21:22:58'!
+PASSED!
+
+!testRun: #RestInterfaceTest #test07ListCartOfAnEmptyCartReturnsAnEmptyBag stamp: 'SG 6/12/2023 21:22:58'!
+PASSED!
+
+!testRun: #RestInterfaceTest #test08CanNotListCartOfInvalidCartId stamp: 'SG 6/12/2023 21:22:58'!
+PASSED!
+
+!testRun: #RestInterfaceTest #test09ListCartReturnsTheRightNumberOfItems stamp: 'SG 6/12/2023 21:22:58'!
+PASSED!
+
+!testRun: #RestInterfaceTest #test10CanCheckoutACart stamp: 'SG 6/12/2023 21:22:58'!
+PASSED!
+
+!testRun: #RestInterfaceTest #test11CanNotCheckoutANotCreatedCart stamp: 'SG 6/12/2023 21:22:58'!
+PASSED!
+
+!testRun: #RestInterfaceTest #test12CanNotCheckoutAnEmptyCart stamp: 'SG 6/12/2023 21:22:58'!
+PASSED!
+
+!testRun: #RestInterfaceTest #test13CannotListCartAfter30Minutes stamp: 'SG 6/12/2023 21:22:58'!
+PASSED!
+
+!testRun: #RestInterfaceTest #test14CannotAddToCartAfter30Minutes stamp: 'SG 6/12/2023 21:22:58'!
+PASSED!
+
+!testRun: #RestInterfaceTest #test15CannotCheckoutCartAfter30Minutes stamp: 'SG 6/12/2023 21:22:58'!
+PASSED!
+!RestInterfaceTest methodsFor: 'as yet unclassified' stamp: 'SG 6/12/2023 21:26:27'!
+test16ListingCartResetsExpiryTime
+
+	| interface cartId |
+	
+	interface := self createDefaultInterface.
+	cartId := self createCardIdForValidUser: interface.
+	
+	self advanceTimeBy: 15.
+	interface listCartIdentifiedAs: cartId.
+	
+	self advanceTimeBy: 16.
+	
+	self assert: (interface listCartIdentifiedAs: cartId) includes: testObjectsFactory itemSellByTheStore.! !
+
+!testRun: #RestInterfaceTest #test16ListingCartResetsExpiryTime stamp: 'SG 6/12/2023 21:26:28'!
+ERROR!
+!RestInterfaceTest methodsFor: 'as yet unclassified' stamp: 'SG 6/12/2023 21:26:48' prior: 50610370!
+test16ListingCartResetsExpiryTime
+
+	| interface cartId |
+	
+	interface := self createDefaultInterface.
+	cartId := self createCardIdForValidUser: interface.
+	
+	self advanceTimeBy: 15.
+	interface listCartIdentifiedAs: cartId.
+	
+	self advanceTimeBy: 16.
+	
+	self assert: (interface listCartIdentifiedAs: cartId) isEmpty.! !
+
+!testRun: #RestInterfaceTest #test16ListingCartResetsExpiryTime stamp: 'SG 6/12/2023 21:27:05'!
+ERROR!
+!RestInterface methodsFor: 'as yet unclassified' stamp: 'SG 6/12/2023 21:27:34' prior: 50610068!
+listCartIdentifiedAs: aCartId
+
+	| cart |
+	
+	self assertCartNotExpired: aCartId.
+	cart := carts at: aCartId ifAbsent: [ self signalInvalidCartId ].
+	self updateCartModifiedTime: aCartId.
+	
+	^cart content! !
+
+!testRun: #RestInterfaceTest #test01CanCreateCartWithValidUserAndPassword stamp: 'SG 6/12/2023 21:27:36'!
+ERROR!
+
+!testRun: #RestInterfaceTest #test02CanNotCreateCartWithInvalidUser stamp: 'SG 6/12/2023 21:27:36'!
+PASSED!
+
+!testRun: #RestInterfaceTest #test03CanNotCreateCartWithInvalidPassword stamp: 'SG 6/12/2023 21:27:36'!
+PASSED!
+
+!testRun: #RestInterfaceTest #test04CanAddItemsToACreatedCart stamp: 'SG 6/12/2023 21:27:36'!
+PASSED!
+
+!testRun: #RestInterfaceTest #test05CanNotAddItemToNotCreatedCart stamp: 'SG 6/12/2023 21:27:36'!
+PASSED!
+
+!testRun: #RestInterfaceTest #test06CanNotAddItemNotSellByTheStore stamp: 'SG 6/12/2023 21:27:36'!
+PASSED!
+
+!testRun: #RestInterfaceTest #test07ListCartOfAnEmptyCartReturnsAnEmptyBag stamp: 'SG 6/12/2023 21:27:36'!
+ERROR!
+
+!testRun: #RestInterfaceTest #test08CanNotListCartOfInvalidCartId stamp: 'SG 6/12/2023 21:27:36'!
+PASSED!
+
+!testRun: #RestInterfaceTest #test09ListCartReturnsTheRightNumberOfItems stamp: 'SG 6/12/2023 21:27:36'!
+ERROR!
+
+!testRun: #RestInterfaceTest #test10CanCheckoutACart stamp: 'SG 6/12/2023 21:27:36'!
+PASSED!
+
+!testRun: #RestInterfaceTest #test11CanNotCheckoutANotCreatedCart stamp: 'SG 6/12/2023 21:27:36'!
+PASSED!
+
+!testRun: #RestInterfaceTest #test12CanNotCheckoutAnEmptyCart stamp: 'SG 6/12/2023 21:27:36'!
+PASSED!
+
+!testRun: #RestInterfaceTest #test13CannotListCartAfter30Minutes stamp: 'SG 6/12/2023 21:27:36'!
+PASSED!
+
+!testRun: #RestInterfaceTest #test14CannotAddToCartAfter30Minutes stamp: 'SG 6/12/2023 21:27:36'!
+PASSED!
+
+!testRun: #RestInterfaceTest #test15CannotCheckoutCartAfter30Minutes stamp: 'SG 6/12/2023 21:27:36'!
+PASSED!
+
+!testRun: #RestInterfaceTest #test16ListingCartResetsExpiryTime stamp: 'SG 6/12/2023 21:27:36'!
+ERROR!
+
+!testRun: #RestInterfaceTest #test01CanCreateCartWithValidUserAndPassword stamp: 'SG 6/12/2023 21:27:37'!
+ERROR!
+!RestInterface methodsFor: 'as yet unclassified' stamp: 'SG 6/12/2023 21:27:42'!
+updateCartModifiedTime: aCartId 
+	self shouldBeImplemented.! !
+!RestInterface methodsFor: 'as yet unclassified' stamp: 'SG 6/12/2023 21:27:53' prior: 50610472!
+updateCartModifiedTime: aCartId 
+	cartAccessTime at: aCartId put: clock now.! !
+
+!testRun: #RestInterfaceTest #test01CanCreateCartWithValidUserAndPassword stamp: 'SG 6/12/2023 21:27:57'!
+PASSED!
+
+!testRun: #RestInterfaceTest #test07ListCartOfAnEmptyCartReturnsAnEmptyBag stamp: 'SG 6/12/2023 21:27:59'!
+PASSED!
+
+!testRun: #RestInterfaceTest #test09ListCartReturnsTheRightNumberOfItems stamp: 'SG 6/12/2023 21:27:59'!
+PASSED!
+
+!testRun: #RestInterfaceTest #test16ListingCartResetsExpiryTime stamp: 'SG 6/12/2023 21:28:00'!
+PASSED!
+!RestInterfaceTest methodsFor: 'as yet unclassified' stamp: 'SG 6/12/2023 21:30:58'!
+test17AddingToCartResetsExpiryTime
+
+	| interface cartId |
+	
+	interface := self createDefaultInterface.
+	cartId := self createCardIdForValidUser: interface.
+	
+	self advanceTimeBy: 15.
+	interface add: testObjectsFactory itemSellByTheStore quantity: 1 toCartIdentifiedAs: cartId. 
+	
+	self advanceTimeBy: 16.
+	
+	self assert: (interface listCartIdentifiedAs: cartId) includes: testObjectsFactory itemSellByTheStore .! !
+
+!testRun: #RestInterfaceTest #test17AddingToCartResetsExpiryTime stamp: 'SG 6/12/2023 21:30:59'!
+ERROR!
+!RestInterface methodsFor: 'as yet unclassified' stamp: 'SG 6/12/2023 21:31:23' prior: 50610058!
+add: aBook quantity: anAmount toCartIdentifiedAs: aCartId
+
+	| cart |
+	
+	self assertCartNotExpired: aCartId.
+	cart := carts at: aCartId ifAbsent: [ self signalInvalidCartId ].
+	self updateCartModifiedTime: aCartId.
+	cart add: anAmount of: aBook ! !
+
+!testRun: #RestInterfaceTest #test01CanCreateCartWithValidUserAndPassword stamp: 'SG 6/12/2023 21:31:24'!
+PASSED!
+
+!testRun: #RestInterfaceTest #test02CanNotCreateCartWithInvalidUser stamp: 'SG 6/12/2023 21:31:24'!
+PASSED!
+
+!testRun: #RestInterfaceTest #test03CanNotCreateCartWithInvalidPassword stamp: 'SG 6/12/2023 21:31:24'!
+PASSED!
+
+!testRun: #RestInterfaceTest #test04CanAddItemsToACreatedCart stamp: 'SG 6/12/2023 21:31:24'!
+PASSED!
+
+!testRun: #RestInterfaceTest #test05CanNotAddItemToNotCreatedCart stamp: 'SG 6/12/2023 21:31:24'!
+PASSED!
+
+!testRun: #RestInterfaceTest #test06CanNotAddItemNotSellByTheStore stamp: 'SG 6/12/2023 21:31:24'!
+PASSED!
+
+!testRun: #RestInterfaceTest #test07ListCartOfAnEmptyCartReturnsAnEmptyBag stamp: 'SG 6/12/2023 21:31:24'!
+PASSED!
+
+!testRun: #RestInterfaceTest #test08CanNotListCartOfInvalidCartId stamp: 'SG 6/12/2023 21:31:24'!
+PASSED!
+
+!testRun: #RestInterfaceTest #test09ListCartReturnsTheRightNumberOfItems stamp: 'SG 6/12/2023 21:31:24'!
+PASSED!
+
+!testRun: #RestInterfaceTest #test10CanCheckoutACart stamp: 'SG 6/12/2023 21:31:24'!
+PASSED!
+
+!testRun: #RestInterfaceTest #test11CanNotCheckoutANotCreatedCart stamp: 'SG 6/12/2023 21:31:24'!
+PASSED!
+
+!testRun: #RestInterfaceTest #test12CanNotCheckoutAnEmptyCart stamp: 'SG 6/12/2023 21:31:24'!
+PASSED!
+
+!testRun: #RestInterfaceTest #test13CannotListCartAfter30Minutes stamp: 'SG 6/12/2023 21:31:24'!
+PASSED!
+
+!testRun: #RestInterfaceTest #test14CannotAddToCartAfter30Minutes stamp: 'SG 6/12/2023 21:31:24'!
+PASSED!
+
+!testRun: #RestInterfaceTest #test15CannotCheckoutCartAfter30Minutes stamp: 'SG 6/12/2023 21:31:24'!
+PASSED!
+
+!testRun: #RestInterfaceTest #test16ListingCartResetsExpiryTime stamp: 'SG 6/12/2023 21:31:24'!
+PASSED!
+
+!testRun: #RestInterfaceTest #test17AddingToCartResetsExpiryTime stamp: 'SG 6/12/2023 21:31:24'!
+PASSED!
+!RestInterfaceTest methodsFor: 'as yet unclassified' stamp: 'SG 6/12/2023 21:33:08'!
+test18CheckingOutCartResetsExpiryTime
+
+	| interface cartId |
+	
+	interface := self createDefaultInterface.
+	cartId := self createCardIdForValidUser: interface.
+	
+	self advanceTimeBy: 15.
+	interface checkOutCartIdentifiedAs: cartId withCreditCardNumbered: self validCreditCardNumber ownedBy: self validCreditCardName expiringOn: testObjectsFactory notExpiredMonthOfYear.
+	
+	self advanceTimeBy: 16.
+	
+	self assert: (interface listCartIdentifiedAs: cartId) includes: testObjectsFactory itemSellByTheStore .! !
+
+!testRun: #RestInterfaceTest #test18CheckingOutCartResetsExpiryTime stamp: 'SG 6/12/2023 21:33:19'!
+ERROR!
+
+!methodRemoval: RestInterfaceTest #test18CheckingOutCartResetsExpiryTime stamp: 'SG 6/12/2023 21:33:53'!
+test18CheckingOutCartResetsExpiryTime
+
+	| interface cartId |
+	
+	interface := self createDefaultInterface.
+	cartId := self createCardIdForValidUser: interface.
+	
+	self advanceTimeBy: 15.
+	interface checkOutCartIdentifiedAs: cartId withCreditCardNumbered: self validCreditCardNumber ownedBy: self validCreditCardName expiringOn: testObjectsFactory notExpiredMonthOfYear.
+	
+	self advanceTimeBy: 16.
+	
+	self assert: (interface listCartIdentifiedAs: cartId) includes: testObjectsFactory itemSellByTheStore .!
+!RestInterface methodsFor: 'as yet unclassified' stamp: 'SG 6/12/2023 21:34:35'!
+cartFor: aCartId
+
+	| cart |
+	
+	self assertCartNotExpired: aCartId.
+	cart := carts at: aCartId ifAbsent: [ self signalInvalidCartId ].
+	self updateCartModifiedTime: aCartId.
+	^cart! !
+!RestInterface methodsFor: 'as yet unclassified' stamp: 'SG 6/12/2023 21:34:50' prior: 50610517!
+add: aBook quantity: anAmount toCartIdentifiedAs: aCartId
+
+	| cart |
+	
+	cart := self cartFor: aCartId.
+	cart add: anAmount of: aBook ! !
+!RestInterface methodsFor: 'as yet unclassified' stamp: 'SG 6/12/2023 21:34:57' prior: 50610635!
+add: aBook quantity: anAmount toCartIdentifiedAs: aCartId
+
+	(self cartFor: aCartId) add: anAmount of: aBook ! !
+!RestInterface methodsFor: 'as yet unclassified' stamp: 'SG 6/12/2023 21:35:49' prior: 50610405!
+listCartIdentifiedAs: aCartId
+
+	| cart |
+	
+	cart := self cartFor: aCartId.
+	
+	^cart content! !
+!RestInterface methodsFor: 'as yet unclassified' stamp: 'SG 6/12/2023 21:35:58' prior: 50610650!
+listCartIdentifiedAs: aCartId
+
+	^(self cartFor: aCartId) content! !
+
+!testRun: #RestInterfaceTest #test01CanCreateCartWithValidUserAndPassword stamp: 'SG 6/12/2023 21:36:03'!
+PASSED!
+
+!testRun: #RestInterfaceTest #test02CanNotCreateCartWithInvalidUser stamp: 'SG 6/12/2023 21:36:03'!
+PASSED!
+
+!testRun: #RestInterfaceTest #test03CanNotCreateCartWithInvalidPassword stamp: 'SG 6/12/2023 21:36:03'!
+PASSED!
+
+!testRun: #RestInterfaceTest #test04CanAddItemsToACreatedCart stamp: 'SG 6/12/2023 21:36:03'!
+PASSED!
+
+!testRun: #RestInterfaceTest #test05CanNotAddItemToNotCreatedCart stamp: 'SG 6/12/2023 21:36:03'!
+PASSED!
+
+!testRun: #RestInterfaceTest #test06CanNotAddItemNotSellByTheStore stamp: 'SG 6/12/2023 21:36:03'!
+PASSED!
+
+!testRun: #RestInterfaceTest #test07ListCartOfAnEmptyCartReturnsAnEmptyBag stamp: 'SG 6/12/2023 21:36:03'!
+PASSED!
+
+!testRun: #RestInterfaceTest #test08CanNotListCartOfInvalidCartId stamp: 'SG 6/12/2023 21:36:03'!
+PASSED!
+
+!testRun: #RestInterfaceTest #test09ListCartReturnsTheRightNumberOfItems stamp: 'SG 6/12/2023 21:36:03'!
+PASSED!
+
+!testRun: #RestInterfaceTest #test10CanCheckoutACart stamp: 'SG 6/12/2023 21:36:03'!
+PASSED!
+
+!testRun: #RestInterfaceTest #test11CanNotCheckoutANotCreatedCart stamp: 'SG 6/12/2023 21:36:03'!
+PASSED!
+
+!testRun: #RestInterfaceTest #test12CanNotCheckoutAnEmptyCart stamp: 'SG 6/12/2023 21:36:03'!
+PASSED!
+
+!testRun: #RestInterfaceTest #test13CannotListCartAfter30Minutes stamp: 'SG 6/12/2023 21:36:03'!
+PASSED!
+
+!testRun: #RestInterfaceTest #test14CannotAddToCartAfter30Minutes stamp: 'SG 6/12/2023 21:36:03'!
+PASSED!
+
+!testRun: #RestInterfaceTest #test15CannotCheckoutCartAfter30Minutes stamp: 'SG 6/12/2023 21:36:03'!
+PASSED!
+
+!testRun: #RestInterfaceTest #test16ListingCartResetsExpiryTime stamp: 'SG 6/12/2023 21:36:03'!
+PASSED!
+
+!testRun: #RestInterfaceTest #test17AddingToCartResetsExpiryTime stamp: 'SG 6/12/2023 21:36:03'!
+PASSED!
+
+----SNAPSHOT----(12 June 2023 21:36:06) CuisUniversity-5706.image priorSource: 8832160!
+
+----SNAPSHOT----(12 June 2023 21:39:29) CuisUniversity-5706.image priorSource: 8930153!
+!RestInterface methodsFor: 'operations' stamp: 'SG 6/12/2023 21:39:55' prior: 50610303!
+checkOutCartIdentifiedAs: aCartId withCreditCardNumbered: aCreditCartNumber ownedBy: anOwner expiringOn: anExpirationMonthOfYear
+
+	| cart |
+	
+	cart := self cartFor: aCartId.
+	
+	Cashier 
+		toCheckout: cart 
+		charging: (CreditCard expiringOn: anExpirationMonthOfYear) 
+		throught: merchantProcessor 
+		on: self today 
+		registeringOn: salesBook! !
+!RestInterface methodsFor: 'operations' stamp: 'SG 6/12/2023 21:39:57' prior: 50610724!
+checkOutCartIdentifiedAs: aCartId withCreditCardNumbered: aCreditCartNumber ownedBy: anOwner expiringOn: anExpirationMonthOfYear
+
+	Cashier 
+		toCheckout: self cartFor: aCartId 
+		charging: (CreditCard expiringOn: anExpirationMonthOfYear) 
+		throught: merchantProcessor 
+		on: self today 
+		registeringOn: salesBook! !
+!RestInterface methodsFor: 'operations' stamp: 'SG 6/12/2023 21:40:01' prior: 50610738!
+checkOutCartIdentifiedAs: aCartId withCreditCardNumbered: aCreditCartNumber ownedBy: anOwner expiringOn: anExpirationMonthOfYear
+
+	Cashier 
+		toCheckout: (self cartFor: aCartId)
+		charging: (CreditCard expiringOn: anExpirationMonthOfYear) 
+		throught: merchantProcessor 
+		on: self today 
+		registeringOn: salesBook! !
+!RestInterface methodsFor: 'operations' stamp: 'SG 6/12/2023 21:40:45'!
+assertUser: aUser canAuthenticateWith: aPassword
+
+	^ (self is: aUser authenticatingWith: aPassword) ifFalse: [ self signalInvalidUserAndOrPassword ]! !
+!RestInterface methodsFor: 'operations' stamp: 'SG 6/12/2023 21:40:45' prior: 50609733!
+createCartFor: aUser authenticatedWith: aPassword
+
+	| cartId |
+	
+	self assertUser: aUser canAuthenticateWith: aPassword.
+	
+	cartId := self generateCartId.
+	carts at: cartId put: (Cart acceptingItemsOf: catalog).
+	cartAccessTime at: cartId put: clock now.
+	
+	^cartId ! !
+
+!methodRemoval: RestInterfaceTest #anotherValidBook stamp: 'SG 6/12/2023 21:42:05'!
+anotherValidBook
+	
+	^testObjectsFactory anotherItemSellByTheStore !
+!RestInterfaceTest methodsFor: 'as yet unclassified' stamp: 'SG 6/12/2023 21:42:05' prior: 50608440!
+test09ListCartReturnsTheRightNumberOfItems
+
+	| interface cartId cartContent |
+
+	interface := self createDefaultInterface.
+
+	cartId := interface createCartFor: self validUser authenticatedWith: self validUserPassword.
+	interface add: self validBook quantity: 1 toCartIdentifiedAs: cartId.
+	interface add: (testObjectsFactory anotherItemSellByTheStore ) quantity: 2 toCartIdentifiedAs: cartId.
+	cartContent := interface listCartIdentifiedAs: cartId.
+	
+	self assert: (cartContent occurrencesOf: self validBook) = 1. 
+	self assert: (cartContent occurrencesOf: (testObjectsFactory anotherItemSellByTheStore )) = 2
+! !
+
+!testRun: #RestInterfaceTest #test01CanCreateCartWithValidUserAndPassword stamp: 'SG 6/12/2023 21:43:50'!
+PASSED!
+
+!testRun: #RestInterfaceTest #test02CanNotCreateCartWithInvalidUser stamp: 'SG 6/12/2023 21:43:50'!
+PASSED!
+
+!testRun: #RestInterfaceTest #test03CanNotCreateCartWithInvalidPassword stamp: 'SG 6/12/2023 21:43:50'!
+PASSED!
+
+!testRun: #RestInterfaceTest #test04CanAddItemsToACreatedCart stamp: 'SG 6/12/2023 21:43:50'!
+PASSED!
+
+!testRun: #RestInterfaceTest #test05CanNotAddItemToNotCreatedCart stamp: 'SG 6/12/2023 21:43:50'!
+PASSED!
+
+!testRun: #RestInterfaceTest #test06CanNotAddItemNotSellByTheStore stamp: 'SG 6/12/2023 21:43:50'!
+PASSED!
+
+!testRun: #RestInterfaceTest #test07ListCartOfAnEmptyCartReturnsAnEmptyBag stamp: 'SG 6/12/2023 21:43:50'!
+PASSED!
+
+!testRun: #RestInterfaceTest #test08CanNotListCartOfInvalidCartId stamp: 'SG 6/12/2023 21:43:50'!
+PASSED!
+
+!testRun: #RestInterfaceTest #test09ListCartReturnsTheRightNumberOfItems stamp: 'SG 6/12/2023 21:43:50'!
+PASSED!
+
+!testRun: #RestInterfaceTest #test10CanCheckoutACart stamp: 'SG 6/12/2023 21:43:50'!
+PASSED!
+
+!testRun: #RestInterfaceTest #test11CanNotCheckoutANotCreatedCart stamp: 'SG 6/12/2023 21:43:50'!
+PASSED!
+
+!testRun: #RestInterfaceTest #test12CanNotCheckoutAnEmptyCart stamp: 'SG 6/12/2023 21:43:50'!
+PASSED!
+
+!testRun: #RestInterfaceTest #test13CannotListCartAfter30Minutes stamp: 'SG 6/12/2023 21:43:50'!
+PASSED!
+
+!testRun: #RestInterfaceTest #test14CannotAddToCartAfter30Minutes stamp: 'SG 6/12/2023 21:43:50'!
+PASSED!
+
+!testRun: #RestInterfaceTest #test15CannotCheckoutCartAfter30Minutes stamp: 'SG 6/12/2023 21:43:50'!
+PASSED!
+
+!testRun: #RestInterfaceTest #test16ListingCartResetsExpiryTime stamp: 'SG 6/12/2023 21:43:50'!
+PASSED!
+
+!testRun: #RestInterfaceTest #test17AddingToCartResetsExpiryTime stamp: 'SG 6/12/2023 21:43:50'!
+PASSED!
+
+----SNAPSHOT----(12 June 2023 21:44:14) CuisUniversity-5706.image priorSource: 8930242!
+!RestInterfaceTest methodsFor: 'testing' stamp: 'SG 6/12/2023 21:44:53' prior: 50608339!
+test02CanNotCreateCartWithInvalidUser
+
+	| interface |
+
+	interface := self createDefaultInterface.
+
+	self
+		should: [ interface createCartFor: self invalidUser authenticatedWith: self validUserPassword ]
+		raise: Error - MessageNotUnderstood
+		withMessageText: interface invalidUserAndOrPasswordErrorDescription! !
+!RestInterfaceTest methodsFor: 'testing' stamp: 'SG 6/12/2023 21:45:02' prior: 50608354!
+test03CanNotCreateCartWithInvalidPassword
+
+	| interface |
+
+	interface := self createDefaultInterface.
+
+	self
+		should: [ interface createCartFor: self validUser authenticatedWith: self invalidPassword ]
+		raise: Error - MessageNotUnderstood
+		withMessageText: interface invalidUserAndOrPasswordErrorDescription! !
+
+----SNAPSHOT----(12 June 2023 21:45:32) CuisUniversity-5706.image priorSource: 8934954!
+!RestInterfaceTest methodsFor: 'testing' stamp: 'SG 6/12/2023 21:46:20' prior: 50608369!
+test04CanAddItemsToACreatedCart
+
+	| interface cartId |
+
+	interface := self createDefaultInterface.
+
+	cartId := interface createCartFor: self validUser authenticatedWith: self validUserPassword.
+	interface add: self validBook quantity: 1 toCartIdentifiedAs: cartId.
+	self assert: (interface listCartIdentifiedAs: cartId) includes: self validBook.
+		! !
+
+!testRun: #RestInterfaceTest #test04CanAddItemsToACreatedCart stamp: 'SG 6/12/2023 21:46:23'!
+PASSED!
+!RestInterfaceTest methodsFor: 'testing' stamp: 'SG 6/12/2023 21:46:33' prior: 50608383!
+test05CanNotAddItemToNotCreatedCart
+
+	| interface |
+
+	interface := self createDefaultInterface.
+
+	self
+		should: [interface add: self validBook quantity: 1 toCartIdentifiedAs: self invalidCartId]
+		raise: Error - MessageNotUnderstood
+		withMessageText: interface invalidCartIdErrorDescription
+		! !
+!RestInterfaceTest methodsFor: 'testing' stamp: 'SG 6/12/2023 21:46:50' prior: 50608397!
+test06CanNotAddItemNotSellByTheStore
+
+	| interface cartId |
+
+	interface := self createDefaultInterface.
+
+	cartId := interface createCartFor: self validUser authenticatedWith: self validUserPassword.
+	self
+		should: [interface add: self invalidBook quantity: 1 toCartIdentifiedAs: cartId ]
+		raise: Error - MessageNotUnderstood
+		withMessageText: interface invalidItemErrorMessage
+		! !
+!RestInterfaceTest methodsFor: 'testing' stamp: 'SG 6/12/2023 21:47:24' prior: 50608327!
+test01CanCreateCartWithValidUserAndPassword
+
+	| interface cartID |
+	
+	interface := self createDefaultInterface.
+
+	cartID := self createCardIdForValidUser: interface.
+	
+	self assert: (interface listCartIdentifiedAs: cartID) isEmpty! !
+!RestInterfaceTest methodsFor: 'testing' stamp: 'SG 6/12/2023 21:47:29' prior: 50610945!
+test01CanCreateCartWithValidUserAndPassword
+
+	| interface cartID |
+	
+	interface := self createDefaultInterface.
+	cartID := self createCardIdForValidUser: interface.
+	
+	self assert: (interface listCartIdentifiedAs: cartID) isEmpty! !
+!RestInterfaceTest methodsFor: 'testing' stamp: 'SG 6/12/2023 21:47:52' prior: 50610900!
+test04CanAddItemsToACreatedCart
+
+	| interface cartId |
+
+	interface := self createDefaultInterface.
+
+	cartId := self createCardIdForValidUser: interface.
+	interface add: self validBook quantity: 1 toCartIdentifiedAs: cartId.
+	self assert: (interface listCartIdentifiedAs: cartId) includes: self validBook.
+		! !
+!RestInterfaceTest methodsFor: 'testing' stamp: 'SG 6/12/2023 21:48:04' prior: 50610930!
+test06CanNotAddItemNotSellByTheStore
+
+	| interface cartId |
+
+	interface := self createDefaultInterface.
+
+	cartId := self createCardIdForValidUser: interface.
+	self
+		should: [interface add: self invalidBook quantity: 1 toCartIdentifiedAs: cartId ]
+		raise: Error - MessageNotUnderstood
+		withMessageText: interface invalidItemErrorMessage
+		! !
+!RestInterfaceTest methodsFor: 'testing' stamp: 'SG 6/12/2023 21:48:30' prior: 50608414!
+test07ListCartOfAnEmptyCartReturnsAnEmptyBag
+
+	| interface cartId |
+
+	interface := self createDefaultInterface.
+
+	cartId := self createCardIdForValidUser: interface.
+	self assert: (interface listCartIdentifiedAs: cartId) isEmpty 
+	! !
+!RestInterfaceTest methodsFor: 'testing' stamp: 'SG 6/12/2023 21:48:58' prior: 50608426!
+test08CanNotListCartOfInvalidCartId
+
+	| interface |
+
+	interface := self createDefaultInterface.
+
+	self 
+		should: [interface listCartIdentifiedAs: self invalidCartId] 
+		raise: Error - MessageNotUnderstood
+		withMessageText: interface invalidCartIdErrorDescription
+	! !
+!RestInterfaceTest methodsFor: 'testing' stamp: 'SG 6/12/2023 21:49:18' prior: 50610789!
+test09ListCartReturnsTheRightNumberOfItems
+
+	| interface cartId cartContent |
+
+	interface := self createDefaultInterface.
+
+	cartId := self createCardIdForValidUser: interface.
+	interface add: self validBook quantity: 1 toCartIdentifiedAs: cartId.
+	interface add: (testObjectsFactory anotherItemSellByTheStore ) quantity: 2 toCartIdentifiedAs: cartId.
+	cartContent := interface listCartIdentifiedAs: cartId.
+	
+	self assert: (cartContent occurrencesOf: self validBook) = 1. 
+	self assert: (cartContent occurrencesOf: (testObjectsFactory anotherItemSellByTheStore )) = 2
+! !
+!RestInterfaceTest methodsFor: 'testing' stamp: 'SG 6/12/2023 21:49:25' prior: 50611017!
+test09ListCartReturnsTheRightNumberOfItems
+
+	| interface cartId cartContent |
+
+	interface := self createDefaultInterface.
+
+	cartId := self createCardIdForValidUser: interface.
+	interface add: self validBook quantity: 1 toCartIdentifiedAs: cartId.
+	interface add: (testObjectsFactory anotherItemSellByTheStore) quantity: 2 toCartIdentifiedAs: cartId.
+	cartContent := interface listCartIdentifiedAs: cartId.
+	
+	self assert: (cartContent occurrencesOf: self validBook) = 1. 
+	self assert: (cartContent occurrencesOf: (testObjectsFactory anotherItemSellByTheStore )) = 2
+! !
+!RestInterfaceTest methodsFor: 'testing' stamp: 'SG 6/12/2023 21:50:05' prior: 50611038!
+test09ListCartReturnsTheRightNumberOfItems
+
+	| interface cartId cartContent book |
+
+	interface := self createDefaultInterface.
+
+	book := testObjectsFactory anotherItemSellByTheStore.
+	cartId := self createCardIdForValidUser: interface.
+	interface add: self validBook quantity: 1 toCartIdentifiedAs: cartId.
+	interface add: (book) quantity: 2 toCartIdentifiedAs: cartId.
+	cartContent := interface listCartIdentifiedAs: cartId.
+	
+	self assert: (cartContent occurrencesOf: self validBook) = 1. 
+	self assert: (cartContent occurrencesOf: (testObjectsFactory anotherItemSellByTheStore )) = 2
+! !
+!RestInterfaceTest methodsFor: 'testing' stamp: 'SG 6/12/2023 21:50:23'!
+anotherValidBook
+
+	^ testObjectsFactory anotherItemSellByTheStore! !
+!RestInterfaceTest methodsFor: 'testing' stamp: 'SG 6/12/2023 21:50:23' prior: 50611059!
+test09ListCartReturnsTheRightNumberOfItems
+
+	| interface cartId cartContent book |
+
+	interface := self createDefaultInterface.
+
+	book := self anotherValidBook.
+	cartId := self createCardIdForValidUser: interface.
+	interface add: self validBook quantity: 1 toCartIdentifiedAs: cartId.
+	interface add: (book) quantity: 2 toCartIdentifiedAs: cartId.
+	cartContent := interface listCartIdentifiedAs: cartId.
+	
+	self assert: (cartContent occurrencesOf: self validBook) = 1. 
+	self assert: (cartContent occurrencesOf: (testObjectsFactory anotherItemSellByTheStore )) = 2
+! !
+!RestInterfaceTest methodsFor: 'testing' stamp: 'SG 6/12/2023 21:50:23' prior: 50611085!
+test09ListCartReturnsTheRightNumberOfItems
+
+	| interface cartId cartContent book |
+
+	interface := self createDefaultInterface.
+
+	book := self anotherValidBook.
+	cartId := self createCardIdForValidUser: interface.
+	interface add: self validBook quantity: 1 toCartIdentifiedAs: cartId.
+	interface add: (book) quantity: 2 toCartIdentifiedAs: cartId.
+	cartContent := interface listCartIdentifiedAs: cartId.
+	
+	self assert: (cartContent occurrencesOf: self validBook) = 1. 
+	self assert: (cartContent occurrencesOf: (self anotherValidBook )) = 2
+! !
+!RestInterfaceTest methodsFor: 'testing' stamp: 'SG 6/12/2023 21:50:25' prior: 50611106!
+test09ListCartReturnsTheRightNumberOfItems
+
+	| interface cartId cartContent |
+
+	interface := self createDefaultInterface.
+
+	cartId := self createCardIdForValidUser: interface.
+	interface add: self validBook quantity: 1 toCartIdentifiedAs: cartId.
+	interface add: self anotherValidBook quantity: 2 toCartIdentifiedAs: cartId.
+	cartContent := interface listCartIdentifiedAs: cartId.
+	
+	self assert: (cartContent occurrencesOf: self validBook) = 1. 
+	self assert: (cartContent occurrencesOf: (self anotherValidBook )) = 2
+! !
+!RestInterfaceTest methodsFor: 'testing' stamp: 'SG 6/12/2023 21:51:20' prior: 50610196!
+test10CanCheckoutACart
+
+	| interface cartId  |
+
+	interface := self createDefaultInterface.
+
+	cartId := self createCardIdForValidUser: interface.
+	interface add: self validBook quantity: 1 toCartIdentifiedAs: cartId.
+	self
+		shouldnt: [interface 
+			checkOutCartIdentifiedAs: cartId 
+			withCreditCardNumbered: self validCreditCardNumber 
+			ownedBy: self validCreditCardName 
+			expiringOn: testObjectsFactory notExpiredMonthOfYear ]
+		raise: Error - MessageNotUnderstood
+		
+		! !
+!RestInterfaceTest methodsFor: 'support' stamp: 'SG 6/12/2023 21:51:29'!
+createCartIdForValidUser: anInterface
+
+	^anInterface createCartFor: self validUser authenticatedWith: self validUserPassword.! !
+!RestInterfaceTest methodsFor: 'as yet unclassified' stamp: 'SG 6/12/2023 21:51:29' prior: 50611126!
+test09ListCartReturnsTheRightNumberOfItems
+
+	| interface cartId cartContent |
+
+	interface := self createDefaultInterface.
+
+	cartId := self createCartIdForValidUser: interface.
+	interface add: self validBook quantity: 1 toCartIdentifiedAs: cartId.
+	interface add: self anotherValidBook quantity: 2 toCartIdentifiedAs: cartId.
+	cartContent := interface listCartIdentifiedAs: cartId.
+	
+	self assert: (cartContent occurrencesOf: self validBook) = 1. 
+	self assert: (cartContent occurrencesOf: (self anotherValidBook )) = 2
+! !
+!RestInterfaceTest methodsFor: 'as yet unclassified' stamp: 'SG 6/12/2023 21:51:29' prior: 50610967!
+test04CanAddItemsToACreatedCart
+
+	| interface cartId |
+
+	interface := self createDefaultInterface.
+
+	cartId := self createCartIdForValidUser: interface.
+	interface add: self validBook quantity: 1 toCartIdentifiedAs: cartId.
+	self assert: (interface listCartIdentifiedAs: cartId) includes: self validBook.
+		! !
+!RestInterfaceTest methodsFor: 'as yet unclassified' stamp: 'SG 6/12/2023 21:51:29' prior: 50610388!
+test16ListingCartResetsExpiryTime
+
+	| interface cartId |
+	
+	interface := self createDefaultInterface.
+	cartId := self createCartIdForValidUser: interface.
+	
+	self advanceTimeBy: 15.
+	interface listCartIdentifiedAs: cartId.
+	
+	self advanceTimeBy: 16.
+	
+	self assert: (interface listCartIdentifiedAs: cartId) isEmpty.! !
+!RestInterfaceTest methodsFor: 'as yet unclassified' stamp: 'SG 6/12/2023 21:51:29' prior: 50609969!
+test14CannotAddToCartAfter30Minutes
+
+	| interface cartId |
+	
+	interface := self createDefaultInterface.
+	cartId := self createCartIdForValidUser: interface.
+	
+	self advanceTimeBy: 31.
+	
+	self should: [interface add: testObjectsFactory itemSellByTheStore quantity: 1 toCartIdentifiedAs: cartId]
+			raise: Error - MessageNotUnderstood
+			withMessageText: RestInterface cartExpiredErrorDescription! !
+!RestInterfaceTest methodsFor: 'as yet unclassified' stamp: 'SG 6/12/2023 21:51:29' prior: 50610994!
+test07ListCartOfAnEmptyCartReturnsAnEmptyBag
+
+	| interface cartId |
+
+	interface := self createDefaultInterface.
+
+	cartId := self createCartIdForValidUser: interface.
+	self assert: (interface listCartIdentifiedAs: cartId) isEmpty 
+	! !
+!RestInterfaceTest methodsFor: 'as yet unclassified' stamp: 'SG 6/12/2023 21:51:29' prior: 50610278!
+test15CannotCheckoutCartAfter30Minutes
+
+	| interface cartId |
+	
+	interface := self createDefaultInterface.
+	cartId := self createCartIdForValidUser: interface.
+	interface add: testObjectsFactory itemSellByTheStore quantity: 1 toCartIdentifiedAs: cartId. 
+	
+	self advanceTimeBy: 31.
+	
+	self should: [interface checkOutCartIdentifiedAs: cartId withCreditCardNumbered: self validCreditCardNumber ownedBy: self validCreditCardName expiringOn: testObjectsFactory notExpiredMonthOfYear]
+			raise: Error - MessageNotUnderstood
+			withMessageText: RestInterface cartExpiredErrorDescription! !
+!RestInterfaceTest methodsFor: 'as yet unclassified' stamp: 'SG 6/12/2023 21:51:29' prior: 50609835!
+test13CannotListCartAfter30Minutes
+
+	| interface cartId |
+	
+	interface := self createDefaultInterface.
+	cartId := self createCartIdForValidUser: interface.
+	
+	self advanceTimeBy: 31.
+	
+	self should: [interface listCartIdentifiedAs: cartId]
+			raise: Error - MessageNotUnderstood
+			withMessageText: RestInterface cartExpiredErrorDescription! !
+!RestInterfaceTest methodsFor: 'as yet unclassified' stamp: 'SG 6/12/2023 21:51:29' prior: 50610497!
+test17AddingToCartResetsExpiryTime
+
+	| interface cartId |
+	
+	interface := self createDefaultInterface.
+	cartId := self createCartIdForValidUser: interface.
+	
+	self advanceTimeBy: 15.
+	interface add: testObjectsFactory itemSellByTheStore quantity: 1 toCartIdentifiedAs: cartId. 
+	
+	self advanceTimeBy: 16.
+	
+	self assert: (interface listCartIdentifiedAs: cartId) includes: testObjectsFactory itemSellByTheStore .! !
+!RestInterfaceTest methodsFor: 'as yet unclassified' stamp: 'SG 6/12/2023 21:51:29' prior: 50611146!
+test10CanCheckoutACart
+
+	| interface cartId  |
+
+	interface := self createDefaultInterface.
+
+	cartId := self createCartIdForValidUser: interface.
+	interface add: self validBook quantity: 1 toCartIdentifiedAs: cartId.
+	self
+		shouldnt: [interface 
+			checkOutCartIdentifiedAs: cartId 
+			withCreditCardNumbered: self validCreditCardNumber 
+			ownedBy: self validCreditCardName 
+			expiringOn: testObjectsFactory notExpiredMonthOfYear ]
+		raise: Error - MessageNotUnderstood
+		
+		! !
+!RestInterfaceTest methodsFor: 'as yet unclassified' stamp: 'SG 6/12/2023 21:51:29' prior: 50610956!
+test01CanCreateCartWithValidUserAndPassword
+
+	| interface cartID |
+	
+	interface := self createDefaultInterface.
+	cartID := self createCartIdForValidUser: interface.
+	
+	self assert: (interface listCartIdentifiedAs: cartID) isEmpty! !
+!RestInterfaceTest methodsFor: 'as yet unclassified' stamp: 'SG 6/12/2023 21:51:29' prior: 50610980!
+test06CanNotAddItemNotSellByTheStore
+
+	| interface cartId |
+
+	interface := self createDefaultInterface.
+
+	cartId := self createCartIdForValidUser: interface.
+	self
+		should: [interface add: self invalidBook quantity: 1 toCartIdentifiedAs: cartId ]
+		raise: Error - MessageNotUnderstood
+		withMessageText: interface invalidItemErrorMessage
+		! !
+
+!methodRemoval: RestInterfaceTest #createCardIdForValidUser: stamp: 'SG 6/12/2023 21:51:29'!
+createCardIdForValidUser: anInterface
+
+	^anInterface createCartFor: self validUser authenticatedWith: self validUserPassword.!
+!RestInterfaceTest methodsFor: 'testing' stamp: 'SG 6/12/2023 21:52:48'!
+cartWithValidBook: anInterface
+	| cartId |
+	cartId := self createCartIdForValidUser: anInterface.
+	anInterface add: self validBook quantity: 1 toCartIdentifiedAs: cartId.
+	
+	^cartId	! !
+!RestInterfaceTest methodsFor: 'testing' stamp: 'SG 6/12/2023 21:53:07' prior: 50611299!
+test10CanCheckoutACart
+
+	| interface cartId  |
+
+	interface := self createDefaultInterface.
+
+	cartId := self cartWithValidBook: interface.
+	self
+		shouldnt: [interface 
+			checkOutCartIdentifiedAs: cartId 
+			withCreditCardNumbered: self validCreditCardNumber 
+			ownedBy: self validCreditCardName 
+			expiringOn: testObjectsFactory notExpiredMonthOfYear ]
+		raise: Error - MessageNotUnderstood
+		
+		! !
+
+!testRun: #RestInterfaceTest #test10CanCheckoutACart stamp: 'SG 6/12/2023 21:53:08'!
+PASSED!
+
+!testRun: #RestInterfaceTest #test01CanCreateCartWithValidUserAndPassword stamp: 'SG 6/12/2023 21:53:08'!
+PASSED!
+
+!testRun: #RestInterfaceTest #test02CanNotCreateCartWithInvalidUser stamp: 'SG 6/12/2023 21:53:08'!
+PASSED!
+
+!testRun: #RestInterfaceTest #test03CanNotCreateCartWithInvalidPassword stamp: 'SG 6/12/2023 21:53:08'!
+PASSED!
+
+!testRun: #RestInterfaceTest #test04CanAddItemsToACreatedCart stamp: 'SG 6/12/2023 21:53:08'!
+PASSED!
+
+!testRun: #RestInterfaceTest #test05CanNotAddItemToNotCreatedCart stamp: 'SG 6/12/2023 21:53:08'!
+PASSED!
+
+!testRun: #RestInterfaceTest #test06CanNotAddItemNotSellByTheStore stamp: 'SG 6/12/2023 21:53:08'!
+PASSED!
+
+!testRun: #RestInterfaceTest #test07ListCartOfAnEmptyCartReturnsAnEmptyBag stamp: 'SG 6/12/2023 21:53:08'!
+PASSED!
+
+!testRun: #RestInterfaceTest #test08CanNotListCartOfInvalidCartId stamp: 'SG 6/12/2023 21:53:08'!
+PASSED!
+
+!testRun: #RestInterfaceTest #test09ListCartReturnsTheRightNumberOfItems stamp: 'SG 6/12/2023 21:53:08'!
+PASSED!
+
+!testRun: #RestInterfaceTest #test10CanCheckoutACart stamp: 'SG 6/12/2023 21:53:08'!
+PASSED!
+
+!testRun: #RestInterfaceTest #test11CanNotCheckoutANotCreatedCart stamp: 'SG 6/12/2023 21:53:08'!
+PASSED!
+
+!testRun: #RestInterfaceTest #test12CanNotCheckoutAnEmptyCart stamp: 'SG 6/12/2023 21:53:08'!
+PASSED!
+
+!testRun: #RestInterfaceTest #test13CannotListCartAfter30Minutes stamp: 'SG 6/12/2023 21:53:08'!
+PASSED!
+
+!testRun: #RestInterfaceTest #test14CannotAddToCartAfter30Minutes stamp: 'SG 6/12/2023 21:53:08'!
+PASSED!
+
+!testRun: #RestInterfaceTest #test15CannotCheckoutCartAfter30Minutes stamp: 'SG 6/12/2023 21:53:08'!
+PASSED!
+
+!testRun: #RestInterfaceTest #test16ListingCartResetsExpiryTime stamp: 'SG 6/12/2023 21:53:08'!
+PASSED!
+
+!testRun: #RestInterfaceTest #test17AddingToCartResetsExpiryTime stamp: 'SG 6/12/2023 21:53:08'!
+PASSED!
+!RestInterfaceTest methodsFor: 'testing' stamp: 'SG 6/12/2023 21:53:29' prior: 50610235!
+test12CanNotCheckoutAnEmptyCart
+
+	| interface cartId |
+
+	interface := self createDefaultInterface.
+
+	cartId := self createCartIdForValidUser: interface.
+	self
+		should: [interface 
+			checkOutCartIdentifiedAs: cartId 
+			withCreditCardNumbered: self validCreditCardNumber 
+			ownedBy: self validCreditCardName 
+			expiringOn: testObjectsFactory notExpiredMonthOfYear ]
+		raise: Error - MessageNotUnderstood
+		withExceptionDo: [ :anError |
+			self assert: anError messageText = interface cartCanNotBeEmptyErrorMessage ]
+		
+		! !
+!RestInterfaceTest methodsFor: 'testing' stamp: 'SG 6/12/2023 21:54:01' prior: 50611192!
+test04CanAddItemsToACreatedCart
+
+	| interface cartId |
+
+	interface := self createDefaultInterface.
+
+	cartId := self cartWithValidBook: interface.
+	self assert: (interface listCartIdentifiedAs: cartId) includes: self validBook.
+		! !
+
+!testRun: #RestInterfaceTest #test04CanAddItemsToACreatedCart stamp: 'SG 6/12/2023 21:54:01'!
+PASSED!
+
+!testRun: #RestInterfaceTest #test01CanCreateCartWithValidUserAndPassword stamp: 'SG 6/12/2023 21:54:01'!
+PASSED!
+
+!testRun: #RestInterfaceTest #test02CanNotCreateCartWithInvalidUser stamp: 'SG 6/12/2023 21:54:01'!
+PASSED!
+
+!testRun: #RestInterfaceTest #test03CanNotCreateCartWithInvalidPassword stamp: 'SG 6/12/2023 21:54:01'!
+PASSED!
+
+!testRun: #RestInterfaceTest #test04CanAddItemsToACreatedCart stamp: 'SG 6/12/2023 21:54:01'!
+PASSED!
+
+!testRun: #RestInterfaceTest #test05CanNotAddItemToNotCreatedCart stamp: 'SG 6/12/2023 21:54:01'!
+PASSED!
+
+!testRun: #RestInterfaceTest #test06CanNotAddItemNotSellByTheStore stamp: 'SG 6/12/2023 21:54:01'!
+PASSED!
+
+!testRun: #RestInterfaceTest #test07ListCartOfAnEmptyCartReturnsAnEmptyBag stamp: 'SG 6/12/2023 21:54:01'!
+PASSED!
+
+!testRun: #RestInterfaceTest #test08CanNotListCartOfInvalidCartId stamp: 'SG 6/12/2023 21:54:01'!
+PASSED!
+
+!testRun: #RestInterfaceTest #test09ListCartReturnsTheRightNumberOfItems stamp: 'SG 6/12/2023 21:54:01'!
+PASSED!
+
+!testRun: #RestInterfaceTest #test10CanCheckoutACart stamp: 'SG 6/12/2023 21:54:01'!
+PASSED!
+
+!testRun: #RestInterfaceTest #test11CanNotCheckoutANotCreatedCart stamp: 'SG 6/12/2023 21:54:01'!
+PASSED!
+
+!testRun: #RestInterfaceTest #test12CanNotCheckoutAnEmptyCart stamp: 'SG 6/12/2023 21:54:01'!
+PASSED!
+
+!testRun: #RestInterfaceTest #test13CannotListCartAfter30Minutes stamp: 'SG 6/12/2023 21:54:01'!
+PASSED!
+
+!testRun: #RestInterfaceTest #test14CannotAddToCartAfter30Minutes stamp: 'SG 6/12/2023 21:54:01'!
+PASSED!
+
+!testRun: #RestInterfaceTest #test15CannotCheckoutCartAfter30Minutes stamp: 'SG 6/12/2023 21:54:01'!
+PASSED!
+
+!testRun: #RestInterfaceTest #test16ListingCartResetsExpiryTime stamp: 'SG 6/12/2023 21:54:01'!
+PASSED!
+
+!testRun: #RestInterfaceTest #test17AddingToCartResetsExpiryTime stamp: 'SG 6/12/2023 21:54:01'!
+PASSED!
+!RestInterfaceTest methodsFor: 'testing' stamp: 'SG 6/12/2023 21:54:21' prior: 50611172!
+test09ListCartReturnsTheRightNumberOfItems
+
+	| interface cartId cartContent |
+
+	interface := self createDefaultInterface.
+
+	cartId := self cartWithValidBook: interface.
+	interface add: self anotherValidBook quantity: 2 toCartIdentifiedAs: cartId.
+	cartContent := interface listCartIdentifiedAs: cartId.
+	
+	self assert: (cartContent occurrencesOf: self validBook) = 1. 
+	self assert: (cartContent occurrencesOf: (self anotherValidBook )) = 2
+! !
+
+----SNAPSHOT----(12 June 2023 21:54:29) CuisUniversity-5706.image priorSource: 8935865!
