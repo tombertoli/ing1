@@ -1,0 +1,1534 @@
+
+
+----QUIT----(30 May 2023 00:05:32) CuisUniversity-5832.image priorSource: 4928100!
+
+----STARTUP---- (30 May 2023 00:05:33) as /Users/hernan/Documents/Cuis/5.0-64Bits/Cuis-University-Installer/CuisUniversity-5832.image!
+
+
+----QUIT----(30 May 2023 00:05:33) CuisUniversity-5832.image priorSource: 9366537!
+
+----STARTUP---- (28 June 2023 14:52:59) as C:\Users\tomas\Downloads\windows64\CuisUniversity-5832.image!
+
+
+----End fileIn of C:\Users\tomas\Downloads\CustomerImporter-35.st----!
+!CustomerImporter methodsFor: 'evaluating' stamp: 'TB 6/28/2023 15:01:13' prior: 50624630 overrides: 16902254!
+value
+
+	"
+	self importCustomers
+	"
+	| newCustomer line |
+
+	line := readStream nextLine.
+	[ line notNil ] whileTrue: [  | customerData |
+		customerData := line findTokens: $,.
+		(line beginsWith: 'C') ifTrue: [
+			newCustomer := Customer new.
+			newCustomer firstName: customerData second.
+			newCustomer lastName: customerData third.
+			newCustomer identificationType: customerData fourth.
+			newCustomer identificationNumber: customerData fifth.
+			session persist: newCustomer ].
+
+		(line beginsWith: 'A') ifTrue: [ | newAddress |
+			newAddress := Address new.
+			newCustomer addAddress: newAddress.
+			newAddress streetName: customerData second.
+			newAddress streetNumber: customerData third asNumber .
+			newAddress town: customerData fourth.
+			newAddress zipCode: customerData fifth asNumber .
+			newAddress province: customerData sixth ].
+
+		line := readStream nextLine. ].
+
+	! !
+!CustomerImporter methodsFor: 'evaluating' stamp: 'TB 6/28/2023 15:01:18' prior: 50624781 overrides: 16902254!
+value
+
+	"
+	self importCustomers
+	"
+	| newCustomer line |
+
+	line := readStream nextLine.
+	[ line notNil ] whileTrue: [  | data |
+		data := line findTokens: $,.
+		(line beginsWith: 'C') ifTrue: [
+			newCustomer := Customer new.
+			newCustomer firstName: data second.
+			newCustomer lastName: data third.
+			newCustomer identificationType: data fourth.
+			newCustomer identificationNumber: data fifth.
+			session persist: newCustomer ].
+
+		(line beginsWith: 'A') ifTrue: [ | newAddress |
+			newAddress := Address new.
+			newCustomer addAddress: newAddress.
+			newAddress streetName: data second.
+			newAddress streetNumber: data third asNumber .
+			newAddress town: data fourth.
+			newAddress zipCode: data fifth asNumber .
+			newAddress province: data sixth ].
+
+		line := readStream nextLine. ].
+
+	! !
+!CustomerImporter methodsFor: 'evaluating' stamp: 'TB 6/28/2023 15:02:12' prior: 50624813 overrides: 16902254!
+value
+
+	"
+	self importCustomers
+	"
+	| line |
+
+	line := readStream nextLine.
+	[ line notNil ] whileTrue: [  | data |
+		data := line findTokens: $,.
+		(line beginsWith: 'C') ifTrue: [ | newCustomer |
+			newCustomer := Customer new.
+			newCustomer firstName: data second.
+			newCustomer lastName: data third.
+			newCustomer identificationType: data fourth.
+			newCustomer identificationNumber: data fifth.
+			session persist: newCustomer ].
+
+		(line beginsWith: 'A') ifTrue: [ | newAddress |
+			newAddress := Address new.
+			"newCustomer addAddress: newAddress."
+			newAddress streetName: data second.
+			newAddress streetNumber: data third asNumber .
+			newAddress town: data fourth.
+			newAddress zipCode: data fifth asNumber .
+			newAddress province: data sixth ].
+
+		line := readStream nextLine. ].
+
+	! !
+!CustomerImporter methodsFor: 'evaluating' stamp: 'TB 6/28/2023 15:02:33'!
+customerFrom: data
+
+	| newCustomer |
+			newCustomer := Customer new.
+			newCustomer firstName: data second.
+			newCustomer lastName: data third.
+			newCustomer identificationType: data fourth.
+			newCustomer identificationNumber: data fifth.
+			session persist: newCustomer! !
+!CustomerImporter methodsFor: 'evaluating' stamp: 'TB 6/28/2023 15:02:33' prior: 50624842 overrides: 16902254!
+value
+
+	"
+	self importCustomers
+	"
+	| line |
+
+	line := readStream nextLine.
+	[ line notNil ] whileTrue: [  | data |
+		data := line findTokens: $,.
+		(line beginsWith: 'C') ifTrue: [ self customerFrom: data ].
+
+		(line beginsWith: 'A') ifTrue: [ | newAddress |
+			newAddress := Address new.
+			"newCustomer addAddress: newAddress."
+			newAddress streetName: data second.
+			newAddress streetNumber: data third asNumber .
+			newAddress town: data fourth.
+			newAddress zipCode: data fifth asNumber .
+			newAddress province: data sixth ].
+
+		line := readStream nextLine. ].
+
+	! !
+!CustomerImporter methodsFor: 'evaluating' stamp: 'TB 6/28/2023 15:02:48' prior: 50624883 overrides: 16902254!
+value
+
+	"
+	self importCustomers
+	"
+	| newCustomer line |
+
+	line := readStream nextLine.
+	[ line notNil ] whileTrue: [  | data |
+		data := line findTokens: $,.
+		(line beginsWith: 'C') ifTrue: [ newCustomer := self customerFrom: data ].
+
+		(line beginsWith: 'A') ifTrue: [ | newAddress |
+			newAddress := Address new.
+			newCustomer addAddress: newAddress.
+			newAddress streetName: data second.
+			newAddress streetNumber: data third asNumber .
+			newAddress town: data fourth.
+			newAddress zipCode: data fifth asNumber .
+			newAddress province: data sixth ].
+
+		line := readStream nextLine. ].
+
+	! !
+!CustomerImporter methodsFor: 'evaluating' stamp: 'TB 6/28/2023 15:02:57' prior: 50624870!
+customerFrom: data
+
+	| newCustomer |
+	newCustomer := Customer new.
+	newCustomer firstName: data second.
+	newCustomer lastName: data third.
+	newCustomer identificationType: data fourth.
+	newCustomer identificationNumber: data fifth.
+	session persist: newCustomer.
+	
+	^newCustomer! !
+!CustomerImporter methodsFor: 'evaluating' stamp: 'TB 6/28/2023 15:03:35' prior: 50624927!
+customerFrom: data
+	|newCustomer|
+	newCustomer := Customer new.
+	newCustomer firstName: data second.
+	newCustomer lastName: data third.
+	newCustomer identificationType: data fourth.
+	newCustomer identificationNumber: data fifth.
+	session persist: newCustomer.! !
+!CustomerImporter methodsFor: 'evaluating' stamp: 'TB 6/28/2023 15:03:47' prior: 50624939!
+customerFrom: data
+	|customer|
+	customer := Customer new.
+	customer firstName: data second.
+	customer lastName: data third.
+	customer identificationType: data fourth.
+	customer identificationNumber: data fifth.
+	session persist: customer.! !
+!CustomerImporter methodsFor: 'evaluating' stamp: 'TB 6/28/2023 15:04:07' prior: 50624951!
+customerFrom: data
+	|customer|
+	customer := Customer new.
+	customer firstName: data second.
+	customer lastName: data third.
+	customer identificationType: data fourth.
+	customer identificationNumber: data fifth.
+	session persist: customer.! !
+!CustomerImporter methodsFor: 'as yet unclassified' stamp: 'TB 6/28/2023 15:04:19' prior: 50624962!
+customerFrom: data
+	 
+	customer := Customer new.
+	customer firstName: data second.
+	customer lastName: data third.
+	customer identificationType: data fourth.
+	customer identificationNumber: data fifth.
+	session persist: customer.! !
+
+!classDefinition: #CustomerImporter category: 'CustomerImporter' stamp: 'TB 6/28/2023 15:04:19'!
+Object subclass: #CustomerImporter
+	instanceVariableNames: 'session readStream customer'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'CustomerImporter'!
+!CustomerImporter methodsFor: 'evaluating' stamp: 'TB 6/28/2023 15:04:22' prior: 50624973!
+customerFrom: data	 
+	customer := Customer new.
+	customer firstName: data second.
+	customer lastName: data third.
+	customer identificationType: data fourth.
+	customer identificationNumber: data fifth.
+	session persist: customer.! !
+!CustomerImporter methodsFor: 'evaluating' stamp: 'TB 6/28/2023 15:04:36' prior: 50624905 overrides: 16902254!
+value
+
+	"
+	self importCustomers
+	"
+	| line |
+
+	line := readStream nextLine.
+	[ line notNil ] whileTrue: [  | data |
+		data := line findTokens: $,.
+		(line beginsWith: 'C') ifTrue: [ self customerFrom: data ].
+
+		(line beginsWith: 'A') ifTrue: [ | newAddress |
+			newAddress := Address new.
+			customer addAddress: newAddress.
+			newAddress streetName: data second.
+			newAddress streetNumber: data third asNumber .
+			newAddress town: data fourth.
+			newAddress zipCode: data fifth asNumber .
+			newAddress province: data sixth ].
+
+		line := readStream nextLine. ].
+
+	! !
+!CustomerImporter methodsFor: 'evaluating' stamp: 'TB 6/28/2023 15:04:44'!
+addressFrom: data
+
+	| newAddress |
+			newAddress := Address new.
+			customer addAddress: newAddress.
+			newAddress streetName: data second.
+			newAddress streetNumber: data third asNumber .
+			newAddress town: data fourth.
+			newAddress zipCode: data fifth asNumber .
+			newAddress province: data sixth! !
+!CustomerImporter methodsFor: 'evaluating' stamp: 'TB 6/28/2023 15:04:44' prior: 50625003 overrides: 16902254!
+value
+
+	"
+	self importCustomers
+	"
+	| line |
+
+	line := readStream nextLine.
+	[ line notNil ] whileTrue: [  | data |
+		data := line findTokens: $,.
+		(line beginsWith: 'C') ifTrue: [ self customerFrom: data ].
+
+		(line beginsWith: 'A') ifTrue: [ self addressFrom: data ].
+
+		line := readStream nextLine. ].
+
+	! !
+!CustomerImporter methodsFor: 'evaluating' stamp: 'TB 6/28/2023 15:04:57' prior: 50625024!
+addressFrom: data
+
+	| newAddress |
+	newAddress := Address new.
+	customer addAddress: newAddress.
+	newAddress streetName: data second.
+	newAddress streetNumber: data third asNumber .
+	newAddress town: data fourth.
+	newAddress zipCode: data fifth asNumber .
+	newAddress province: data sixth! !
+!CustomerImporter methodsFor: 'evaluating' stamp: 'TB 6/28/2023 15:05:14' prior: 50625038 overrides: 16902254!
+value
+
+	"
+	self importCustomers
+	"
+	| line |
+
+	[ line := readStream nextLine. line notNil ] whileTrue: [  | data |
+		data := line findTokens: $,.
+		(line beginsWith: 'C') ifTrue: [ self customerFrom: data ].
+		(line beginsWith: 'A') ifTrue: [ self addressFrom: data ]. ].
+
+	! !
+!CustomerImporter methodsFor: 'evaluating' stamp: 'TB 6/28/2023 15:06:09' prior: 50625064 overrides: 16902254!
+value
+
+	"
+	self importCustomers
+	"
+	| line |
+
+	[ line := readStream nextLine. line notNil ] whileTrue: [  | data |
+		data := line findTokens: $,.
+		(data first = $C) ifTrue: [ self customerFrom: data ].
+		(data first = $A) ifTrue: [ self addressFrom: data ]. ].
+
+	! !
+!CustomerImporter methodsFor: 'evaluating' stamp: 'TB 6/28/2023 15:06:57'!
+import: data
+
+	(data first = $C) ifTrue: [ self customerFrom: data ].
+		(data first = $A) ifTrue: [ self addressFrom: data ]! !
+!CustomerImporter methodsFor: 'evaluating' stamp: 'TB 6/28/2023 15:06:57' prior: 50625077 overrides: 16902254!
+value
+
+	"
+	self importCustomers
+	"
+	| line |
+
+	[ line := readStream nextLine. line notNil ] whileTrue: [  | data |
+		data := line findTokens: $,.
+		self import: data. ].
+
+	! !
+!CustomerImporter methodsFor: 'evaluating' stamp: 'TB 6/28/2023 15:07:11'!
+read: line
+
+	^ line findTokens: $,! !
+!CustomerImporter methodsFor: 'evaluating' stamp: 'TB 6/28/2023 15:07:11' prior: 50625096 overrides: 16902254!
+value
+
+	"
+	self importCustomers
+	"
+	| line |
+
+	[ line := readStream nextLine. line notNil ] whileTrue: [  | data |
+		data := self read: line.
+		self import: data. ].
+
+	! !
+!CustomerImporter methodsFor: 'evaluating' stamp: 'TB 6/28/2023 15:07:40' prior: 50625104!
+read: line
+
+	line findTokens: $,! !
+
+!classDefinition: #CustomerImporter category: 'CustomerImporter' stamp: 'TB 6/28/2023 15:07:58'!
+Object subclass: #CustomerImporter
+	instanceVariableNames: 'session readStream customer lineData'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'CustomerImporter'!
+!CustomerImporter methodsFor: 'evaluating' stamp: 'TB 6/28/2023 15:07:56' prior: 50625118!
+read: line
+
+	lineData := line findTokens: $,! !
+!CustomerImporter methodsFor: 'evaluating' stamp: 'TB 6/28/2023 15:08:15' prior: 50625109 overrides: 16902254!
+value
+
+	"
+	self importCustomers
+	"
+	| line |
+
+	[ line := readStream nextLine. line notNil ] whileTrue: [
+		self read: line.
+		self import: lineData. ].
+
+	! !
+!CustomerImporter methodsFor: 'evaluating' stamp: 'TB 6/28/2023 15:08:37' prior: 50625088!
+import: data
+
+	(data first = $C) ifTrue: [ self customerFrom: data ].
+	(data first = $A) ifTrue: [ self addressFrom: data ]! !
+!CustomerImporter methodsFor: 'evaluating' stamp: 'TB 6/28/2023 15:08:49'!
+importCustomer: data	 
+	customer := Customer new.
+	customer firstName: data second.
+	customer lastName: data third.
+	customer identificationType: data fourth.
+	customer identificationNumber: data fifth.
+	session persist: customer.! !
+!CustomerImporter methodsFor: 'as yet unclassified' stamp: 'TB 6/28/2023 15:08:50' prior: 50625144!
+import: data
+
+	(data first = $C) ifTrue: [ self importCustomer: data ].
+	(data first = $A) ifTrue: [ self addressFrom: data ]! !
+
+!methodRemoval: CustomerImporter #customerFrom: stamp: 'TB 6/28/2023 15:08:50'!
+customerFrom: data	 
+	customer := Customer new.
+	customer firstName: data second.
+	customer lastName: data third.
+	customer identificationType: data fourth.
+	customer identificationNumber: data fifth.
+	session persist: customer.!
+!CustomerImporter methodsFor: 'evaluating' stamp: 'TB 6/28/2023 15:08:53' prior: 50625162!
+import: data
+
+	(data first = $C) ifTrue: [ self importCustomer: data ].
+	(data first = $A) ifTrue: [ self addressFrom: data ]! !
+!CustomerImporter methodsFor: 'evaluating' stamp: 'TB 6/28/2023 15:08:58'!
+importAddress: data
+
+	| newAddress |
+	newAddress := Address new.
+	customer addAddress: newAddress.
+	newAddress streetName: data second.
+	newAddress streetNumber: data third asNumber .
+	newAddress town: data fourth.
+	newAddress zipCode: data fifth asNumber .
+	newAddress province: data sixth! !
+!CustomerImporter methodsFor: 'as yet unclassified' stamp: 'TB 6/28/2023 15:08:58' prior: 50625179!
+import: data
+
+	(data first = $C) ifTrue: [ self importCustomer: data ].
+	(data first = $A) ifTrue: [ self importAddress: data ]! !
+
+!methodRemoval: CustomerImporter #addressFrom: stamp: 'TB 6/28/2023 15:08:58'!
+addressFrom: data
+
+	| newAddress |
+	newAddress := Address new.
+	customer addAddress: newAddress.
+	newAddress streetName: data second.
+	newAddress streetNumber: data third asNumber .
+	newAddress town: data fourth.
+	newAddress zipCode: data fifth asNumber .
+	newAddress province: data sixth!
+!CustomerImporter methodsFor: 'evaluating' stamp: 'TB 6/28/2023 15:09:54' prior: 50625199!
+import: data
+
+	(lineData first = $C) ifTrue: [ self importCustomer: lineData ].
+	(lineData first = $A) ifTrue: [ self importAddress: lineData ]! !
+!CustomerImporter methodsFor: 'evaluating' stamp: 'TB 6/28/2023 15:10:05'!
+import
+
+	(lineData first = $C) ifTrue: [ self importCustomer: lineData ].
+	(lineData first = $A) ifTrue: [ self importAddress: lineData ]! !
+!CustomerImporter methodsFor: 'as yet unclassified' stamp: 'TB 6/28/2023 15:10:05' prior: 50625136 overrides: 16902254!
+value
+
+	"
+	self importCustomers
+	"
+	| line |
+
+	[ line := readStream nextLine. line notNil ] whileTrue: [
+		self read: line.
+		self import. ].
+
+	! !
+
+!methodRemoval: CustomerImporter #import: stamp: 'TB 6/28/2023 15:10:05'!
+import: data
+
+	(lineData first = $C) ifTrue: [ self importCustomer: lineData ].
+	(lineData first = $A) ifTrue: [ self importAddress: lineData ]!
+!CustomerImporter methodsFor: 'evaluating' stamp: 'TB 6/28/2023 15:10:22' prior: 50625131!
+read: aline
+
+	lineData := aline findTokens: $,! !
+!CustomerImporter methodsFor: 'evaluating' stamp: 'TB 6/28/2023 15:10:52' prior: 50625186!
+importAddress: data
+
+	| newAddress |
+	newAddress := Address new.
+	customer addAddress: newAddress.
+	newAddress streetName: lineData second.
+	newAddress streetNumber: lineData third asNumber .
+	newAddress town: lineData fourth.
+	newAddress zipCode: lineData fifth asNumber .
+	newAddress province: lineData sixth! !
+!CustomerImporter methodsFor: 'evaluating' stamp: 'TB 6/28/2023 15:11:01'!
+importAddress
+
+	| newAddress |
+	newAddress := Address new.
+	customer addAddress: newAddress.
+	newAddress streetName: lineData second.
+	newAddress streetNumber: lineData third asNumber .
+	newAddress town: lineData fourth.
+	newAddress zipCode: lineData fifth asNumber .
+	newAddress province: lineData sixth! !
+!CustomerImporter methodsFor: 'as yet unclassified' stamp: 'TB 6/28/2023 15:11:01' prior: 50625225!
+import
+
+	(lineData first = $C) ifTrue: [ self importCustomer: lineData ].
+	(lineData first = $A) ifTrue: [ self importAddress]! !
+
+!methodRemoval: CustomerImporter #importAddress: stamp: 'TB 6/28/2023 15:11:01'!
+importAddress: data
+
+	| newAddress |
+	newAddress := Address new.
+	customer addAddress: newAddress.
+	newAddress streetName: lineData second.
+	newAddress streetNumber: lineData third asNumber .
+	newAddress town: lineData fourth.
+	newAddress zipCode: lineData fifth asNumber .
+	newAddress province: lineData sixth!
+!CustomerImporter methodsFor: 'evaluating' stamp: 'TB 6/28/2023 15:11:10' prior: 50625151!
+importCustomer: data	 
+	customer := Customer new.
+	customer firstName: lineData second.
+	customer lastName: lineData third.
+	customer identificationType: lineData fourth.
+	customer identificationNumber: lineData fifth.
+	session persist: customer.! !
+!CustomerImporter methodsFor: 'evaluating' stamp: 'TB 6/28/2023 15:11:14'!
+importCustomer	 
+	customer := Customer new.
+	customer firstName: lineData second.
+	customer lastName: lineData third.
+	customer identificationType: lineData fourth.
+	customer identificationNumber: lineData fifth.
+	session persist: customer.! !
+!CustomerImporter methodsFor: 'as yet unclassified' stamp: 'TB 6/28/2023 15:11:14' prior: 50625280!
+import
+
+	(lineData first = $C) ifTrue: [ self importCustomer].
+	(lineData first = $A) ifTrue: [ self importAddress]! !
+
+!methodRemoval: CustomerImporter #importCustomer: stamp: 'TB 6/28/2023 15:11:14'!
+importCustomer: data	 
+	customer := Customer new.
+	customer firstName: lineData second.
+	customer lastName: lineData third.
+	customer identificationType: lineData fourth.
+	customer identificationNumber: lineData fifth.
+	session persist: customer.!
+
+!classDefinition: #CustomerImporter category: 'CustomerImporter' stamp: 'TB 6/28/2023 15:11:39'!
+Object subclass: #CustomerImporter
+	instanceVariableNames: 'session readStream customer lineData linea'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'CustomerImporter'!
+!CustomerImporter methodsFor: 'evaluating' stamp: 'TB 6/28/2023 15:11:38' prior: 50625234 overrides: 16902254!
+value
+
+	"
+	self importCustomers
+	"
+
+	[ linea := readStream nextLine. linea notNil ] whileTrue: [
+		self read: linea.
+		self import. ].
+
+	! !
+
+!classDefinition: #CustomerImporter category: 'CustomerImporter' stamp: 'TB 6/28/2023 15:11:40'!
+Object subclass: #CustomerImporter
+	instanceVariableNames: 'session readStream customer lineData line'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'CustomerImporter'!
+!CustomerImporter methodsFor: 'as yet unclassified' stamp: 'TB 6/28/2023 15:11:40' prior: 50625349 overrides: 16902254!
+value
+
+	"
+	self importCustomers
+	"
+
+	[ line := readStream nextLine. line notNil ] whileTrue: [
+		self read: line.
+		self import. ].
+
+	! !
+!CustomerImporter methodsFor: 'evaluating' stamp: 'TB 6/28/2023 15:11:56' prior: 50625249!
+read: aline
+
+	lineData := line findTokens: $,! !
+!CustomerImporter methodsFor: 'evaluating' stamp: 'TB 6/28/2023 15:11:59'!
+read
+
+	lineData := line findTokens: $,! !
+!CustomerImporter methodsFor: 'as yet unclassified' stamp: 'TB 6/28/2023 15:11:59' prior: 50625366 overrides: 16902254!
+value
+
+	"
+	self importCustomers
+	"
+
+	[ line := readStream nextLine. line notNil ] whileTrue: [
+		self read.
+		self import. ].
+
+	! !
+
+!methodRemoval: CustomerImporter #read: stamp: 'TB 6/28/2023 15:11:59'!
+read: aline
+
+	lineData := line findTokens: $,!
+!CustomerImporter methodsFor: 'evaluating' stamp: 'TB 6/28/2023 15:12:16' prior: 50625384 overrides: 16902254!
+value
+
+	"
+	self importCustomers
+	"
+
+	[ line := readStream nextLine. line notNil ] whileTrue: [
+		self read.
+		self import. ].
+
+	! !
+!CustomerImporter methodsFor: 'evaluating' stamp: 'TB 6/28/2023 15:12:22'!
+tokenizeLine
+
+	lineData := line findTokens: $,! !
+!CustomerImporter methodsFor: 'as yet unclassified' stamp: 'TB 6/28/2023 15:12:22' prior: 50625396 overrides: 16902254!
+value
+
+	"
+	self importCustomers
+	"
+
+	[ line := readStream nextLine. line notNil ] whileTrue: [
+		self tokenizeLine.
+		self import. ].
+
+	! !
+
+!methodRemoval: CustomerImporter #read stamp: 'TB 6/28/2023 15:12:22'!
+read
+
+	lineData := line findTokens: $,!
+!CustomerImporter methodsFor: 'evaluating' stamp: 'TB 6/28/2023 15:12:31'!
+importFromData
+
+	(lineData first = $C) ifTrue: [ self importCustomer].
+	(lineData first = $A) ifTrue: [ self importAddress]! !
+!CustomerImporter methodsFor: 'as yet unclassified' stamp: 'TB 6/28/2023 15:12:32' prior: 50625409 overrides: 16902254!
+value
+
+	"
+	self importCustomers
+	"
+
+	[ line := readStream nextLine. line notNil ] whileTrue: [
+		self tokenizeLine.
+		self importFromData. ].
+
+	! !
+
+!methodRemoval: CustomerImporter #import stamp: 'TB 6/28/2023 15:12:32'!
+import
+
+	(lineData first = $C) ifTrue: [ self importCustomer].
+	(lineData first = $A) ifTrue: [ self importAddress]!
+!CustomerImporter methodsFor: 'evaluating' stamp: 'TB 6/28/2023 15:13:26'!
+hasLine
+
+	line := readStream nextLine. line notNil! !
+!CustomerImporter methodsFor: 'evaluating' stamp: 'TB 6/28/2023 15:13:26' prior: 50625428 overrides: 16902254!
+value
+
+	"
+	self importCustomers
+	"
+
+	[ self hasLine ] whileTrue: [
+		self tokenizeLine.
+		self importFromData. ].
+
+	! !
+!CustomerImporter methodsFor: 'evaluating' stamp: 'TB 6/28/2023 15:13:33' prior: 50625447 overrides: 16902254!
+value
+
+	[ self hasLine ] whileTrue: [
+		self tokenizeLine.
+		self importFromData. ].
+
+	! !
+!CustomerImporter methodsFor: 'evaluating' stamp: 'TB 6/28/2023 15:13:39'!
+canReadLine
+
+	line := readStream nextLine. line notNil! !
+!CustomerImporter methodsFor: 'as yet unclassified' stamp: 'TB 6/28/2023 15:13:39' prior: 50625455 overrides: 16902254!
+value
+
+	[ self canReadLine ] whileTrue: [
+		self tokenizeLine.
+		self importFromData. ].
+
+	! !
+
+!methodRemoval: CustomerImporter #hasLine stamp: 'TB 6/28/2023 15:13:39'!
+hasLine
+
+	line := readStream nextLine. line notNil!
+!CustomerImporter methodsFor: 'evaluating' stamp: 'TB 6/28/2023 15:13:49'!
+importFromLineData
+
+	(lineData first = $C) ifTrue: [ self importCustomer].
+	(lineData first = $A) ifTrue: [ self importAddress]! !
+!CustomerImporter methodsFor: 'as yet unclassified' stamp: 'TB 6/28/2023 15:13:49' prior: 50625467 overrides: 16902254!
+value
+
+	[ self canReadLine ] whileTrue: [
+		self tokenizeLine.
+		self importFromLineData. ].
+
+	! !
+
+!methodRemoval: CustomerImporter #importFromData stamp: 'TB 6/28/2023 15:13:49'!
+importFromData
+
+	(lineData first = $C) ifTrue: [ self importCustomer].
+	(lineData first = $A) ifTrue: [ self importAddress]!
+
+----SNAPSHOT----(28 June 2023 15:13:53) CuisUniversity-5832.image priorSource: 9366758!
+
+!testRun: #ImportTest #test01Import stamp: 'TB 6/28/2023 15:13:56'!
+ERROR!
+!CustomerImporter methodsFor: 'evaluating' stamp: 'TB 6/28/2023 15:14:07' prior: 50625461!
+canReadLine
+
+	line := readStream nextLine.
+	^line notNil! !
+
+!testRun: #ImportTest #test01Import stamp: 'TB 6/28/2023 15:14:09'!
+FAILURE!
+
+!testRun: #ImportTest #test01Import stamp: 'TB 6/28/2023 15:14:09'!
+FAILURE!
+!CustomerImporter methodsFor: 'evaluating' stamp: 'TB 6/28/2023 15:14:34' prior: 50625477!
+importFromLineData
+
+	(lineData first = 'C') ifTrue: [ self importCustomer].
+	(lineData first = $A) ifTrue: [ self importAddress]! !
+
+!testRun: #ImportTest #test01Import stamp: 'TB 6/28/2023 15:14:35'!
+FAILURE!
+
+!testRun: #ImportTest #test01Import stamp: 'TB 6/28/2023 15:14:35'!
+FAILURE!
+!CustomerImporter methodsFor: 'evaluating' stamp: 'TB 6/28/2023 15:14:40' prior: 50625513!
+importFromLineData
+
+	(lineData first = 'C') ifTrue: [ self importCustomer].
+	(lineData first = 'A') ifTrue: [ self importAddress]! !
+
+!testRun: #ImportTest #test01Import stamp: 'TB 6/28/2023 15:14:41'!
+PASSED!
+
+----SNAPSHOT----(28 June 2023 15:15:18) CuisUniversity-5832.image priorSource: 9403089!
+
+----STARTUP---- (28 June 2023 19:56:08) as C:\Users\tomas\Downloads\windows64\CuisUniversity-5832.image!
+
+!ImportTest methodsFor: 'tests' stamp: 'TB 6/28/2023 19:58:14' prior: 50624379!
+test01Import
+
+	CustomerImporter valueFrom: self validImportData into: session.
+
+	self assertImportedRightNumberOfCustomers.
+	self assertPepeSanchezWasImportedCorrecty.
+	self assertJuanPerezWasImportedCorrectly ! !
+!ImportTest methodsFor: 'tests' stamp: 'TB 6/28/2023 19:58:25'!
+test01CustomerImporterImportsTestFileCorrectly
+
+	CustomerImporter valueFrom: self validImportData into: session.
+
+	self assertImportedRightNumberOfCustomers.
+	self assertPepeSanchezWasImportedCorrecty.
+	self assertJuanPerezWasImportedCorrectly ! !
+
+!methodRemoval: ImportTest #test01Import stamp: 'TB 6/28/2023 19:58:25'!
+test01Import
+
+	CustomerImporter valueFrom: self validImportData into: session.
+
+	self assertImportedRightNumberOfCustomers.
+	self assertPepeSanchezWasImportedCorrecty.
+	self assertJuanPerezWasImportedCorrectly !
+!ImportTest methodsFor: 'tests' stamp: 'TB 6/28/2023 20:00:51'!
+test02CustomerImporterFileWithOnlyAddressesThrowsError
+
+	CustomerImporter valueFrom: self dataWithOnlyAddresses into: session.
+
+	self assertImportedRightNumberOfCustomers.
+	self assertPepeSanchezWasImportedCorrecty.
+	self assertJuanPerezWasImportedCorrectly ! !
+!ImportTest methodsFor: 'tests' stamp: 'TB 6/28/2023 20:02:35'!
+dataWithOnlyAddresses
+
+	^ReadStream on: (OrderedCollection
+		with: 'A,San Martin,3322,Olivos,1636,BsAs'
+		with: 'A,Maipu,888,Florida,1122,Buenos Aires')! !
+
+!testRun: #ImportTest #test02CustomerImporterFileWithOnlyAddressesThrowsError stamp: 'TB 6/28/2023 20:02:44'!
+ERROR!
+!ImportTest methodsFor: 'tests' stamp: 'TB 6/28/2023 20:03:44' prior: 50625569!
+test02CustomerImporterFileWithOnlyAddressesThrowsError
+
+	self should: [CustomerImporter valueFrom: self dataWithOnlyAddresses into: session.]
+		raise: Error - MessageNotUnderstood
+		withMessageText: CustomerImporter noCustomerToAssignAddressErrorDescription! !
+
+!testRun: #ImportTest #test02CustomerImporterFileWithOnlyAddressesThrowsError stamp: 'TB 6/28/2023 20:03:45'!
+ERROR!
+!CustomerImporter class methodsFor: 'error' stamp: 'TB 6/28/2023 20:03:59'!
+noCustomerToAssignAddressErrorDescription
+	self shouldBeImplemented.! !
+!CustomerImporter class methodsFor: 'error' stamp: 'TB 6/28/2023 20:04:23' prior: 50625607!
+noCustomerToAssignAddressErrorDescription
+	^'No existe un cliente al cual asignar la direccion'! !
+
+!testRun: #ImportTest #test02CustomerImporterFileWithOnlyAddressesThrowsError stamp: 'TB 6/28/2023 20:04:24'!
+ERROR!
+!ImportTest methodsFor: 'test data' stamp: 'TB 6/28/2023 20:04:51' prior: 50625580!
+dataWithOnlyAddresses
+
+	^ReadStream on: 
+'A,San Martin,3322,Olivos,1636,BsAs
+A,Maipu,888,Florida,1122,Buenos Aires'! !
+
+!testRun: #ImportTest #test01CustomerImporterImportsTestFileCorrectly stamp: 'TB 6/28/2023 20:04:52'!
+PASSED!
+
+!testRun: #ImportTest #test02CustomerImporterFileWithOnlyAddressesThrowsError stamp: 'TB 6/28/2023 20:04:53'!
+ERROR!
+
+!testRun: #ImportTest #test02CustomerImporterFileWithOnlyAddressesThrowsError stamp: 'TB 6/28/2023 20:04:53'!
+ERROR!
+!CustomerImporter methodsFor: 'actions - private' stamp: 'TB 6/28/2023 20:05:50' prior: 50625267!
+importAddress
+
+	| newAddress |
+	newAddress := Address new.
+	customer ifNil: [self error: self class noCustomerToAssignAddressErrorDescription].
+	customer addAddress: newAddress.
+	newAddress streetName: lineData second.
+	newAddress streetNumber: lineData third asNumber .
+	newAddress town: lineData fourth.
+	newAddress zipCode: lineData fifth asNumber .
+	newAddress province: lineData sixth! !
+
+!testRun: #ImportTest #test02CustomerImporterFileWithOnlyAddressesThrowsError stamp: 'TB 6/28/2023 20:05:56'!
+FAILURE!
+
+!testRun: #ImportTest #test02CustomerImporterFileWithOnlyAddressesThrowsError stamp: 'TB 6/28/2023 20:06:10'!
+PASSED!
+
+!testRun: #ImportTest #test01CustomerImporterImportsTestFileCorrectly stamp: 'TB 6/28/2023 20:06:10'!
+PASSED!
+
+!testRun: #ImportTest #test02CustomerImporterFileWithOnlyAddressesThrowsError stamp: 'TB 6/28/2023 20:06:11'!
+PASSED!
+!ImportTest methodsFor: 'tests' stamp: 'TB 6/28/2023 20:06:38'!
+test03CustomerImporterFileWithIncomplete
+
+	self should: [CustomerImporter valueFrom: self dataWithOnlyAddresses into: session.]
+		raise: Error - MessageNotUnderstood
+		withMessageText: CustomerImporter noCustomerToAssignAddressErrorDescription! !
+
+!testRun: #ImportTest #test03CustomerImporterFileWithIncomplete stamp: 'TB 6/28/2023 20:06:38'!
+PASSED!
+
+!testRun: #ImportTest #test01CustomerImporterImportsTestFileCorrectly stamp: 'TB 6/28/2023 20:06:39'!
+PASSED!
+
+!testRun: #ImportTest #test02CustomerImporterFileWithOnlyAddressesThrowsError stamp: 'TB 6/28/2023 20:06:39'!
+PASSED!
+
+!testRun: #ImportTest #test03CustomerImporterFileWithIncomplete stamp: 'TB 6/28/2023 20:06:39'!
+PASSED!
+!ImportTest methodsFor: 'tests' stamp: 'TB 6/28/2023 20:07:18'!
+test03CustomerImporterFileWithIncompleteLineThrowsError
+
+	self should: [CustomerImporter valueFrom: self dataWithOnlyAddresses into: session.]
+		raise: Error - MessageNotUnderstood
+		withMessageText: CustomerImporter noCustomerToAssignAddressErrorDescription! !
+
+!methodRemoval: ImportTest #test03CustomerImporterFileWithIncomplete stamp: 'TB 6/28/2023 20:07:18'!
+test03CustomerImporterFileWithIncomplete
+
+	self should: [CustomerImporter valueFrom: self dataWithOnlyAddresses into: session.]
+		raise: Error - MessageNotUnderstood
+		withMessageText: CustomerImporter noCustomerToAssignAddressErrorDescription!
+!ImportTest methodsFor: 'tests' stamp: 'TB 6/28/2023 20:07:41' prior: 50625694!
+test03CustomerImporterFileWithIncompleteLineThrowsError
+
+	self should: [CustomerImporter valueFrom: self dataWithIncompleteCustomerLine into: session.]
+		raise: Error - MessageNotUnderstood
+		withMessageText: CustomerImporter noCustomerToAssignAddressErrorDescription! !
+!ImportTest methodsFor: 'tests' stamp: 'TB 6/28/2023 20:07:54' prior: 50625716!
+test03CustomerImporterFileWithIncompleteLineThrowsError
+
+	self should: [CustomerImporter valueFrom: self dataWithIncompleteCustomerLine into: session.]
+		raise: Error - MessageNotUnderstood
+		withMessageText: CustomerImporter noCustomerToAssignAddressErrorDescription! !
+!ImportTest methodsFor: 'tests' stamp: 'TB 6/28/2023 20:07:59'!
+test03CustomerImporterFileWithIncompleteCustomerLineThrowsError
+
+	self should: [CustomerImporter valueFrom: self dataWithIncompleteCustomerLine into: session.]
+		raise: Error - MessageNotUnderstood
+		withMessageText: CustomerImporter noCustomerToAssignAddressErrorDescription! !
+
+!methodRemoval: ImportTest #test03CustomerImporterFileWithIncompleteLineThrowsError stamp: 'TB 6/28/2023 20:07:59'!
+test03CustomerImporterFileWithIncompleteLineThrowsError
+
+	self should: [CustomerImporter valueFrom: self dataWithIncompleteCustomerLine into: session.]
+		raise: Error - MessageNotUnderstood
+		withMessageText: CustomerImporter noCustomerToAssignAddressErrorDescription!
+!ImportTest methodsFor: 'tests' stamp: 'TB 6/28/2023 20:08:09' prior: 50625738!
+test03CustomerImporterFileWithIncompleteCustomerLineThrowsError
+
+	self should: [CustomerImporter valueFrom: self dataWithIncompleteCustomerLine into: session.]
+		raise: Error - MessageNotUnderstood
+		withMessageText: CustomerImporter invalidLine! !
+
+!testRun: #ImportTest #test03CustomerImporterFileWithIncompleteCustomerLineThrowsError stamp: 'TB 6/28/2023 20:08:14'!
+ERROR!
+!CustomerImporter class methodsFor: 'error' stamp: 'TB 6/28/2023 20:08:17'!
+invalidLine
+	self shouldBeImplemented.! !
+!CustomerImporter class methodsFor: 'error' stamp: 'TB 6/28/2023 20:08:30' prior: 50625777!
+invalidLine
+	^'Linea invalida, no tiene suficientes campos'! !
+
+!testRun: #ImportTest #test03CustomerImporterFileWithIncompleteCustomerLineThrowsError stamp: 'TB 6/28/2023 20:08:30'!
+ERROR!
+!ImportTest methodsFor: 'test data' stamp: 'TB 6/28/2023 20:08:37'!
+dataWithIncompleteCustomerLine
+	self shouldBeImplemented.! !
+!ImportTest methodsFor: 'test data' stamp: 'TB 6/28/2023 20:09:00' prior: 50625791!
+dataWithIncompleteCustomerLine
+	^ ReadStream on: 'C,Pepe,D,22333444'! !
+
+!testRun: #ImportTest #test03CustomerImporterFileWithIncompleteCustomerLineThrowsError stamp: 'TB 6/28/2023 20:09:01'!
+FAILURE!
+!CustomerImporter methodsFor: 'actions - private' stamp: 'TB 6/28/2023 20:10:43' prior: 50625311!
+importCustomer	 
+	lineData size = 5 ifFalse: [self error: self class invalidLine ].
+	
+	customer := Customer new.
+	customer firstName: lineData second.
+	customer lastName: lineData third.
+	customer identificationType: lineData fourth.
+	customer identificationNumber: lineData fifth.
+	session persist: customer.! !
+
+!testRun: #ImportTest #test03CustomerImporterFileWithIncompleteCustomerLineThrowsError stamp: 'TB 6/28/2023 20:10:53'!
+PASSED!
+
+!testRun: #ImportTest #test01CustomerImporterImportsTestFileCorrectly stamp: 'TB 6/28/2023 20:10:54'!
+PASSED!
+
+!testRun: #ImportTest #test02CustomerImporterFileWithOnlyAddressesThrowsError stamp: 'TB 6/28/2023 20:10:54'!
+PASSED!
+
+!testRun: #ImportTest #test03CustomerImporterFileWithIncompleteCustomerLineThrowsError stamp: 'TB 6/28/2023 20:10:54'!
+PASSED!
+!ImportTest methodsFor: 'tests' stamp: 'TB 6/28/2023 20:11:01'!
+test03CustomerImporterFileWithIncompleteAddressLineThrowsError
+
+	self should: [CustomerImporter valueFrom: self dataWithIncompleteCustomerLine into: session.]
+		raise: Error - MessageNotUnderstood
+		withMessageText: CustomerImporter invalidLine! !
+
+!methodRemoval: ImportTest #test03CustomerImporterFileWithIncompleteCustomerLineThrowsError stamp: 'TB 6/28/2023 20:11:01'!
+test03CustomerImporterFileWithIncompleteCustomerLineThrowsError
+
+	self should: [CustomerImporter valueFrom: self dataWithIncompleteCustomerLine into: session.]
+		raise: Error - MessageNotUnderstood
+		withMessageText: CustomerImporter invalidLine!
+!ImportTest methodsFor: 'tests' stamp: 'TB 6/28/2023 20:11:13'!
+test03CustomerImporterFileWithIncompleteCustomerLineThrowsError
+
+	self should: [CustomerImporter valueFrom: self dataWithIncompleteCustomerLine into: session.]
+		raise: Error - MessageNotUnderstood
+		withMessageText: CustomerImporter invalidLine! !
+
+!methodRemoval: ImportTest #test03CustomerImporterFileWithIncompleteAddressLineThrowsError stamp: 'TB 6/28/2023 20:11:13'!
+test03CustomerImporterFileWithIncompleteAddressLineThrowsError
+
+	self should: [CustomerImporter valueFrom: self dataWithIncompleteCustomerLine into: session.]
+		raise: Error - MessageNotUnderstood
+		withMessageText: CustomerImporter invalidLine!
+!ImportTest methodsFor: 'tests' stamp: 'TB 6/28/2023 20:11:22'!
+test04CustomerImporterFileWithIncompleteAddressLineThrowsError
+
+	self should: [CustomerImporter valueFrom: self dataWithIncompleteAddressLine into: session.]
+		raise: Error - MessageNotUnderstood
+		withMessageText: CustomerImporter invalidLine! !
+!ImportTest methodsFor: 'test data' stamp: 'TB 6/28/2023 20:12:01'!
+dataWithIncompleteAddressLine
+	^ ReadStream on: 'C,Pepe,Sanchez,D,22333444
+A,Maipu,Florida,1122,Buenos Aires'! !
+
+!testRun: #ImportTest #test04CustomerImporterFileWithIncompleteAddressLineThrowsError stamp: 'TB 6/28/2023 20:12:16'!
+FAILURE!
+!CustomerImporter methodsFor: 'actions - private' stamp: 'TB 6/28/2023 20:12:36' prior: 50625641!
+importAddress
+
+	| newAddress |
+	lineData size = 5 ifFalse: [self error: self class invalidLine].
+	
+	newAddress := Address new.
+	customer ifNil: [self error: self class noCustomerToAssignAddressErrorDescription].
+	customer addAddress: newAddress.
+	newAddress streetName: lineData second.
+	newAddress streetNumber: lineData third asNumber .
+	newAddress town: lineData fourth.
+	newAddress zipCode: lineData fifth asNumber .
+	newAddress province: lineData sixth! !
+
+!testRun: #ImportTest #test01CustomerImporterImportsTestFileCorrectly stamp: 'TB 6/28/2023 20:12:37'!
+ERROR!
+
+!testRun: #ImportTest #test02CustomerImporterFileWithOnlyAddressesThrowsError stamp: 'TB 6/28/2023 20:12:37'!
+FAILURE!
+
+!testRun: #ImportTest #test03CustomerImporterFileWithIncompleteCustomerLineThrowsError stamp: 'TB 6/28/2023 20:12:37'!
+PASSED!
+
+!testRun: #ImportTest #test04CustomerImporterFileWithIncompleteAddressLineThrowsError stamp: 'TB 6/28/2023 20:12:37'!
+FAILURE!
+!CustomerImporter methodsFor: 'actions - private' stamp: 'TB 6/28/2023 20:12:55' prior: 50625898!
+importAddress
+
+	| newAddress |
+	lineData size = 6 ifFalse: [self error: self class invalidLine].
+	
+	newAddress := Address new.
+	customer ifNil: [self error: self class noCustomerToAssignAddressErrorDescription].
+	customer addAddress: newAddress.
+	newAddress streetName: lineData second.
+	newAddress streetNumber: lineData third asNumber .
+	newAddress town: lineData fourth.
+	newAddress zipCode: lineData fifth asNumber .
+	newAddress province: lineData sixth! !
+
+!testRun: #ImportTest #test01CustomerImporterImportsTestFileCorrectly stamp: 'TB 6/28/2023 20:12:58'!
+PASSED!
+
+!testRun: #ImportTest #test02CustomerImporterFileWithOnlyAddressesThrowsError stamp: 'TB 6/28/2023 20:12:59'!
+PASSED!
+
+!testRun: #ImportTest #test04CustomerImporterFileWithIncompleteAddressLineThrowsError stamp: 'TB 6/28/2023 20:12:59'!
+PASSED!
+!ImportTest methodsFor: 'tests' stamp: 'TB 6/28/2023 20:13:25'!
+test05CustomerImporterFileWithEmptyLineThrowsError
+
+	self should: [CustomerImporter valueFrom: self dataWithIncompleteAddressLine into: session.]
+		raise: Error - MessageNotUnderstood
+		withMessageText: CustomerImporter invalidLine! !
+!ImportTest methodsFor: 'tests' stamp: 'TB 6/28/2023 20:13:30' prior: 50625959!
+test05CustomerImporterFileWithEmptyLineThrowsError
+
+	self should: [CustomerImporter valueFrom: self emptyData into: session.]
+		raise: Error - MessageNotUnderstood
+		withMessageText: CustomerImporter invalidLine! !
+!ImportTest methodsFor: 'tests' stamp: 'TB 6/28/2023 20:13:37' prior: 50625969!
+test05CustomerImporterFileWithEmptyLineThrowsError
+
+	self should: [CustomerImporter valueFrom: self emptyData into: session.]
+		raise: Error - MessageNotUnderstood
+		withMessageText: CustomerImporter emptyLine! !
+
+!testRun: #ImportTest #test05CustomerImporterFileWithEmptyLineThrowsError stamp: 'TB 6/28/2023 20:13:39'!
+ERROR!
+!CustomerImporter class methodsFor: 'error' stamp: 'TB 6/28/2023 20:13:42'!
+emptyLine
+	self shouldBeImplemented.! !
+!CustomerImporter class methodsFor: 'error' stamp: 'TB 6/28/2023 20:14:01' prior: 50625992!
+emptyLine
+	^'Se encontró una línea vacía'! !
+
+!testRun: #ImportTest #test05CustomerImporterFileWithEmptyLineThrowsError stamp: 'TB 6/28/2023 20:14:02'!
+ERROR!
+!ImportTest methodsFor: 'test data' stamp: 'TB 6/28/2023 20:14:10'!
+emptyData
+	self shouldBeImplemented.! !
+!ImportTest methodsFor: 'test data' stamp: 'TB 6/28/2023 20:14:14' prior: 50626005!
+emptyData
+	^ReadStream on: ''! !
+
+!testRun: #ImportTest #test05CustomerImporterFileWithEmptyLineThrowsError stamp: 'TB 6/28/2023 20:14:15'!
+FAILURE!
+!CustomerImporter methodsFor: 'actions - private' stamp: 'TB 6/28/2023 20:15:50' prior: 50625525!
+importFromLineData
+
+	(lineData first = 'C') ifTrue: [ self importCustomer].
+	(lineData first = 'A') ifTrue: [ self importAddress].
+	
+	self error: self class emptyLine.! !
+
+'hola' findTokens: $:!
+
+'ho:la' findTokens: $:!
+
+----QUIT----(28 June 2023 20:20:41) CuisUniversity-5832.image priorSource: 9404273!
+
+----STARTUP---- (28 June 2023 20:23:05) as C:\Users\tomas\Downloads\cuis-windows64\CuisUniversity-5832.image!
+
+!ImportTest methodsFor: 'tests' stamp: 'TB 6/28/2023 20:24:29' prior: 50625592!
+test02CustomerImporterFileWithOnlyAddressesThrowsError
+
+	self should: [CustomerImporter valueFrom: self dataWithOnlyAddresses into: session.]
+		raise: Error - MessageNotUnderstood
+		withMessageText: CustomerImporter noCustomerToAssignAddressErrorDescription.
+		
+	self assert: 0 equals: (session selectAllOfType: Customer) size! !
+
+!testRun: #ImportTest #test03CustomerImporterFileWithIncompleteCustomerLineThrowsError stamp: 'TB 6/28/2023 20:26:47'!
+PASSED!
+
+!testRun: #ImportTest #test03CustomerImporterFileWithIncompleteCustomerLineThrowsError stamp: 'TB 6/28/2023 20:26:49'!
+PASSED!
+
+!testRun: #ImportTest #test01CustomerImporterImportsTestFileCorrectly stamp: 'TB 6/28/2023 20:26:49'!
+ERROR!
+
+!testRun: #ImportTest #test02CustomerImporterFileWithOnlyAddressesThrowsError stamp: 'TB 6/28/2023 20:26:49'!
+PASSED!
+
+!testRun: #ImportTest #test03CustomerImporterFileWithIncompleteCustomerLineThrowsError stamp: 'TB 6/28/2023 20:26:49'!
+PASSED!
+
+!testRun: #ImportTest #test04CustomerImporterFileWithIncompleteAddressLineThrowsError stamp: 'TB 6/28/2023 20:26:49'!
+FAILURE!
+
+!testRun: #ImportTest #test05CustomerImporterFileWithEmptyLineThrowsError stamp: 'TB 6/28/2023 20:26:49'!
+FAILURE!
+
+!testRun: #ImportTest #test01CustomerImporterImportsTestFileCorrectly stamp: 'TB 6/28/2023 20:26:51'!
+ERROR!
+
+lineData!
+!CustomerImporter methodsFor: 'actions - private' stamp: 'TB 6/28/2023 20:27:41' prior: 50626017!
+importFromLineData
+
+	(lineData first = 'C') ifTrue: [^ self importCustomer].
+	(lineData first = 'A') ifTrue: [^ self importAddress].
+	
+	self error: self class emptyLine.! !
+
+!testRun: #ImportTest #test01CustomerImporterImportsTestFileCorrectly stamp: 'TB 6/28/2023 20:27:42'!
+FAILURE!
+
+!testRun: #ImportTest #test01CustomerImporterImportsTestFileCorrectly stamp: 'TB 6/28/2023 20:27:56'!
+PASSED!
+
+!testRun: #ImportTest #test04CustomerImporterFileWithIncompleteAddressLineThrowsError stamp: 'TB 6/28/2023 20:27:57'!
+PASSED!
+
+!testRun: #ImportTest #test05CustomerImporterFileWithEmptyLineThrowsError stamp: 'TB 6/28/2023 20:27:58'!
+FAILURE!
+
+!testRun: #ImportTest #test05CustomerImporterFileWithEmptyLineThrowsError stamp: 'TB 6/28/2023 20:28:06'!
+PASSED!
+
+!testRun: #ImportTest #test01CustomerImporterImportsTestFileCorrectly stamp: 'TB 6/28/2023 20:28:09'!
+PASSED!
+
+!testRun: #ImportTest #test02CustomerImporterFileWithOnlyAddressesThrowsError stamp: 'TB 6/28/2023 20:28:10'!
+PASSED!
+
+!testRun: #ImportTest #test03CustomerImporterFileWithIncompleteCustomerLineThrowsError stamp: 'TB 6/28/2023 20:28:10'!
+PASSED!
+
+!testRun: #ImportTest #test04CustomerImporterFileWithIncompleteAddressLineThrowsError stamp: 'TB 6/28/2023 20:28:10'!
+PASSED!
+
+!testRun: #ImportTest #test05CustomerImporterFileWithEmptyLineThrowsError stamp: 'TB 6/28/2023 20:28:10'!
+FAILURE!
+
+!testRun: #ImportTest #test05CustomerImporterFileWithEmptyLineThrowsError stamp: 'TB 6/28/2023 20:28:10'!
+FAILURE!
+
+!testRun: #ImportTest #test01CustomerImporterImportsTestFileCorrectly stamp: 'TB 6/28/2023 20:28:17'!
+PASSED!
+
+!testRun: #ImportTest #test02CustomerImporterFileWithOnlyAddressesThrowsError stamp: 'TB 6/28/2023 20:28:17'!
+PASSED!
+
+!testRun: #ImportTest #test03CustomerImporterFileWithIncompleteCustomerLineThrowsError stamp: 'TB 6/28/2023 20:28:17'!
+PASSED!
+
+!testRun: #ImportTest #test04CustomerImporterFileWithIncompleteAddressLineThrowsError stamp: 'TB 6/28/2023 20:28:17'!
+PASSED!
+
+!testRun: #ImportTest #test05CustomerImporterFileWithEmptyLineThrowsError stamp: 'TB 6/28/2023 20:28:17'!
+FAILURE!
+
+!testRun: #ImportTest #test05CustomerImporterFileWithEmptyLineThrowsError stamp: 'TB 6/28/2023 20:28:17'!
+FAILURE!
+!CustomerImporter class methodsFor: 'error' stamp: 'TB 6/28/2023 20:28:51'!
+emptyLineErrorDescription
+	^'Se encontró una línea vacía'! !
+!CustomerImporter methodsFor: 'as yet unclassified' stamp: 'TB 6/28/2023 20:28:52' prior: 50626077!
+importFromLineData
+
+	(lineData first = 'C') ifTrue: [^ self importCustomer].
+	(lineData first = 'A') ifTrue: [^ self importAddress].
+	
+	self error: self class emptyLineErrorDescription.! !
+
+!methodRemoval: CustomerImporter class #emptyLine stamp: 'TB 6/28/2023 20:28:52'!
+emptyLine
+	^'Se encontró una línea vacía'!
+!CustomerImporter class methodsFor: 'error' stamp: 'TB 6/28/2023 20:29:00'!
+invalidLineErrorDescription
+	^'Linea invalida, no tiene suficientes campos'! !
+!CustomerImporter methodsFor: 'as yet unclassified' stamp: 'TB 6/28/2023 20:29:00' prior: 50625931!
+importAddress
+
+	| newAddress |
+	lineData size = 6 ifFalse: [self error: self class invalidLineErrorDescription].
+	
+	newAddress := Address new.
+	customer ifNil: [self error: self class noCustomerToAssignAddressErrorDescription].
+	customer addAddress: newAddress.
+	newAddress streetName: lineData second.
+	newAddress streetNumber: lineData third asNumber .
+	newAddress town: lineData fourth.
+	newAddress zipCode: lineData fifth asNumber .
+	newAddress province: lineData sixth! !
+!CustomerImporter methodsFor: 'as yet unclassified' stamp: 'TB 6/28/2023 20:29:00' prior: 50625806!
+importCustomer	 
+	lineData size = 5 ifFalse: [self error: self class invalidLineErrorDescription ].
+	
+	customer := Customer new.
+	customer firstName: lineData second.
+	customer lastName: lineData third.
+	customer identificationType: lineData fourth.
+	customer identificationNumber: lineData fifth.
+	session persist: customer.! !
+
+!methodRemoval: CustomerImporter class #invalidLine stamp: 'TB 6/28/2023 20:29:00'!
+invalidLine
+	^'Linea invalida, no tiene suficientes campos'!
+!ImportTest methodsFor: 'tests' stamp: 'TB 6/28/2023 20:29:14' prior: 50625855!
+test03CustomerImporterFileWithIncompleteCustomerLineThrowsError
+
+	self should: [CustomerImporter valueFrom: self dataWithIncompleteCustomerLine into: session.]
+		raise: Error - MessageNotUnderstood
+		withMessageText: CustomerImporter invalidLineErrorDescription ! !
+!ImportTest methodsFor: 'tests' stamp: 'TB 6/28/2023 20:29:17' prior: 50625877!
+test04CustomerImporterFileWithIncompleteAddressLineThrowsError
+
+	self should: [CustomerImporter valueFrom: self dataWithIncompleteAddressLine into: session.]
+		raise: Error - MessageNotUnderstood
+		withMessageText: CustomerImporter invalidLineErrorDescription ! !
+!ImportTest methodsFor: 'tests' stamp: 'TB 6/28/2023 20:29:20' prior: 50625979!
+test05CustomerImporterFileWithEmptyLineThrowsError
+
+	self should: [CustomerImporter valueFrom: self emptyData into: session.]
+		raise: Error - MessageNotUnderstood
+		withMessageText: CustomerImporter emptyLineErrorDescription ! !
+
+!testRun: #ImportTest #test03CustomerImporterFileWithIncompleteCustomerLineThrowsError stamp: 'TB 6/28/2023 20:29:44'!
+PASSED!
+
+!testRun: #ImportTest #test01CustomerImporterImportsTestFileCorrectly stamp: 'TB 6/28/2023 20:29:45'!
+PASSED!
+
+!testRun: #ImportTest #test02CustomerImporterFileWithOnlyAddressesThrowsError stamp: 'TB 6/28/2023 20:29:45'!
+PASSED!
+
+!testRun: #ImportTest #test03CustomerImporterFileWithIncompleteCustomerLineThrowsError stamp: 'TB 6/28/2023 20:29:45'!
+PASSED!
+
+!testRun: #ImportTest #test04CustomerImporterFileWithIncompleteAddressLineThrowsError stamp: 'TB 6/28/2023 20:29:45'!
+PASSED!
+
+!testRun: #ImportTest #test05CustomerImporterFileWithEmptyLineThrowsError stamp: 'TB 6/28/2023 20:29:45'!
+FAILURE!
+
+!testRun: #ImportTest #test05CustomerImporterFileWithEmptyLineThrowsError stamp: 'TB 6/28/2023 20:29:45'!
+FAILURE!
+!CustomerImporter methodsFor: 'actions - private' stamp: 'TB 6/28/2023 20:33:29' prior: 50626154!
+importFromLineData
+
+	(lineData first = 'C') ifTrue: [^ self importCustomer].
+	(lineData first = 'A') ifTrue: [^ self importAddress].! !
+!CustomerImporter methodsFor: 'evaluating' stamp: 'TB 6/28/2023 20:35:01' prior: 50625485 overrides: 16902254!
+value
+
+	[ self canReadLine ] whileTrue: [
+		self tokenizeLine.
+		self importFromLineData. ].
+
+	customer ifNil: [self error: self class emptyLineErrorDescription].! !
+!CustomerImporter class methodsFor: 'error' stamp: 'TB 6/28/2023 20:35:17'!
+emptyFileErrorDescription
+	^'Se encontró una línea vacía'! !
+!ImportTest methodsFor: 'as yet unclassified' stamp: 'TB 6/28/2023 20:35:17' prior: 50626232!
+test05CustomerImporterFileWithEmptyLineThrowsError
+
+	self should: [CustomerImporter valueFrom: self emptyData into: session.]
+		raise: Error - MessageNotUnderstood
+		withMessageText: CustomerImporter emptyFileErrorDescription ! !
+!CustomerImporter methodsFor: 'as yet unclassified' stamp: 'TB 6/28/2023 20:35:17' prior: 50626277 overrides: 16902254!
+value
+
+	[ self canReadLine ] whileTrue: [
+		self tokenizeLine.
+		self importFromLineData. ].
+
+	customer ifNil: [self error: self class emptyFileErrorDescription].! !
+
+!methodRemoval: CustomerImporter class #emptyLineErrorDescription stamp: 'TB 6/28/2023 20:35:17'!
+emptyLineErrorDescription
+	^'Se encontró una línea vacía'!
+!ImportTest methodsFor: 'tests' stamp: 'TB 6/28/2023 20:35:30'!
+test05CustomerImporterEmptyFileThrowsError
+
+	self should: [CustomerImporter valueFrom: self emptyData into: session.]
+		raise: Error - MessageNotUnderstood
+		withMessageText: CustomerImporter emptyFileErrorDescription ! !
+
+!methodRemoval: ImportTest #test05CustomerImporterFileWithEmptyLineThrowsError stamp: 'TB 6/28/2023 20:35:30'!
+test05CustomerImporterFileWithEmptyLineThrowsError
+
+	self should: [CustomerImporter valueFrom: self emptyData into: session.]
+		raise: Error - MessageNotUnderstood
+		withMessageText: CustomerImporter emptyFileErrorDescription !
+
+!testRun: #ImportTest #test01CustomerImporterImportsTestFileCorrectly stamp: 'TB 6/28/2023 20:35:45'!
+PASSED!
+
+!testRun: #ImportTest #test02CustomerImporterFileWithOnlyAddressesThrowsError stamp: 'TB 6/28/2023 20:35:45'!
+PASSED!
+
+!testRun: #ImportTest #test03CustomerImporterFileWithIncompleteCustomerLineThrowsError stamp: 'TB 6/28/2023 20:35:45'!
+PASSED!
+
+!testRun: #ImportTest #test04CustomerImporterFileWithIncompleteAddressLineThrowsError stamp: 'TB 6/28/2023 20:35:45'!
+PASSED!
+
+!testRun: #ImportTest #test05CustomerImporterEmptyFileThrowsError stamp: 'TB 6/28/2023 20:35:45'!
+PASSED!
+!CustomerImporter methodsFor: 'evaluating' stamp: 'TB 6/28/2023 20:36:35' prior: 50626301 overrides: 16902254!
+value
+
+	[ self canReadLine ] whileTrue: [
+		self tokenizeLine.
+		self importFromLineData. ].
+
+	"Como no se puede importar solo un Address, customer siempre es nil sii el archivo es vacio (o invalido por otro motivo)"
+	customer ifNil: [self error: self class emptyFileErrorDescription].! !
+!ImportTest methodsFor: 'tests' stamp: 'TB 6/28/2023 20:36:52'!
+test06CustomerImporterFileWithEmptyLineThrowsError
+
+	self should: [CustomerImporter valueFrom: self emptyData into: session.]
+		raise: Error - MessageNotUnderstood
+		withMessageText: CustomerImporter emptyFileErrorDescription ! !
+!ImportTest methodsFor: 'tests' stamp: 'TB 6/28/2023 20:37:07' prior: 50626366!
+test06CustomerImporterFileWithEmptyLineThrowsError
+
+	self should: [CustomerImporter valueFrom: self dataWithEmptyLine into: session.]
+		raise: Error - MessageNotUnderstood
+		withMessageText: CustomerImporter emptyLineInStreamErrorDescription ! !
+
+!testRun: #ImportTest #test06CustomerImporterFileWithEmptyLineThrowsError stamp: 'TB 6/28/2023 20:37:09'!
+ERROR!
+!CustomerImporter class methodsFor: 'error' stamp: 'TB 6/28/2023 20:37:11'!
+emptyLineInStreamErrorDescription
+	self shouldBeImplemented.! !
+!CustomerImporter class methodsFor: 'error' stamp: 'TB 6/28/2023 20:37:36' prior: 50626390!
+emptyLineInStreamErrorDescription
+	^'Se encontró una línea vacía'! !
+
+!testRun: #ImportTest #test06CustomerImporterFileWithEmptyLineThrowsError stamp: 'TB 6/28/2023 20:37:37'!
+ERROR!
+!CustomerImporter class methodsFor: 'error' stamp: 'TB 6/28/2023 20:37:52' prior: 50626285!
+emptyFileErrorDescription
+	^'El stream de datos esta vacío'! !
+!ImportTest methodsFor: 'test data' stamp: 'TB 6/28/2023 20:38:00'!
+dataWithEmptyLine
+	self shouldBeImplemented.! !
+!ImportTest methodsFor: 'test data' stamp: 'TB 6/28/2023 20:38:22' prior: 50626409!
+dataWithEmptyLine
+	^ReadStream on: 'C,Pepe,Sanchez,D,22333444
+'! !
+
+!testRun: #ImportTest #test06CustomerImporterFileWithEmptyLineThrowsError stamp: 'TB 6/28/2023 20:38:24'!
+FAILURE!
+!CustomerImporter methodsFor: 'actions - private' stamp: 'TB 6/28/2023 20:38:45' prior: 50626269!
+importFromLineData
+
+	(lineData first = 'C') ifTrue: [^ self importCustomer].
+	(lineData first = 'A') ifTrue: [^ self importAddress].
+	
+	self error: self class emptyLineInStreamErrorDescription ! !
+
+!testRun: #ImportTest #test06CustomerImporterFileWithEmptyLineThrowsError stamp: 'TB 6/28/2023 20:38:48'!
+FAILURE!
+
+!testRun: #ImportTest #test06CustomerImporterFileWithEmptyLineThrowsError stamp: 'TB 6/28/2023 20:38:50'!
+FAILURE!
+
+!testRun: #ImportTest #test01CustomerImporterImportsTestFileCorrectly stamp: 'TB 6/28/2023 20:38:53'!
+PASSED!
+
+!testRun: #ImportTest #test02CustomerImporterFileWithOnlyAddressesThrowsError stamp: 'TB 6/28/2023 20:38:53'!
+PASSED!
+
+!testRun: #ImportTest #test03CustomerImporterFileWithIncompleteCustomerLineThrowsError stamp: 'TB 6/28/2023 20:38:53'!
+PASSED!
+
+!testRun: #ImportTest #test04CustomerImporterFileWithIncompleteAddressLineThrowsError stamp: 'TB 6/28/2023 20:38:53'!
+PASSED!
+
+!testRun: #ImportTest #test05CustomerImporterEmptyFileThrowsError stamp: 'TB 6/28/2023 20:38:53'!
+PASSED!
+
+!testRun: #ImportTest #test06CustomerImporterFileWithEmptyLineThrowsError stamp: 'TB 6/28/2023 20:38:53'!
+FAILURE!
+
+!testRun: #ImportTest #test06CustomerImporterFileWithEmptyLineThrowsError stamp: 'TB 6/28/2023 20:38:53'!
+FAILURE!
+
+lineData!
+!ImportTest methodsFor: 'tests' stamp: 'TB 6/28/2023 20:41:01'!
+test06CustomerImporterFileWithNeitherCNorAAsFirstFieldThrowsError
+
+	self should: [CustomerImporter valueFrom: self dataWithEmptyLine into: session.]
+		raise: Error - MessageNotUnderstood
+		withMessageText: CustomerImporter emptyLineInStreamErrorDescription ! !
+
+!methodRemoval: ImportTest #test06CustomerImporterFileWithEmptyLineThrowsError stamp: 'TB 6/28/2023 20:41:01'!
+test06CustomerImporterFileWithEmptyLineThrowsError
+
+	self should: [CustomerImporter valueFrom: self dataWithEmptyLine into: session.]
+		raise: Error - MessageNotUnderstood
+		withMessageText: CustomerImporter emptyLineInStreamErrorDescription !
+!ImportTest methodsFor: 'tests' stamp: 'TB 6/28/2023 20:41:13' prior: 50626465!
+test06CustomerImporterFileWithNeitherCNorAAsFirstFieldThrowsError
+
+	self should: [CustomerImporter valueFrom: self dataWithInvalidTag into: session.]
+		raise: Error - MessageNotUnderstood
+		withMessageText: CustomerImporter emptyLineInStreamErrorDescription ! !
+!ImportTest methodsFor: 'tests' stamp: 'TB 6/28/2023 20:41:19' prior: 50626487!
+test06CustomerImporterFileWithNeitherCNorAAsFirstFieldThrowsError
+
+	self should: [CustomerImporter valueFrom: self dataWithInvalidTag into: session.]
+		raise: Error - MessageNotUnderstood
+		withMessageText: CustomerImporter invalidTagErrorDescription ! !
+
+!testRun: #ImportTest #test06CustomerImporterFileWithNeitherCNorAAsFirstFieldThrowsError stamp: 'TB 6/28/2023 20:41:20'!
+ERROR!
+!CustomerImporter class methodsFor: 'error' stamp: 'TB 6/28/2023 20:41:24'!
+invalidTagErrorDescription
+	self shouldBeImplemented.! !
+!CustomerImporter class methodsFor: 'error' stamp: 'TB 6/28/2023 20:41:36' prior: 50626513!
+invalidTagErrorDescription
+	^'El identificador es invalido'! !
+
+!testRun: #ImportTest #test06CustomerImporterFileWithNeitherCNorAAsFirstFieldThrowsError stamp: 'TB 6/28/2023 20:41:37'!
+ERROR!
+
+!testRun: #ImportTest #test01CustomerImporterImportsTestFileCorrectly stamp: 'TB 6/28/2023 20:41:51'!
+PASSED!
+
+!testRun: #ImportTest #test02CustomerImporterFileWithOnlyAddressesThrowsError stamp: 'TB 6/28/2023 20:41:51'!
+PASSED!
+
+!testRun: #ImportTest #test03CustomerImporterFileWithIncompleteCustomerLineThrowsError stamp: 'TB 6/28/2023 20:41:51'!
+PASSED!
+
+!testRun: #ImportTest #test04CustomerImporterFileWithIncompleteAddressLineThrowsError stamp: 'TB 6/28/2023 20:41:51'!
+PASSED!
+
+!testRun: #ImportTest #test05CustomerImporterEmptyFileThrowsError stamp: 'TB 6/28/2023 20:41:51'!
+PASSED!
+
+!testRun: #ImportTest #test06CustomerImporterFileWithNeitherCNorAAsFirstFieldThrowsError stamp: 'TB 6/28/2023 20:41:51'!
+ERROR!
+
+!testRun: #ImportTest #test06CustomerImporterFileWithNeitherCNorAAsFirstFieldThrowsError stamp: 'TB 6/28/2023 20:41:51'!
+ERROR!
+!ImportTest methodsFor: 'test data' stamp: 'TB 6/28/2023 20:41:57'!
+dataWithInvalidTag
+	self shouldBeImplemented.! !
+!ImportTest methodsFor: 'test data' stamp: 'TB 6/28/2023 20:42:07' prior: 50626553!
+dataWithInvalidTag
+	^ReadStream on: 'D,'! !
+
+!testRun: #ImportTest #test06CustomerImporterFileWithNeitherCNorAAsFirstFieldThrowsError stamp: 'TB 6/28/2023 20:42:08'!
+FAILURE!
+!CustomerImporter methodsFor: 'actions - private' stamp: 'TB 6/28/2023 20:42:19' prior: 50626423!
+importFromLineData
+
+	(lineData first = 'C') ifTrue: [^ self importCustomer].
+	(lineData first = 'A') ifTrue: [^ self importAddress].
+	
+	self error: self class invalidTagErrorDescription ! !
+
+!testRun: #ImportTest #test01CustomerImporterImportsTestFileCorrectly stamp: 'TB 6/28/2023 20:42:21'!
+PASSED!
+
+!testRun: #ImportTest #test02CustomerImporterFileWithOnlyAddressesThrowsError stamp: 'TB 6/28/2023 20:42:21'!
+PASSED!
+
+!testRun: #ImportTest #test03CustomerImporterFileWithIncompleteCustomerLineThrowsError stamp: 'TB 6/28/2023 20:42:21'!
+PASSED!
+
+!testRun: #ImportTest #test04CustomerImporterFileWithIncompleteAddressLineThrowsError stamp: 'TB 6/28/2023 20:42:21'!
+PASSED!
+
+!testRun: #ImportTest #test05CustomerImporterEmptyFileThrowsError stamp: 'TB 6/28/2023 20:42:21'!
+PASSED!
+
+!testRun: #ImportTest #test06CustomerImporterFileWithNeitherCNorAAsFirstFieldThrowsError stamp: 'TB 6/28/2023 20:42:21'!
+PASSED!
+
+----SNAPSHOT----(28 June 2023 20:43:33) CuisUniversity-5832.image priorSource: 9420027!
+
+----QUIT----(28 June 2023 20:43:39) CuisUniversity-5832.image priorSource: 9438319!
+
+----STARTUP---- (28 June 2023 20:43:58) as C:\Users\tomas\Downloads\cuis-windows64\CuisUniversity-5832.image!
+
+
+----QUIT----(28 June 2023 20:44:06) CuisUniversity-5832.image priorSource: 9438408!
